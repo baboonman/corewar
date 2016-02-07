@@ -3,6 +3,7 @@
 
 # include "struct.h"
 # include "op.h"
+# include "error_util.h"
 # include <ft_printf.h>
 # include <libft.h>
 # include <list.h>

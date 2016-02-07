@@ -1,6 +1,6 @@
 #include "parser.h"
 
-static t_token_section		*check_section(char *str, int *error)
+static t_token_section		*check_section(char *str, t_error **error)
 {
 	t_token_section	*token;
 	char			*start;
@@ -15,14 +15,13 @@ static t_token_section		*check_section(char *str, int *error)
 	else
 	{
 		free(token);
-		*error = NO_ERROR;
 		return (NULL);
 	}
 	if (!(start = ft_strchr(str, '"'))
 			|| !(end = ft_strchr(start + 1, '"'))
 			|| (tmp = ft_strchr(end + 1, '"')))
 	{
-		*error = ERROR_LEXICAL;
+		*error = get_error(COM_ERR_QUOTE);
 		free(token);
 		return (NULL);
 	}
@@ -32,21 +31,28 @@ static t_token_section		*check_section(char *str, int *error)
 	return (token);
 }
 
-
-static int					process_line(char *line, t_file *file)
+static int					process_line(char *line, t_file *file, int line_number)
 {
 	char				*trim;
-	int					err;
+	t_error				*err;
 	t_token_section		*section;
 
+	err = NULL;
 	trim = ft_strtrim(line);
+	if (!ft_strlen(trim))
+		return (TRUE);
 	if ((section = check_section(trim, &err)))
+		ft_lstadd(&(file->list_sections), ft_lstnew(section, sizeof(*section)));
+	else if (err)
 	{
-		ft_lstadd(&(file->list_section), ft_lstnew(section, sizeof(*section)));
+		err->line = line_number;
+		ft_lstadd(&(file->list_errors), ft_lstnew(err, sizeof(err)));
 	}
-	else if (err != NO_ERROR)
+	else
 	{
-		ft_printf("ERROR BITCH\n");
+		err = get_error(INVALID_LINE);
+		err->line = line_number;
+		ft_lstadd(&(file->list_errors), ft_lstnew(err, sizeof(err)));
 	}
 	free(trim);
 	return(TRUE);	
@@ -68,9 +74,12 @@ int							parse_file(t_file *file)
 	i = 0;
 	while (i < file->nb_lines)
 	{
-		process_line(file->lines[i], file);
+		process_line(file->lines[i], file, i + 1);
 		i++;
 	}
-	ft_lstiter(file->list_section, print_token);
+	if (file->list_errors)
+		ft_lstiter(file->list_errors, print_error);
+	else
+		ft_lstiter(file->list_sections, print_token);
 	return (TRUE);
 }
