@@ -1,4 +1,6 @@
 *.o
+*.cor
+*.a
 asm
 corewar
 *.dSYM
