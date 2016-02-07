@@ -1,5 +1,5 @@
 #include "reader.h"
-#include "parser.h"
+#include "lexer.h"
 
 static void	free_file(t_file *file)
 {

@@ -1,4 +1,4 @@
-#include "parser.h"
+#include "lexer.h"
 
 static t_token_section		*check_section(char *str, t_error **error)
 {
