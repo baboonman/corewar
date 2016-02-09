@@ -6,6 +6,8 @@
 
 # define MAX_SIZE_ERROR	255
 
+# define OP_TYPE_LABEL 0
+
 typedef struct		s_token_section
 {
 	int				type;
@@ -38,6 +40,21 @@ typedef struct				s_error
 	int						line;
 	char					description[MAX_SIZE_ERROR + 1];
 }							t_error;
+
+typedef struct				s_op
+{
+	char					*name_op;
+	int						nb_param;
+	int						param_type[3];
+	int						op_code;
+	int						nb_cycle;
+	char					*description;
+	int						has_opc;
+	int						has_idx;
+
+}							t_op;
+
+t_op					op_tab[17];
 
 # define TRUE 1
 # define FALSE 0

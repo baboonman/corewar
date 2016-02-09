@@ -1,4 +1,4 @@
 .name		"TEST dsa"
-.comment	"COMM"ENT fdsf"
+.comment	"COMMENT fdsf"
 
-sti r1, %1, %1
+labael_d32: sti r1, %1, %1

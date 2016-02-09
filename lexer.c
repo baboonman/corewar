@@ -36,7 +36,6 @@ static int					process_line(char *line, t_file *file, int line_number)
 	char				*trim;
 	t_error				*err;
 	t_token_section		*section;
-	t_token_op			*op;
 
 	err = NULL;
 	trim = ft_strtrim(line);
@@ -49,10 +48,7 @@ static int					process_line(char *line, t_file *file, int line_number)
 		err->line = line_number;
 		ft_lstadd(&(file->list_errors), ft_lstnew(err, sizeof(err)));
 	}
-	else if ((op = check_op(trim, &err)))
-	{
-		ft_lstadd(&(file->list_op), ft_lstnew(section, sizeof(*section)));
-	}
+	else if ((check_op(trim, &err, &(file->list_op))));
 	else if (err)
 	{
 		err->line = line_number;
@@ -77,6 +73,18 @@ static void					*print_token(void *data)
 	return (data);
 }
 
+static void					*print_op(void *data)
+{
+	t_token_op		*op;
+
+	op = data;
+	if (op->type == OP_TYPE_LABEL)
+		ft_printf("type: label, label: %s\n", op->label);
+	else
+		ft_printf("Type: %d, op: %d\n", op->type, op->op);
+	return (data);
+}
+
 int							parse_file(t_file *file)
 {
 	size_t		i;
@@ -90,6 +98,9 @@ int							parse_file(t_file *file)
 	if (file->list_errors)
 		ft_lstiter(file->list_errors, print_error);
 	else
+	{
 		ft_lstiter(file->list_sections, print_token);
+		ft_lstiter(file->list_op, print_op);
+	}
 	return (TRUE);
 }
