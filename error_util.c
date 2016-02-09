@@ -18,3 +18,9 @@ void		*print_error(void *data)
 	ft_printf("Lexical error: line: %d, err: %s\n", err->line, err->description);
 	return (data);
 }
+
+int			ret_error(char *description)
+{
+	ft_printf("Error: %s\n", description);
+	return (FALSE);
+}

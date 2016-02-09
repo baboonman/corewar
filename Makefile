@@ -3,6 +3,7 @@ FLAGS= -Wall -Wextra -Werror -g
 SRC_ASM = main.c \
 		  reader.c \
 		  lexer.c \
+		  parser.c \
 		  error_util.c
 
 SRC_COREWAR=
