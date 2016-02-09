@@ -6,6 +6,22 @@
 
 # define MAX_SIZE_ERROR	255
 
+typedef struct		s_token_section
+{
+	int				type;
+	char			*value;
+}					t_token_section;
+
+typedef struct		s_token_op
+{
+	int				type;
+	int				op;
+	int				param_type[3];
+	int				param_val[3];
+	char			*param_lab[3];
+	char			*label;
+}					t_token_op;
+
 typedef struct				s_file
 {
 	int						fd;
@@ -14,6 +30,7 @@ typedef struct				s_file
 	size_t					nb_allocated_lines;
 	t_list					*list_sections;
 	t_list					*list_errors;
+	t_list					*list_op;
 }							t_file;
 
 typedef struct				s_error

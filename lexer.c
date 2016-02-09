@@ -36,6 +36,7 @@ static int					process_line(char *line, t_file *file, int line_number)
 	char				*trim;
 	t_error				*err;
 	t_token_section		*section;
+	t_token_op			*op;
 
 	err = NULL;
 	trim = ft_strtrim(line);
@@ -43,6 +44,15 @@ static int					process_line(char *line, t_file *file, int line_number)
 		return (TRUE);
 	if ((section = check_section(trim, &err)))
 		ft_lstadd(&(file->list_sections), ft_lstnew(section, sizeof(*section)));
+	else if (err)
+	{
+		err->line = line_number;
+		ft_lstadd(&(file->list_errors), ft_lstnew(err, sizeof(err)));
+	}
+	else if ((op = check_op(trim, &err)))
+	{
+		ft_lstadd(&(file->list_op), ft_lstnew(section, sizeof(*section)));
+	}
 	else if (err)
 	{
 		err->line = line_number;

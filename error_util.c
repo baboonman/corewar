@@ -15,6 +15,6 @@ void		*print_error(void *data)
 	t_error	*err;
 
 	err = data;
-	ft_printf("Lexical error: line: %d, err: %s\n", err->line, err->description);
+	ft_printf("Syntax error: line: %d, err: %s\n", err->line, err->description);
 	return (data);
 }
