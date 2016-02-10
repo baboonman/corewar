@@ -52,5 +52,6 @@ t_file				*read_file(char *name)
 	if (!get_lines(file))
 		ft_printf("Something wrong append\n");
 	close(file->fd);
+	print_file(file);
 	return (file);
 }
