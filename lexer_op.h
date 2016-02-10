@@ -6,12 +6,9 @@
 # include "struct.h"
 # include "op.h"
 # include "error_util.h"
-
-# define UNVALID_CHAR_LABEL "Label has invalid char"
-# define UNVALID_NO_PARAM "There is no parameter"
-# define UNVALID_NO_OPCODE "Opcode not found"
-# define UNVALID_TOO_MANY_PARAM "Too many parameter"
-# define UNVALID_NOT_ENOUGH_PARAM "Not enough paramter"
+# include "process_op.h"
+# include "define_error.h"
+# include "utils.h"
 
 int			check_op(char *str, t_error **err, t_list **token_op);
 

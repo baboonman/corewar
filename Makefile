@@ -7,6 +7,10 @@ SRC_ASM = main.c \
 		  swap_bytes.c \
 		  lexer_op.c \
 		  op.c \
+		  process_op.c \
+		  check_section.c \
+		  print_token.c \
+		  utils.c \
 		  error_util.c
 
 SRC_COREWAR=

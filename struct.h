@@ -2,29 +2,32 @@
 # define STRUCT_H
 
 # include <stddef.h>
+# include "op.h"
 # include <list.h>
 
 # define MAX_SIZE_ERROR	255
 
 # define OP_TYPE_LABEL	0
-# define OP_TYPE_OP		0
+# define OP_TYPE_OP		1
 
 typedef struct				s_token_section
 {
-	int						type;
-	char					*value;
-}							t_token_section;
+	int				type;
+	char			*value;
+	int				line;
+}					t_token_section;
 
 typedef struct				s_token_op
 {
-	int						type;
-	int						op;
-	int						param_type[3];
-	int						nb_param;
-	int						param_val[3];
-	char					*param_lab[3];
-	char					*label;
-}							t_token_op;
+	int				type;
+	int				op;
+	t_arg_type		param_type[3];
+	int				param_val[3];
+	int				nb_param;
+	char			*param_lab[3];
+	char			*label;
+	int				line;
+}					t_token_op;
 
 typedef struct				s_file
 {
