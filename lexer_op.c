@@ -23,7 +23,8 @@ t_token_op	*check_label(char *str, size_t size, t_error **err)
 	return (op);
 }
 
-static int	process_label(char *str, t_error **err, t_list **token_op, size_t size)
+static int	process_label(char *str, t_error **err, t_list **token_op,
+		size_t size)
 {
 	t_token_op	*op;
 
@@ -41,10 +42,12 @@ static int	process_label(char *str, t_error **err, t_list **token_op, size_t siz
 }
 
 static int	process_label_op(char *str, t_error **err, t_list **token_op,
-		size_t label_offset, char *space)
+		size_t label_offset)
 {
 	int			ret;
+	char		*space;
 
+	space = ft_strchr(str, ' ');
 	ret = process_label(str, err, token_op, label_offset);
 	if (ret)
 		str = space;
@@ -65,7 +68,7 @@ int			check_op(char *str, t_error **err, t_list **token_op)
 	space = ft_strchr(str, ' ');
 	if (!space)
 		return (process_label(str, err, token_op, size));
-	if (!process_label_op(str, err, token_op, space - str, space))
+	if (!process_label_op(str, err, token_op, space - str))
 		return (FALSE);
 	return (TRUE);
 }

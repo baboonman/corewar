@@ -9,7 +9,6 @@
 # include "process_op.h"
 # include "define_error.h"
 
-
 int			check_op(char *str, t_error **err, t_list **token_op);
 
 #endif
