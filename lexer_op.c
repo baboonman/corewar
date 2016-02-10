@@ -49,25 +49,87 @@ static int	process_label(char *str, t_error **err, t_list **token_op, size_t siz
 	return (TRUE);
 }
 
-
-static size_t		get_param_limit(char *p)
+static char		*jump_space(char *str)
 {
-	char		*end;
-
-	end = ft_strchr(p, SEPARATOR_CHAR);
-	if (end)
-		return (end - p);
-	return ft_strlen(p);
+	while (*str == ' ')
+		str++;
+	return (str);
 }
 
-static int	process_opcode(t_op *opcode, char *str_param, t_error **err)
+static int			get_param(t_op *opcode, char *str, char *param[3], t_error **err)
+{
+	int		p_idx;
+
+	p_idx = 0;
+	param[p_idx] = str;
+	while (*str != '\0')
+	{
+		if (*str == SEPARATOR_CHAR)
+		{
+			*str = '\0';
+			str = jump_space(str + 1);
+			p_idx++;
+			if (p_idx >= 3)
+			{
+				*err = get_error(UNVALID_TOO_MANY_PARAM);
+				return (FALSE);
+			}
+			param[p_idx] = str;
+		}
+		str++;
+	}
+	if (p_idx + 1 == opcode->nb_param)
+		return (TRUE);
+	*err = get_error(UNVALID_NOT_ENOUGH_PARAM);
+	return (FALSE);
+}
+
+static int			get_reg(char *str)
+{
+	char	*tmp;
+	int		reg_nb;
+
+	if (*str != 'r')
+		return (-1);
+	str++;
+	tmp = str;
+	while (*str != '\0' && isdigit(*str))
+		str++;
+	if (*str != '\0')
+		return (-1);
+
+	reg_nb = ft_atoi(tmp);
+	if (reg_nb > 0 && reg_nb <= REG_NUMBER)
+		return (reg_nb);
+	return (-1);
+}
+
+static int			process_opcode(t_op *opcode, char *str_param, t_error **err)
 {
 	t_token_op		*op;
-	int				type;
+	int				type[3];
+	int				val[3];
+	char			*param[3];
+	int				i;
 
 	op = malloc(sizeof(t_token_op));
-	
-	return (FALSE);
+	if (!get_param(opcode, str_param, param, err))
+		return (FALSE);
+	i = 0;
+	while (i < 3)
+	{
+		val[i] = get_reg(param[i]);
+		if (val[i] > 0)
+		{
+			type[i] = T_REG;
+			i++;
+			continue ;
+		}
+		ft_printf("type: %d\n", type[i]);
+		ft_printf("p: %s\n", param[i]);
+		i++;
+	}
+	return (TRUE);
 }
 
 static int	process_op(char *str, t_error **err, t_list **token_op)
@@ -87,12 +149,8 @@ static int	process_op(char *str, t_error **err, t_list **token_op)
 	i = 0;
 	while (op_tab[i].name_op)
 	{
-		if (ft_strlen(op_tab[i].name_op) != size)
-		{
-			i++;
-			continue ;
-		}
-		if (ft_strncmp(op_tab[i].name_op, str, size) != 0)
+		if (ft_strlen(op_tab[i].name_op) != size
+				|| ft_strncmp(op_tab[i].name_op, str, size) != 0)
 		{
 			i++;
 			continue ;
