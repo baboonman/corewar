@@ -103,13 +103,23 @@ t_token_op			*fake_token()
 	token->param_type[0] = T_IND;
 	token->param_type[1] = T_DIR;
 	token->param_type[2] = T_REG;
-	token->param_val[0] = 34;
-	token->param_val[1] = 23;
-	token->param_val[2] = 1;
+	token->param_val[0] = 34;		// 0x22
+	token->param_val[1] = 23;		// 0x17
+	token->param_val[2] = 1;		// 0x01
 	return (token);
 }
 
-int					process_token(t_bin_data *data, t_list* list_op)
+int					swap_nbytes(int v, int nbB)
+{
+	if (nbB == 2)
+		return (swap_uint16(v));
+	if (nbB == 4)
+		return (swap_uint32(v));
+	ft_printf("nb of bytes to swap not supported\n");
+	return v;
+}
+
+int					process_token(char **bin_file, t_list* list_op)
 {
 	char			mask[3];
 	t_token_op		*token;
@@ -119,6 +129,7 @@ int					process_token(t_bin_data *data, t_list* list_op)
 	size_t			size;
 	int				i;
 	int				j;
+	int				param;
 
 	i = 1;
 	j = 0;
@@ -139,26 +150,34 @@ int					process_token(t_bin_data *data, t_list* list_op)
 		line[i] = ocp;
 		i++;
 	}
-
 	while (j < token->nb_param)
 	{
-		if (token->param_type[i] & T_REG)
+		if (token->param_type[j] & T_REG)
 		{
 			i = ft_memcat(line, &(token->param_val[j]), i, 1);
 		}
-		else if (token->param_type[i] & T_DIR)
+		else if (token->param_type[j] & T_DIR)
 		{
-			i = ft_memcat(line, &(token->param_val[j]), i, T_DIR);
+			param = swap_nbytes(token->param_val[j], DIR_SIZE);
+			i = ft_memcat(line, &(param), i, DIR_SIZE);
 		}
-		else if (token->param_type[i] & T_IND)
+		else if (token->param_type[j] & T_IND)
 		{
-			i = ft_memcat(line, &(token->param_val[j]), i, T_IND);
+			i = ft_memcat(line, &(token->param_val[j]), i, IND_SIZE);
 		}
 		j++;
 	}
-	line[i+1] = 0;
-	printf("OCPFdP: 0x%x\n", ocp);
-	printf("token: %x\n", line);
+	printf("OCPFdP: 0x%x\n", (uint8_t)ocp);
+	int		k = 0;
+	printf("token: ");
+	while (k < i)
+	{
+		printf("%x ", line[k]);
+		k++;
+	}
+	printf("\n");
+
+	ft_memcat(*bin_file, line, sizeof(t_header), i);
 	return (0);
 }
 
@@ -176,8 +195,8 @@ int					process_file(t_file* file)
 	if ((fd = open("test.cor", O_WRONLY | O_CREAT | O_TRUNC, 0644)) < 0)
 		return (ret_error("Unable to open file"));
 	process_section(&bin_file, file->list_sections);
-	process_token(NULL, NULL);
-	if ((wr_ret = write(fd, bin_file, sizeof(t_header))) < 0)
+	process_token(&bin_file, NULL);
+	if ((wr_ret = write(fd, bin_file, sizeof(t_header) + 128)) < 0)
 		return (ret_error("Unable to write file"));
 	else 
 		ft_printf("%d bytes written to files\n", wr_ret);
