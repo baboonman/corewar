@@ -43,7 +43,7 @@ static int			process_section(char **bin_file, t_list* list_sections)
 		return (ret_error("malloc failed"));
 	ft_bzero(header, sizeof(t_header));
 	header->magic = swap_uint32(COREWAR_EXEC_MAGIC);
-	header->prog_size = swap_uint32(7);
+//	header->prog_size = swap_uint32(7);
 	while (list_sections)
 	{
 		section = list_sections->content;
@@ -61,6 +61,52 @@ static int			process_section(char **bin_file, t_list* list_sections)
 	return (TRUE);
 }
 
+char				get_ocp(t_token_op *token, char *mask)
+{
+	int				i;
+	char			ocp;
+	char			code;
+
+	i = 0;
+	ocp = 0;
+	while (i < token->nb_param)
+	{
+		if (token->param_type[i] & mask[i])
+		{
+			if (token->param_type[i] & T_REG)
+				code = REG_CODE;
+			else if (token->param_type[i] & T_DIR)
+				code = DIR_CODE;
+			else if (token->param_type[i] & T_IND)
+				code = IND_CODE;
+			ocp |= (code << (8 - (i + 1)*2));
+			printf("%d << %d\n", code, (8 - (i + 1)*2));
+		}
+		i++;
+	}
+	return (ocp);
+}
+
+int					process_token(t_bin_data *data, t_list* list_op)
+{
+	char			mask[3];
+	t_token_op		*token;
+	char			ocp;
+
+	token = malloc(sizeof(t_token_op));
+	ft_bzero(token, sizeof(t_token_op));
+	token->nb_param = 3;
+	token->param_type[0] = T_REG;
+	token->param_type[1] = T_IND;
+	token->param_type[2] = T_DIR;
+	mask[0] = T_REG | T_DIR | T_IND; 	
+	mask[1] = T_REG | T_DIR | T_IND; 	
+	mask[2] = T_REG | T_DIR | T_IND; 	
+	ocp = get_ocp(token, mask);
+	printf("OCPFdP: 0x%x\n", ocp);
+	return (0);
+}
+
 int					process_file(t_file* file)
 {
 	int				fd;
@@ -75,6 +121,7 @@ int					process_file(t_file* file)
 	if ((fd = open("test.cor", O_WRONLY | O_CREAT | O_TRUNC, 0644)) < 0)
 		return (ret_error("Unable to open file"));
 	process_section(&bin_file, file->list_sections);
+	process_token(NULL, NULL);
 	if ((wr_ret = write(fd, bin_file, sizeof(t_header))) < 0)
 		return (ret_error("Unable to write file"));
 	else 
