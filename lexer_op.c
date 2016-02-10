@@ -89,16 +89,19 @@ static int			get_reg(char *str)
 	char	*tmp;
 	int		reg_nb;
 
+	ft_printf("str: %s\n", str);
 	if (*str != 'r')
 		return (-1);
 	str++;
 	tmp = str;
+	ft_printf("tmp: %s\n", tmp);
 	while (*str != '\0' && isdigit(*str))
 		str++;
 	if (*str != '\0')
 		return (-1);
-
+	ft_printf("tmp 2: %s\n", tmp);
 	reg_nb = ft_atoi(tmp);
+	ft_printf("reg nb: %d\n", reg_nb);
 	if (reg_nb > 0 && reg_nb <= REG_NUMBER)
 		return (reg_nb);
 	return (-1);
@@ -122,11 +125,10 @@ static int			process_opcode(t_op *opcode, char *str_param, t_error **err)
 		if (val[i] > 0)
 		{
 			type[i] = T_REG;
+			ft_printf("reg p: %d\n", val[i]);
 			i++;
 			continue ;
 		}
-		ft_printf("type: %d\n", type[i]);
-		ft_printf("p: %s\n", param[i]);
 		i++;
 	}
 	return (TRUE);
