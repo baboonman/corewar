@@ -1,5 +1,14 @@
 #include "lexer.h"
 
+static int					test_size(size_t size, int type)
+{
+	if (type == T_COMMENT)
+		return (size <= COMMENT_LENGTH);
+	if (type == T_NAME)
+		return (size <= PROG_NAME_LENGTH);
+	return (FALSE);
+}
+
 static t_token_section		*check_section(char *str, t_error **error)
 {
 	t_token_section	*token;
@@ -25,8 +34,14 @@ static t_token_section		*check_section(char *str, t_error **error)
 		free(token);
 		return (NULL);
 	}
-	token->value = malloc(sizeof(char) * (end - start + 1));
 	start++;
+	if (!test_size(end - start, token->type))
+	{
+		*error = get_error(COM_LENGTH);
+		free(token);
+		return (NULL);
+	}
+	token->value = malloc(sizeof(char) * (end - start));
 	ft_strncpy(token->value, start, end - start);
 	token->value[end - start] = '\0';
 	return (token);

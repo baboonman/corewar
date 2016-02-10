@@ -6,6 +6,7 @@
 # include <ft_printf.h>
 
 # define COM_ERR_QUOTE	"Quote not valid"
+# define COM_LENGTH "Section is too long"
 # define INVALID_LINE	"Invalid line"
 
 t_error		*get_error(char *description);

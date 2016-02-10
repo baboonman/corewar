@@ -1,4 +1,4 @@
-.name		"dsad"
+.name		"TEST dsa"
 .comment	"COMMENT fdsf"
 
 st r1, 1
