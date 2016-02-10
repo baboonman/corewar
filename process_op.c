@@ -219,7 +219,7 @@ int					process_op(char *str, t_error **err, t_list **token_op)
 	size_t		size;
 	t_token_op	*op;
 
-	next = ft_strchr(str, ' ');
+	next = ft_strchr_space(str);
 	if (next == NULL)
 	{
 		*err = get_error(UNVALID_NO_PARAM);

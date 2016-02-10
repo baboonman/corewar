@@ -47,7 +47,7 @@ static int	process_label_op(char *str, t_error **err, t_list **token_op,
 	int			ret;
 	char		*space;
 
-	space = ft_strchr(str, ' ');
+	space = ft_strchr_space(str);
 	ret = process_label(str, err, token_op, label_offset);
 	if (ret)
 		str = space;
@@ -65,7 +65,7 @@ int			check_op(char *str, t_error **err, t_list **token_op)
 	size = ft_strlen(str);
 	if (!size)
 		return (TRUE);
-	space = ft_strchr(str, ' ');
+	space = ft_strchr_space(str);
 	if (!space)
 		return (process_label(str, err, token_op, size));
 	if (!process_label_op(str, err, token_op, space - str))
