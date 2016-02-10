@@ -14,6 +14,7 @@ typedef struct		s_token_section
 {
 	int				type;
 	char			*value;
+	int				line;
 }					t_token_section;
 
 typedef struct		s_token_op
@@ -25,6 +26,7 @@ typedef struct		s_token_op
 	int				nb_param;
 	char			*param_lab[3];
 	char			*label;
+	int				line;
 }					t_token_op;
 
 typedef struct				s_file
