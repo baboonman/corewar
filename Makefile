@@ -1,9 +1,10 @@
 CC= gcc
-FLAGS= -Wall -Wextra -Werror -g
+FLAGS= -Wall -Wextra -g
 SRC_ASM = main.c \
 		  reader.c \
 		  lexer.c \
 		  parser.c \
+		  swap_bytes.c \
 		  error_util.c
 
 SRC_COREWAR=

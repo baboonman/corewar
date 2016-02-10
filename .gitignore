@@ -5,3 +5,4 @@ asm
 corewar
 *.dSYM
 .*.sw*
+.DS_Store

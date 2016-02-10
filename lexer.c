@@ -57,7 +57,7 @@ static int					process_line(char *line, t_file *file, int line_number)
 	free(trim);
 	return(TRUE);	
 }
-
+/*
 static void					*print_token(void *data)
 {
 	t_token_section		*section;
@@ -66,7 +66,7 @@ static void					*print_token(void *data)
 	ft_printf("type: %d, val: %s\n", section->type, section->value);
 	return (data);
 }
-
+*/
 int							parse_file(t_file *file)
 {
 	size_t		i;
@@ -79,7 +79,7 @@ int							parse_file(t_file *file)
 	}
 	if (file->list_errors)
 		ft_lstiter(file->list_errors, print_error);
-	else
-		ft_lstiter(file->list_sections, print_token);
+//	else
+//		ft_lstiter(file->list_sections, print_token);
 	return (TRUE);
 }
