@@ -1,4 +1,5 @@
 .name		"TEST dsa"
 .comment	"COMMENT fdsf"
 
-labael_d32: sti r5, r12, r6
+st r1, 1
+caca: sti r1, %1, %1

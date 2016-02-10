@@ -7,6 +7,7 @@
 # define MAX_SIZE_ERROR	255
 
 # define OP_TYPE_LABEL 0
+# define OP_TYPE_OP 1
 
 typedef struct		s_token_section
 {
@@ -20,6 +21,7 @@ typedef struct		s_token_op
 	int				op;
 	int				param_type[3];
 	int				param_val[3];
+	int				nb_param;
 	char			*param_lab[3];
 	char			*label;
 }					t_token_op;

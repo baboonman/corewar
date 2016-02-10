@@ -76,12 +76,23 @@ static void					*print_token(void *data)
 static void					*print_op(void *data)
 {
 	t_token_op		*op;
+	int				i;
 
 	op = data;
 	if (op->type == OP_TYPE_LABEL)
 		ft_printf("type: label, label: %s\n", op->label);
 	else
-		ft_printf("Type: %d, op: %d\n", op->type, op->op);
+	{
+		i = 0;
+		ft_printf("Type: %d, op: %d", op->type, op->op);
+		while (i < op->nb_param)
+		{
+			ft_printf(", p%d: type: %d, val: %d", i, op->param_type[i], op->param_val[i]);
+			i++;
+		}
+		ft_printf("\n");
+
+	}
 	return (data);
 }
 
@@ -99,7 +110,9 @@ int							parse_file(t_file *file)
 		ft_lstiter(file->list_errors, print_error);
 	else
 	{
+		ft_printf("Section:\n");
 		ft_lstiter(file->list_sections, print_token);
+		ft_printf("Op:\n");
 		ft_lstiter(file->list_op, print_op);
 	}
 	return (TRUE);

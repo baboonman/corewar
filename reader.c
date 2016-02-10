@@ -24,15 +24,6 @@ static int			get_lines(t_file *file)
 	return (TRUE);
 }
 
-void				print_file(t_file *file)
-{
-	size_t		i;
-
-	i = 0;
-	while (i < file->nb_lines)
-		ft_printf("%s\n", file->lines[i++]);
-}
-
 t_file				*read_file(char *name)
 {
 	t_file		*file;
@@ -52,6 +43,5 @@ t_file				*read_file(char *name)
 	if (!get_lines(file))
 		ft_printf("Something wrong append\n");
 	close(file->fd);
-	print_file(file);
 	return (file);
 }

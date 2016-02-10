@@ -5,6 +5,7 @@ SRC_ASM = main.c \
 		  lexer.c \
 		  lexer_op.c \
 		  op.c \
+		  process_op.c \
 		  error_util.c
 
 SRC_COREWAR=
