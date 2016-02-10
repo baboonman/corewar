@@ -2,7 +2,9 @@
 *.cor
 *.a
 asm
+42asm
 corewar
 *.dSYM
 .*.sw*
+test.s
 .DS_Store

@@ -1,4 +1,5 @@
-#include "op.h"
+# include "op.h"
+# include "struct.h"
 
 t_op	op_tab[17] =
 {

@@ -4,6 +4,7 @@
 # include "struct.h"
 # include "op.h"
 # include "error_util.h"
+# include "lexer_op.h"
 # include <ft_printf.h>
 # include <libft.h>
 # include <list.h>
@@ -15,16 +16,6 @@
 
 # define ERROR_LEXICAL 1
 # define NO_ERROR 0
-
-typedef struct		s_token_section
-{
-	int				type;
-	char			*value;
-}					t_token_section;
-
-typedef struct		s_token_op
-{
-}					t_token_op;
 
 int		parse_file(t_file *file);
 
