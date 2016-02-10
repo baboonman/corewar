@@ -87,7 +87,15 @@ static void					*print_op(void *data)
 		ft_printf("Type: %d, op: %d", op->type, op->op);
 		while (i < op->nb_param)
 		{
-			ft_printf(", p%d: type: %d, val: %d", i, op->param_type[i], op->param_val[i]);
+			if (op->param_type[i] & T_LAB)
+			{
+				ft_printf(", p%d: type: %d(label), val: %s", i ,
+						op->param_type[i] & (~T_LAB), op->param_lab[i]);
+			}
+			else
+			{
+				ft_printf(", p%d: type: %d, val: %d", i, op->param_type[i], op->param_val[i]);
+			}
 			i++;
 		}
 		ft_printf("\n");

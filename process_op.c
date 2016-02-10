@@ -60,7 +60,24 @@ static int			get_reg(char *str)
 	return (-1);
 }
 
-static int			get_dir(char *str, int *match)
+static int			get_label(char *str, char **label)
+{
+	char	*tmp;
+
+	tmp = str;
+	if (*str == '\0')
+		return (FALSE);
+	while (*str != '\0')
+	{
+		if (!ft_strchr(LABEL_CHARS, *str))
+			return (FALSE);
+		str++;
+	}
+	*label = ft_strdup(tmp);
+	return (TRUE);
+}
+
+static int			get_dir(char *str, int *match, char **label)
 {
 	int		dir_val;
 	char	*tmp;
@@ -71,6 +88,11 @@ static int			get_dir(char *str, int *match)
 		return (0);
 	}
 	str++;
+	if (*str == LABEL_CHAR)
+	{
+		*match = get_label(str + 1, label);
+		return (0);
+	}
 	tmp = str;
 	if (*str == '-')
 		str++;
@@ -90,11 +112,16 @@ static int			get_dir(char *str, int *match)
 	return (dir_val);
 }
 
-static int			get_ind(char *str, int *match)
+static int			get_ind(char *str, int *match, char **label)
 {
 	char		*tmp;
 
 	tmp = str;
+	if (*str == LABEL_CHAR)
+	{
+		*match = get_label(str + 1, label);
+		return (0);
+	}
 	if (*str == '-')
 		str++;
 	if (*str == '\0')
@@ -112,7 +139,18 @@ static int			get_ind(char *str, int *match)
 	return (ft_atoi(tmp));
 }
 
-static int			get_type_val(int *type, int *val, char *param)
+static void			set_param(int tmp_val, char *type, int *val,
+		char **lab_val, char type_p)
+{
+	*type = type_p;
+	if (*lab_val)
+		*type |= T_LAB;
+	else
+		*val = tmp_val;
+}
+
+static int			get_type_val(char *type, int *val, char **lab_val,
+		char *param)
 {
 	int		tmp_val;
 	int		ret;
@@ -125,19 +163,19 @@ static int			get_type_val(int *type, int *val, char *param)
 		return (TRUE);
 	}
 	ret = TRUE;
-	tmp_val = get_dir(param, &ret);
+	*lab_val = NULL;
+	tmp_val = get_dir(param, &ret, lab_val);
 	if (ret)
 	{
-		*type = T_DIR;
-		*val = tmp_val;
+		set_param(tmp_val, type, val, lab_val, T_DIR);
 		return (TRUE);
 	}
 	ret = TRUE;
-	tmp_val = get_ind(param, &ret);
+	*lab_val = NULL;
+	tmp_val = get_ind(param, &ret, lab_val);
 	if (ret)
 	{
-		*type = T_IND;
-		*val = tmp_val;
+		set_param(tmp_val, type, val, lab_val, T_IND);
 		return (TRUE);
 	}
 	return (FALSE);
@@ -160,7 +198,8 @@ static t_token_op	*process_opcode(t_op *opcode, char *str_param, t_error **err)
 	i = 0;
 	while (i < nb_param)
 	{
-		if (!get_type_val(op->param_type + i, op->param_val + i, param[i]))
+		if (!get_type_val(op->param_type + i, op->param_val + i,
+					op->param_lab + i, param[i]))
 		{
 			*err = get_error(UNVALID_PARAM);
 			free(op);
