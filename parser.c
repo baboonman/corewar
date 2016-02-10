@@ -57,7 +57,7 @@ static int			process_section(char **bin_file, t_list* list_sections)
 		return (FALSE);
 	if (ft_strlen(header->prog_name) == 0)
 		return (FALSE);
-	write_header(bin_file, header);
+	ft_memcpy(*bin_file, header, sizeof(t_header));
 	return (TRUE);
 }
 
