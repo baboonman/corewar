@@ -2,6 +2,7 @@
 # define STRUCT_H
 
 # include <stddef.h>
+# include "op.h"
 # include <list.h>
 
 # define MAX_SIZE_ERROR	255
@@ -19,7 +20,7 @@ typedef struct		s_token_op
 {
 	int				type;
 	int				op;
-	int				param_type[3];
+	t_arg_type		param_type[3];
 	int				param_val[3];
 	int				nb_param;
 	char			*param_lab[3];
