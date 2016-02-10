@@ -82,28 +82,83 @@ char				get_ocp(t_token_op *token, char *mask)
 			ocp |= (code << (8 - (i + 1)*2));
 			printf("%d << %d\n", code, (8 - (i + 1)*2));
 		}
+		else
+		{
+			ft_printf("token param nnot accepted\n");
+		}
 		i++;
 	}
 	return (ocp);
+}
+
+t_token_op			*fake_token()
+{
+	t_token_op		*token;
+	
+	token = malloc(sizeof(t_token_op));
+	ft_bzero(token, sizeof(t_token_op));
+	token->type = OP_TYPE_OP;
+	token->op = 0x6;
+	token->nb_param = 3;
+	token->param_type[0] = T_IND;
+	token->param_type[1] = T_DIR;
+	token->param_type[2] = T_REG;
+	token->param_val[0] = 34;
+	token->param_val[1] = 23;
+	token->param_val[2] = 1;
+	return (token);
 }
 
 int					process_token(t_bin_data *data, t_list* list_op)
 {
 	char			mask[3];
 	t_token_op		*token;
+	t_op			*op_info;
 	char			ocp;
+	char			line[128];
+	size_t			size;
+	int				i;
+	int				j;
 
-	token = malloc(sizeof(t_token_op));
-	ft_bzero(token, sizeof(t_token_op));
-	token->nb_param = 3;
-	token->param_type[0] = T_REG;
-	token->param_type[1] = T_IND;
-	token->param_type[2] = T_DIR;
+	i = 1;
+	j = 0;
+	ocp = 0;
+	size = 0;
+	token = fake_token();
 	mask[0] = T_REG | T_DIR | T_IND; 	
 	mask[1] = T_REG | T_DIR | T_IND; 	
 	mask[2] = T_REG | T_DIR | T_IND; 	
-	ocp = get_ocp(token, mask);
+
+	op_info = &(op_tab[token->op - 1]);
+	if (op_info->has_opc)
+		ocp = get_ocp(token, mask);
+	
+	line[0] = token->op;
+	if (ocp)
+	{
+		line[i] = ocp;
+		i++;
+	}
+
+	while (j < token->nb_param)
+	{
+		if (token->param_type[i] & T_REG)
+		{
+			i = ft_memcat(line, &(token->param_val[j]), i, 1);
+		}
+		else if (token->param_type[i] & T_DIR)
+		{
+			i = ft_memcat(line, &(token->param_val[j]), i, T_DIR);
+		}
+		else if (token->param_type[i] & T_IND)
+		{
+			i = ft_memcat(line, &(token->param_val[j]), i, T_IND);
+		}
+		j++;
+	}
+	line[i+1] = 0;
 	printf("OCPFdP: 0x%x\n", ocp);
+	printf("token: %x\n", line);
 	return (0);
 }
 

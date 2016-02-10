@@ -6,7 +6,8 @@
 
 # define MAX_SIZE_ERROR	255
 
-# define OP_TYPE_LABEL 0
+# define OP_TYPE_LABEL	0
+# define OP_TYPE_OP		0
 
 typedef struct				s_token_section
 {
