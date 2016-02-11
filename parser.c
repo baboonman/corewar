@@ -118,10 +118,10 @@ int					swap_nbytes(int v, int nbB)
 	return v;
 }
 
-int					process_token(t_bin_data *data, t_list* list_op)
+int					process_token(t_bin_data *data, t_token_op *token)
 {
 	char			mask[3];
-	t_token_op		*token;
+//	t_token_op		*token;
 	t_op			*op_info;
 	char			ocp;
 	char			line[128];
@@ -134,7 +134,7 @@ int					process_token(t_bin_data *data, t_list* list_op)
 	j = 0;
 	ocp = 0;
 	size = 0;
-	token = fake_token();
+//	token = fake_token();
 	mask[0] = T_REG | T_DIR | T_IND; 	
 	mask[1] = T_REG | T_DIR | T_IND; 	
 	mask[2] = T_REG | T_DIR | T_IND; 	
@@ -188,6 +188,7 @@ int					process_token(t_bin_data *data, t_list* op_tokens)
 
 	while (op_tokens)
 	{
+		token = op_tokens->content;
 
 	}
 
