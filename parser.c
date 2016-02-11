@@ -33,31 +33,30 @@ void				write_header(char **bin, t_header *h)
 	ft_printf("%d bytes load to bin\n", i);
 }
 
-static int			process_section(char **bin_file, t_list* list_sections)
+static int			process_section(t_bin_data *data, t_list* list_sections)
 {
-	t_header		*header;
 	t_token_section	*section;
 
-	header = (t_header*)malloc(sizeof(t_header));
-	if (!header)
-		return (ret_error("malloc failed"));
-	ft_bzero(header, sizeof(t_header));
-	header->magic = swap_uint32(COREWAR_EXEC_MAGIC);
+write(1, "1\n", 2);
+	(data->header)->magic = swap_uint32(COREWAR_EXEC_MAGIC);
 //	header->prog_size = swap_uint32(7);
+write(1, "2\n", 2);
 	while (list_sections)
 	{
+write(1, "a\n", 2);
 		section = list_sections->content;
 		if (section->type == T_COMMENT)
-			ft_strncpy(header->comment, section->value, COMMENT_LENGTH);
+			ft_strncpy(data->header->comment, section->value, COMMENT_LENGTH);
 		else if (section->type == T_NAME)
-			ft_strncpy(header->prog_name, section->value, PROG_NAME_LENGTH);
+			ft_strncpy(data->header->prog_name, section->value, PROG_NAME_LENGTH);
 		list_sections = list_sections->next;
+write(1, "b\n", 2);
 	}
-	if (ft_strlen(header->comment) == 0)
+	if (ft_strlen(data->header->comment) == 0)
 		return (FALSE);
-	if (ft_strlen(header->prog_name) == 0)
+	if (ft_strlen(data->header->prog_name) == 0)
 		return (FALSE);
-	ft_memcpy(*bin_file, header, sizeof(t_header));
+write(1, "3\n", 2);
 	return (TRUE);
 }
 
@@ -119,7 +118,7 @@ int					swap_nbytes(int v, int nbB)
 	return v;
 }
 
-int					process_token(char **bin_file, t_list* list_op)
+int					process_token(t_bin_data *data, t_list* list_op)
 {
 	char			mask[3];
 	t_token_op		*token;
@@ -163,7 +162,9 @@ int					process_token(char **bin_file, t_list* list_op)
 		}
 		else if (token->param_type[j] & T_IND)
 		{
-			i = ft_memcat(line, &(token->param_val[j]), i, IND_SIZE);
+			//param = swap_nbytes(token->param_val[j], IND_SIZE);
+			param = swap_nbytes(15 - 20, IND_SIZE);
+			i = ft_memcat(line, &(param), i, IND_SIZE);
 		}
 		j++;
 	}
@@ -181,25 +182,80 @@ int					process_token(char **bin_file, t_list* list_op)
 	return (0);
 }
 
+int					process_token(t_bin_data *data, t_list* op_tokens)
+{
+	t_token_op		*token;
+
+	while (op_tokens)
+	{
+
+	}
+
+}
+
+t_bin_data			*init_bin_data(int *ret)
+{
+	t_bin_data *data;
+
+	data = (t_bin_data*)malloc(sizeof(t_bin_data));
+	if (!data)
+		*ret = ret_error("malloc failed");
+	data->bin_file = (char*)malloc(sizeof(char) * CHAMP_MAX_SIZE);
+	if (!(data->bin_file))
+		*ret = ret_error("malloc failed");
+	data->header = (t_header*)malloc(sizeof(t_header));
+	if (!(data->header))
+		*ret = ret_error("malloc failed");
+	ft_bzero(data->header, sizeof(t_header));
+	data->offset = 0;
+	data->size = 0;
+	*ret = TRUE;
+	return (data);
+}
+
+void				free_bin_data(t_bin_data *data)
+{
+	free(data->header);
+	free(data->bin_file);
+	free(data);
+	data = NULL;
+}
+
+int					write_bin(int fd, t_bin_data *data)
+{
+	int				wr_ret;
+	size_t			i;
+	char			*content;
+
+	content = (char*)malloc(sizeof(char) * CHAMP_MAX_SIZE + sizeof(t_header));
+	if (!content)
+		return (ret_error("malloc failed"));
+	i = ft_memcat(content, data->header, 0, sizeof(t_header));
+//	i = ft_memcat(content, data->bin_file, i, data->size);
+
+	if ((wr_ret = write(fd, content, i)) < 0)
+		return (ret_error("Unable to write to file"));
+	else 
+		ft_printf("%d bytes written to files\n", wr_ret);
+	return (wr_ret);
+}
+
 int					process_file(t_file* file)
 {
 	int				fd;
-	size_t			bin_size;
-	char			*bin_file;
-	int				wr_ret;
+	int				ret;
+	t_bin_data		*data;
 
-	bin_size = CHAMP_MAX_SIZE + sizeof(t_header) + 1;
-	bin_file = (char*)malloc(bin_size);
-	if (!bin_file)
-		return (ret_error("malloc failed"));
+	data = init_bin_data(&ret);
+	if (!ret)
+		return (FALSE);
+
+	process_section(data, file->list_sections);
+	process_token(data, file->list_op);
+
 	if ((fd = open("test.cor", O_WRONLY | O_CREAT | O_TRUNC, 0644)) < 0)
 		return (ret_error("Unable to open file"));
-	process_section(&bin_file, file->list_sections);
-	process_token(&bin_file, NULL);
-	if ((wr_ret = write(fd, bin_file, sizeof(t_header) + 128)) < 0)
-		return (ret_error("Unable to write file"));
-	else 
-		ft_printf("%d bytes written to files\n", wr_ret);
+	write_bin(fd, data);
 	if ((close(fd)) < 0)
 		return (ret_error("Unable to close file"));
 	return (TRUE);
