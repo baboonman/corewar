@@ -29,7 +29,7 @@ static int					check_error(char *str, t_error **error,
 		*error = get_error(COM_LENGTH);
 		return (FALSE);
 	}
-	token->value = malloc(sizeof(char) * (end - start));
+	token->value = malloc(sizeof(char) * (end - start + 1));
 	ft_strncpy(token->value, start, end - start);
 	token->value[end - start] = '\0';
 	return (TRUE);
