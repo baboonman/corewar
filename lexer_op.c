@@ -16,6 +16,7 @@ t_token_op	*check_label(char *str, size_t size, t_error **err)
 		i++;
 	}
 	op = malloc(sizeof(t_token_op));
+	ft_bzero(op, sizeof(t_token_op));
 	op->type = OP_TYPE_LABEL;
 	op->label = malloc(size + 1);
 	ft_strncpy(op->label, str, size);

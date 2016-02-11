@@ -1,25 +1,25 @@
 #include "reader.h"
 #include "lexer.h"
 #include "parser.h"
+#include "free_files.h"
 
-static void	free_file(t_file *file)
-{
-	while (file->nb_lines + 1 > 0)
-		free(file->lines[file->nb_lines--]);
-	free(file->lines);
-	free(file);
-}
 
-int main()
+int main(int argc, char **argv)
 {
 	int		ret;
 	t_file	*file;
 
-	if (!(file = read_file("test.s")))
+	if (argc < 2)
+	{
+		if (argc > 0)
+			ft_printf("%s <sourcefile.s>\n", argv[0]);
+		return (1);
+	}
+	if (!(file = read_file(argv[argc - 1])))
 		return (1);
 	if (!(parse_file(file)))
 		return (1);
 	ret = process_file(file);
-	free_file(file);
+	free_files(file);
 	return (!ret);
 }

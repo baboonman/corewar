@@ -57,7 +57,10 @@ static void					process_line(char *line, t_file *file,
 	err = NULL;
 	trim = ft_strtrim(line);
 	if (!ft_strlen(trim))
+	{
+		free(trim);
 		return ;
+	}
 	if ((section = check_section(trim, &err)))
 	{
 		section->line = line_number;

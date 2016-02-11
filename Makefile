@@ -11,12 +11,14 @@ SRC_ASM = main.c \
 		  check_section.c \
 		  print_token.c \
 		  utils.c \
+		  free_files.c \
 		  error_util.c
 
 SRC_COREWAR=vm/corewar_main.c \
 			vm/get_players.c \
 			vm/print_player.c \
 			swap_bytes.c \
+			vm/parse_arg.c \
 			vm/read_utils.c
 
 OBJ_ASM= $(SRC_ASM:.c=.o)

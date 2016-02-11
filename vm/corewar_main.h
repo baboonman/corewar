@@ -4,6 +4,7 @@
 # include "corewar_struct.h"
 # include "get_players.h"
 # include "print_player.h"
+# include "parse_arg.h"
 
 # include <stdlib.h>
 
