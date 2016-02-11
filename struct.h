@@ -50,7 +50,7 @@ typedef struct				s_op
 {
 	char					*name_op;
 	int						nb_param;
-	int						param_type[3];
+	t_arg_type				param_type[3];
 	int						op_code;
 	int						nb_cycle;
 	char					*description;

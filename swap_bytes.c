@@ -21,3 +21,13 @@ uint32_t		swap_uint32(uint32_t v)
     v = ((v << 8) & 0xFF00FF00 ) | ((v >> 8) & 0xFF00FF ); 
     return ((v << 16) | (v >> 16));
 }
+
+int					swap_nbytes(int v, int nbB)
+{
+	if (nbB == 2)
+		return (swap_uint16(v));
+	if (nbB == 4)
+		return (swap_uint32(v));
+//	ft_printf("nb of bytes to swap not supported\n");
+	return v;
+}
