@@ -13,7 +13,11 @@ SRC_ASM = main.c \
 		  utils.c \
 		  error_util.c
 
-SRC_COREWAR=
+SRC_COREWAR=vm/corewar_main.c \
+			vm/get_players.c \
+			vm/print_player.c \
+			swap_bytes.c \
+			vm/read_utils.c
 
 OBJ_ASM= $(SRC_ASM:.c=.o)
 OBJ_COREWAR= $(SRC_COREWAR:.c=.o)
@@ -28,7 +32,7 @@ INCLUDES=./libft/includes
 
 .SILENT:
 
-all: $(NAME_ASM) #$(NAME_COREWAR)
+all: $(NAME_ASM) $(NAME_COREWAR)
 
 $(NAME_ASM): $(OBJ_ASM)
 	(cd $(DIR_LFT) ; make )
