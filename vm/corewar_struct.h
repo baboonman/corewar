@@ -15,7 +15,7 @@ typedef struct		s_param
 {
 	int				is_dump;
 	int				nb_cycle_dump;
-	char			**file_players;
+	char			*file_players[MAX_PLAYERS];
 	int				nb_players;
 }					t_param;
 
