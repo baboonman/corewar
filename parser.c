@@ -274,6 +274,33 @@ int					write_bin(int fd, t_bin_data *data)
 	return (wr_ret);
 }
 
+void				inject_label(t_bin_data *data, t_label_param *lp, size_t label_off)
+{
+	int				param;
+
+	param = swap_nbytes(label_off - lp->PC, lp->size);
+	ft_memcpy(data->bin_file + lp->offset, &(param), lp->size);
+}
+
+int					process_label(t_bin_data *data)
+{
+	size_t			i;
+	t_label_offset	*lab_off;
+
+	i = 0;
+	while (i < data->pl_size)
+	{
+		if ((lab_off = search_label(data, data->pl[i]->name)))
+			inject_label(data, data->pl[i], lab_off->offset);
+		else
+		{
+			return (FALSE);
+		}
+		i++;
+	}
+	return (TRUE);
+}
+
 int					process_file(t_file* file)
 {
 	int				fd;
@@ -286,7 +313,7 @@ int					process_file(t_file* file)
 
 	process_section(data, file->list_sections);
 	process_token(data, file->list_op);
-//	process_label(data);
+	process_label(data);
 
 	if ((fd = open("test.cor", O_WRONLY | O_CREAT | O_TRUNC, 0644)) < 0)
 		return (ret_error("Unable to open file"));
