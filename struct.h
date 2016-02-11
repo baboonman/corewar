@@ -35,6 +35,8 @@ typedef struct				s_file
 	char					**lines;
 	size_t					nb_lines;
 	size_t					nb_allocated_lines;
+	char					*file_name;
+	char					*cor_name;
 	t_list					*list_sections;
 	t_list					*list_errors;
 	t_list					*list_op;

@@ -1,24 +1,4 @@
-.name "stayin' alive"
-.comment "Ha, Ha, Ha, stayiiiiin' aliiiiiiiiiive"
-	
-sti	r1, %:live, %1
-sti	r1, %:live2, %1
-ld	%1, r3
-ld	%33, r6
-#While (r2 < 10)
-forks:
-add	r2, r3, r2
-xor	r2, %15, r4
-live2:
-	live 	%4
-zjmp	%:endwhile
-fork	%:forks
-ld	%0, r4
-zjmp	%:forks
-#EndWhile
-endwhile:
-ld	%0, r4
+.name		"TEST dsa fsd d fhhhh dhshhjsTTTTT fgshgdhgf PPP"
+.comment	"COMMfgdd s sdfjs fs sdhlshds dls dlsd sldjh sf uttwpyqp hssbt xmbvvx laga bal g agh c gbsiuaaff  f hhgu pqyw ydfhghh jfkld fglshlthvyvuvhgwcpcwwwwwwwwwwwwwdkhc kc shgfENT fdsf"
 
-live:
-live %4
-zjmp %:live
+sti r1, 32, %32 
