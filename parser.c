@@ -2,19 +2,21 @@
 
 size_t				ft_memcat(void *dest, void *src, size_t i, size_t n)
 {
-	size_t			j;
-	unsigned char		*ua_dest;
-	const unsigned char	*ua_src;
+//	size_t			j;
+//	unsigned char		*ua_dest;
+//	const unsigned char	*ua_src;
 
-	j = 0;
-	ua_dest = (unsigned char *)dest;
-	ua_src = (const unsigned char *)src;
-	while (j < n)
-	{
-		ua_dest[i] = ua_src[j];
-		i++;
-		j++;
-	}
+//	j = 0;
+//	ua_dest = (unsigned char *)dest;
+//	ua_src = (const unsigned char *)src;
+//	while (j < n)
+//	{
+//		ua_dest[i] = ua_src[j];
+//		i++;
+//		j++;
+//	}
+	ft_memcpy(dest + i, src, n);
+	i += n;
 	return (i);
 }
 
@@ -39,7 +41,7 @@ static int			process_section(t_bin_data *data, t_list* list_sections)
 	return (TRUE);
 }
 
-char				get_ocp(t_token_op *token, char *mask)
+char				get_ocp(t_token_op *token, char *mask, t_error **err)
 {
 	int				i;
 	char			ocp;
@@ -61,7 +63,9 @@ char				get_ocp(t_token_op *token, char *mask)
 		}
 		else
 		{
-			ft_printf("token param nnot accepted\n");
+			*err = get_error(INVALID_PARAM);
+			(*err)->line = token->line;
+			return (0);
 		}
 		i++;
 	}
@@ -132,8 +136,9 @@ int					compute_token(t_bin_data *data, t_token_op *token, t_error **err)
 	size = 0;
 	op_info = &(op_tab[token->op - 1]);
 	if (op_info->has_opc)
-		ocp = get_ocp(token, op_info->param_type);
-	
+		ocp = get_ocp(token, op_info->param_type, err);
+	if (*err)
+		return (FALSE);	
 	line[0] = token->op;
 	if (ocp)
 	{
@@ -170,6 +175,12 @@ int					compute_token(t_bin_data *data, t_token_op *token, t_error **err)
 	}
 	ft_memcat(data->bin_file, line, data->size, i);
 	data->size += i;
+	if (data->size > CHAMP_MAX_SIZE)
+	{
+		*err = get_error(INVALID_SIZE);
+		(*err)->line = data->size;
+		return (FALSE);
+	}
 	return (TRUE);
 }
 
@@ -249,8 +260,24 @@ t_bin_data			*init_bin_data(int *ret)
 
 void				free_bin_data(t_bin_data *data)
 {
+	size_t			i;
+
+	i = 0;
 	free(data->header);
 	free(data->bin_file);
+	while (i < data->pl_size)
+	{
+		free((data->pl)[i]);
+		i++;
+	}
+	i = 0;
+	while (i < data->lo_size)
+	{
+		free((data->lo)[i]);
+		i++;
+	}
+	free(data->pl);
+	free(data->lo);
 	free(data);
 	data = NULL;
 }
@@ -271,6 +298,7 @@ int					write_bin(int fd, t_bin_data *data)
 		return (ret_error("Unable to write to file"));
 	else 
 		ft_printf("%d bytes written to files\n", wr_ret);
+	free(content);
 	return (wr_ret);
 }
 
@@ -294,6 +322,8 @@ int					process_label(t_bin_data *data)
 			inject_label(data, data->pl[i], lab_off->offset);
 		else
 		{
+			ft_printf("Logic  error: line: %d, err: %s: %s\n", 
+					9, "Invalid label", data->pl[i]->name);
 			return (FALSE);
 		}
 		i++;
@@ -307,18 +337,21 @@ int					process_file(t_file* file)
 	int				ret;
 	t_bin_data		*data;
 
+ft_printf("\n\n");
 	data = init_bin_data(&ret);
 	if (!ret)
 		return (FALSE);
 
-	process_section(data, file->list_sections);
-	process_token(data, file->list_op);
-	process_label(data);
+	if (!process_section(data, file->list_sections) ||
+		!process_token(data, file->list_op) ||
+		!process_label(data))
+		return (FALSE);
 
-	if ((fd = open("test.cor", O_WRONLY | O_CREAT | O_TRUNC, 0644)) < 0)
+	if ((fd = open(file->cor_name, O_WRONLY | O_CREAT | O_TRUNC, 0644)) < 0)
 		return (ret_error("Unable to open file"));
 	write_bin(fd, data);
 	if ((close(fd)) < 0)
 		return (ret_error("Unable to close file"));
+	free_bin_data(data);
 	return (TRUE);
 }
