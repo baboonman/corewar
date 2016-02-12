@@ -12,6 +12,7 @@ SRC_ASM = main.c \
 		  print_token.c \
 		  utils.c \
 		  free_files.c \
+		  process_op_utils.c \
 		  error_util.c
 
 SRC_COREWAR=

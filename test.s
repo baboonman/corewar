@@ -2,4 +2,4 @@
 .comment	"COMMfgdd s sdfjs fs sdhlshds dls dlsd sldjh sf uttwpyqp hssbt xmbvvx laga bal g agh c gbsiuaaff  f hhgu pqyw ydfhghh jfkld fglshlthvyvuvhgwcpcwwwwwwwwwwwwwdkhc kc shgfENT fdsf"
 
 truc:
-label: sti r1, %:label, :label
+label: sti r1,%:label,:label
