@@ -9,16 +9,16 @@ size_t				ft_memcat(void *dest, void *src, size_t i, size_t n)
 
 static int			process_section(t_bin_data *data, t_list* list_sections)
 {
-	t_token_section	*section;
+	t_token_section	*sect;
 
 	(data->header)->magic = swap_uint32(COREWAR_EXEC_MAGIC);
 	while (list_sections)
 	{
-		section = list_sections->content;
-		if (section->type == T_COMMENT)
-			ft_strncpy(data->header->comment, section->value, COMMENT_LENGTH);
-		else if (section->type == T_NAME)
-			ft_strncpy(data->header->prog_name, section->value, PROG_NAME_LENGTH);
+		sect = list_sections->content;
+		if (sect->type == T_COMMENT)
+			ft_strncpy(data->header->comment, sect->value, COMMENT_LENGTH);
+		else if (sect->type == T_NAME)
+			ft_strncpy(data->header->prog_name, sect->value, PROG_NAME_LENGTH);
 		list_sections = list_sections->next;
 	}
 	if (ft_strlen(data->header->comment) == 0)
