@@ -2,19 +2,6 @@
 
 size_t				ft_memcat(void *dest, void *src, size_t i, size_t n)
 {
-//	size_t			j;
-//	unsigned char		*ua_dest;
-//	const unsigned char	*ua_src;
-
-//	j = 0;
-//	ua_dest = (unsigned char *)dest;
-//	ua_src = (const unsigned char *)src;
-//	while (j < n)
-//	{
-//		ua_dest[i] = ua_src[j];
-//		i++;
-//		j++;
-//	}
 	ft_memcpy(dest + i, src, n);
 	i += n;
 	return (i);
@@ -41,7 +28,7 @@ static int			process_section(t_bin_data *data, t_list* list_sections)
 	return (TRUE);
 }
 
-char				get_ocp(t_token_op *token, char *mask, t_error **err)
+char				get_ocp(t_token_op *token, t_arg_type *mask, t_error **err)
 {
 	int				i;
 	char			ocp;
@@ -307,7 +294,7 @@ void				inject_label(t_bin_data *data, t_label_param *lp, size_t label_off)
 	int				param;
 
 	param = swap_nbytes(label_off - lp->PC, lp->size);
-	ft_memcpy(data->bin_file + lp->offset, &(param), lp->size);
+	ft_memcpy(data->bin_file + lp->PC + lp->offset, &(param), lp->size);
 }
 
 int					process_label(t_bin_data *data)
@@ -337,7 +324,6 @@ int					process_file(t_file* file)
 	int				ret;
 	t_bin_data		*data;
 
-ft_printf("\n\n");
 	data = init_bin_data(&ret);
 	if (!ret)
 		return (FALSE);
