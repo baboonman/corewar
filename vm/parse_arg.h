@@ -3,6 +3,7 @@
 
 # include "corewar_struct.h"
 # include "corewar_define.h"
+# include "parse_player_arg.h"
 
 # include <libft.h>
 # include <ft_printf.h>

@@ -19,6 +19,7 @@ SRC_COREWAR=vm/corewar_main.c \
 			vm/print_player.c \
 			swap_bytes.c \
 			vm/parse_arg.c \
+			vm/parse_player_arg.c \
 			vm/read_utils.c
 
 OBJ_ASM= $(SRC_ASM:.c=.o)
