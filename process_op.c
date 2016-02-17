@@ -1,8 +1,9 @@
 #include "process_op.h"
 
-static int			get_param(t_op *opcode, char *str, char *param[3], t_error **err, int *idx)
+static int			get_param(t_op *opcode, char *str, char *param[3], t_error **err)
 {
 	int		p_idx;
+	int		idx;
 
 	p_idx = 0;
 	param[p_idx] = str--;
@@ -14,19 +15,19 @@ static int			get_param(t_op *opcode, char *str, char *param[3], t_error **err, i
 			if (++p_idx >= 3)
 			{
 				*err = get_error(UNVALID_TOO_MANY_PARAM);
-				return (FALSE);
+				return (-1);
 			}
 			param[p_idx] = str;
 		}
 	}
-	*idx = p_idx + 1;
-	if (*idx == opcode->nb_param)
-		return (TRUE);
-	if (*idx < opcode->nb_param)
+	idx = p_idx + 1;
+	if (idx == opcode->nb_param)
+		return (idx);
+	if (idx < opcode->nb_param)
 		*err = get_error(UNVALID_NOT_ENOUGH_PARAM);
 	else
 		*err = get_error(UNVALID_TOO_MANY_PARAM);
-	return (FALSE);
+	return (-1);
 }
 
 static int			set_param(int64_t tmp_val, char *type, int64_t *val,
@@ -73,7 +74,7 @@ static t_token_op	*process_opcode(t_op *opcode, char *str_param, t_error **err)
 	int				i;
 	int				nb_param;
 
-	if (!get_param(opcode, str_param, param, err, &nb_param))
+	if ((nb_param = get_param(opcode, str_param, param, err)) < 0)
 		return (NULL);
 	op = malloc(sizeof(t_token_op));
 	ft_bzero(op, sizeof(t_token_op));

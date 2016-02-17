@@ -12,5 +12,4 @@ int			get_label(char *str, char **label);
 int64_t		get_dir(char *str, int *match, char **label);
 int64_t		get_ind(char *str, int *match, char **label);
 
-
 #endif
