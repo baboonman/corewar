@@ -6,6 +6,6 @@
 
 # include <ft_printf.h>
 
-int		print_player(t_player *player);
+int		print_player(t_vm *vm);
 
 #endif

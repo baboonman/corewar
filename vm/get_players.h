@@ -10,6 +10,6 @@
 # include <fcntl.h>
 # include <ft_printf.h>
 
-int		get_players(t_vm *vm, char **file_players, int nb_players);
+int		get_players(t_vm *vm);
 
 #endif

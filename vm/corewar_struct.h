@@ -19,6 +19,7 @@ typedef struct		s_param
 	char			*file_players[MAX_PLAYERS];
 	int				player_nb[MAX_PLAYERS];
 	int				nb_players;
+	int				verbose;
 }					t_param;
 
 typedef struct		s_vm

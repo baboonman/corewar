@@ -58,6 +58,7 @@ static int	get_players_file(int *set_number, t_param *p,
 		}
 		else
 			p->player_nb[cur_player] = get_next_free_nb(set_number, cur_player);
+		ft_printf("av: %s, cur: %d\n", av[i], cur_player);
 		p->file_players[p->player_nb[cur_player] - 1] = av[i];
 		++cur_player;
 		++i;

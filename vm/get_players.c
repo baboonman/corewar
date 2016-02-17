@@ -1,10 +1,11 @@
 #include "get_players.h"
 
-static int		get_player(char *file_name, t_player *player)
+static int		get_player(char *file_name, int player_nb, t_player *player)
 {
 	int		fd;
 	off_t	off;
 
+	ft_printf("file: %s, nb: %d\n", file_name, player_nb);
 	if ((fd = open(file_name, O_RDONLY)) < 0)
 	{
 		ft_printf("Unable to open the file %s\n", file_name);
@@ -31,6 +32,7 @@ static int		get_player(char *file_name, t_player *player)
 	player->header.comment[COMMENT_LENGTH] = '\0';
 	player->header.magic = swap_uint32(player->header.magic);
 	player->header.prog_size = swap_uint32(player->header.prog_size);
+	player->nb = player_nb;
 	if (player->header.magic != COREWAR_EXEC_MAGIC)
 	{
 		ft_printf("Magic unvalid\n");
@@ -44,16 +46,24 @@ static int		get_player(char *file_name, t_player *player)
 	return (TRUE);
 }
 
-int				get_players(t_vm *vm, char **file_players, int nb_players)
+int				get_players(t_vm *vm)
 {
 	int		i;
+	int		tot_players;
 
 	i = 0;
-	while (i < nb_players)
+	tot_players = 0;
+	while (i < MAX_PLAYERS)
 	{
-		if (!get_player(file_players[i], vm->players + i))
-			return (FALSE);
+		if (vm->param.file_players[i])
+		{
+			if (!get_player(vm->param.file_players[i], i + 1,
+						vm->players + tot_players))
+				return (FALSE);
+			++tot_players;
+		}
 		i++;
 	}
+	vm->nb_players = tot_players;
 	return (TRUE);
 }

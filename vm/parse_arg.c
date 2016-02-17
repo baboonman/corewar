@@ -14,7 +14,15 @@ static int	parse_dump(char **av, t_param *param)
 	}
 	param->is_dump = TRUE;
 	param->nb_cycle_dump = ft_atoi(av[1]);
-	return (2);
+	return (1);
+}
+
+static int	parse_verbose(char **av, t_param *param)
+{
+	if (ft_strcmp(av[0], "-v"))
+		return (-1);
+	param->verbose = TRUE;
+	return (0);
 }
 
 static void	print_param(t_param *p)
@@ -26,28 +34,32 @@ static void	print_param(t_param *p)
 		ft_printf("Dump %d\n", p->nb_cycle_dump);
 	}
 	i = 0;
-	while (i < p->nb_players)
+	while (i < MAX_PLAYERS) 
 	{
-		ft_printf("nb: %d, file: %s\n",
-				p->player_nb[i],
+		if (p->file_players[i])
+			ft_printf("nb: %d, file: %s\n",
+				i,
 				p->file_players[i]);
 		++i;
 	}
 }
 
-
 int			parse_arg(t_param *param, int ac, char **av)
 {
 	int		idx;
+	int		i;
 
 	param->is_dump = FALSE;
 	idx = 0;
-	if (ac >= 2)
+	i = 0;
+/*	while (i < ac)
 	{
-		if ((idx = parse_dump(av, param)) < 0)
+		if ((idx = parse_dump(av + i, param)) < 0)
 			return (FALSE);
-	}
-	if (!parse_player_arg(param, av + idx, ac - idx))
+		idx += i;
+		i = idx + 1;
+	}*///TODO clean this up bitch
+	if (!parse_player_arg(param, av + i, ac - idx))
 		return (FALSE);
 	print_param(param);
 	return (TRUE);
