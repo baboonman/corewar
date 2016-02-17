@@ -86,7 +86,7 @@ int64_t		get_dir(char *str, int *match, char **label)
 		*match = FALSE;
 		return (0);
 	}
-	dir_val = ft_atoi(tmp);
+	dir_val = ft_atoli(tmp);
 	return (dir_val);
 }
 
@@ -119,5 +119,5 @@ int64_t		get_ind(char *str, int *match, char **label)
 		*match = FALSE;
 		return (0);
 	}
-	return (ft_atoi(tmp));
+	return (ft_atoli(tmp));
 }
