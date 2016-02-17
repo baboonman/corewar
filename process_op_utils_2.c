@@ -8,7 +8,7 @@ static int	set_match_return_zero(int *match, int match_val)
 
 int64_t		get_dir(char *str, int *match, char **label)
 {
-	int		dir_val;
+	int64_t	dir_val;
 	char	*tmp;
 
 	if (*str != '%')
