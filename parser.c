@@ -1,8 +1,8 @@
 #include "parser.h"
 
-int					ft_pow(int x, int n)
+int64_t				ft_pow(int64_t x, int n)
 {
-	int				y;
+	int64_t			y;
 
 	y = 1;
 	while (n)
@@ -15,8 +15,10 @@ int					ft_pow(int x, int n)
 
 int					check_overflow(int64_t v, int nb_bytes, int cur_line, t_error **err)
 {
-	printf("v: %lld - max: %d\n", v, ft_pow(256, nb_bytes));
-	if (v >= ft_pow(256, nb_bytes) || v < -1 * ft_pow(256, nb_bytes))
+	int64_t			lim;
+
+	lim = ft_pow(256, nb_bytes) / 2;
+	if (v >= lim - 1 || v < -1 * lim)
 	{
 		*err = get_error(OVERFLOW);
 		(*err)->line = cur_line;

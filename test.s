@@ -2,4 +2,4 @@
 .comment	"COMMENT TEST FOR TEST FILE ASM FOR COREWAR"
 
 label:
-	sti		r1,		%:label, %1000000000	
+	and		10000, %2000000000, r1
