@@ -18,7 +18,8 @@ int		main(int argc, char **argv)
 		free(vm);
 		return (1);
 	}
-	print_player(vm);
+	if (vm->param.verbose)
+		print_player(vm);
 	free(vm);
 	return (0);
 }
