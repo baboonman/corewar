@@ -107,7 +107,7 @@ int					add_label_param(t_bin_data *data, int off, int size,
 	lab_param->name = ft_strdup(label_name);
 	lab_param->offset = off;
 	lab_param->size = size;
-	lab_param->PC = data->size;
+	lab_param->pc = data->size;
 	ntab = malloc(sizeof(t_label_offset*) * (data->pl_size + 1));
 	j = 0;
 	while (j < data->pl_size)
@@ -310,8 +310,8 @@ void				inject_label(t_bin_data *data, t_label_param *lp,
 {
 	int				param;
 
-	param = swap_nbytes(label_off - lp->PC, lp->size);
-	ft_memcpy(data->bin_file + lp->PC + lp->offset, &(param), lp->size);
+	param = swap_nbytes(label_off - lp->pc, lp->size);
+	ft_memcpy(data->bin_file + lp->pc + lp->offset, &(param), lp->size);
 }
 
 int					process_label(t_bin_data *data)
