@@ -25,7 +25,7 @@ typedef struct				s_token_op
 	int						type;
 	int						op;
 	t_arg_type				param_type[3];
-	int						param_val[3];
+	int64_t					param_val[3];
 	int						nb_param;
 	char					*param_lab[3];
 	char					*label;

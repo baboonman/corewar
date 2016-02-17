@@ -9,8 +9,8 @@
 char		*remove_space(char *str);
 int			get_reg(char *str);
 int			get_label(char *str, char **label);
-int			get_dir(char *str, int *match, char **label);
-int			get_ind(char *str, int *match, char **label);
+int64_t		get_dir(char *str, int *match, char **label);
+int64_t		get_ind(char *str, int *match, char **label);
 
 
 #endif

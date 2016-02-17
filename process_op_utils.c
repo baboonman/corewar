@@ -50,7 +50,7 @@ int			get_label(char *str, char **label)
 	return (TRUE);
 }
 
-int			get_dir(char *str, int *match, char **label)
+int64_t		get_dir(char *str, int *match, char **label)
 {
 	int		dir_val;
 	char	*tmp;
@@ -81,11 +81,16 @@ int			get_dir(char *str, int *match, char **label)
 		*match = FALSE;
 		return (0);
 	}
+	if (ft_strlen(tmp) >= 12)
+	{
+		*match = FALSE;
+		return (0);
+	}
 	dir_val = ft_atoi(tmp);
 	return (dir_val);
 }
 
-int			get_ind(char *str, int *match, char **label)
+int64_t		get_ind(char *str, int *match, char **label)
 {
 	char		*tmp;
 
@@ -105,6 +110,11 @@ int			get_ind(char *str, int *match, char **label)
 	while (*str != '\0' && ft_isdigit(*str))
 		str++;
 	if (*str != '\0')
+	{
+		*match = FALSE;
+		return (0);
+	}
+	if (ft_strlen(tmp) >= 12)
 	{
 		*match = FALSE;
 		return (0);

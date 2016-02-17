@@ -29,7 +29,7 @@ static int			get_param(t_op *opcode, char *str, char *param[3], t_error **err, i
 	return (FALSE);
 }
 
-static int			set_param(int tmp_val, char *type, int *val,
+static int			set_param(int64_t tmp_val, char *type, int64_t *val,
 		char **lab_val, char type_p)
 {
 	*type = type_p;
@@ -40,11 +40,11 @@ static int			set_param(int tmp_val, char *type, int *val,
 	return (TRUE);
 }
 
-static int			get_type_val(char *type, int *val, char **lab_val,
+static int			get_type_val(char *type, int64_t *val, char **lab_val,
 		char *param)
 {
-	int		tmp_val;
-	int		ret;
+	int64_t		tmp_val;
+	int			ret;
 
 	tmp_val = get_reg(param);
 	if (tmp_val > 0)
