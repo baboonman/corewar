@@ -1,5 +1,30 @@
 #include "parser.h"
 
+int					ft_pow(int x, int n)
+{
+	int				y;
+
+	y = 1;
+	while (n)
+	{
+		y *= x;
+		n--;
+	}
+	return (y);
+}
+
+int					check_overflow(int64_t v, int nb_bytes, int cur_line, t_error **err)
+{
+	printf("v: %lld - max: %d\n", v, ft_pow(256, nb_bytes));
+	if (v >= ft_pow(256, nb_bytes) || v < -1 * ft_pow(256, nb_bytes))
+	{
+		*err = get_error(OVERFLOW);
+		(*err)->line = cur_line;
+		return FALSE;
+	}
+	return TRUE;
+}
+
 size_t				ft_memcat(void *dest, void *src, size_t i, size_t n)
 {
 	ft_memcpy(dest + i, src, n);
@@ -21,10 +46,6 @@ static int			process_section(t_bin_data *data, t_list* list_sections)
 			ft_strncpy(data->header->prog_name, sect->value, PROG_NAME_LENGTH);
 		list_sections = list_sections->next;
 	}
-	if (ft_strlen(data->header->comment) == 0)
-		return (FALSE);
-	if (ft_strlen(data->header->prog_name) == 0)
-		return (FALSE);
 	return (TRUE);
 }
 
@@ -150,11 +171,15 @@ int					compute_token(t_bin_data *data, t_token_op *token, t_error **err)
 		}
 		else if (token->param_type[j] & T_IND || op_info->has_idx)
 		{
+			if (!check_overflow(token->param_val[j], IND_SIZE, token->line, err))
+				return (FALSE);
 			param = swap_nbytes(token->param_val[j], IND_SIZE);
 			i = ft_memcat(line, &(param), i, IND_SIZE);
 		}
 		else if (token->param_type[j] & T_DIR)
 		{
+			if (!check_overflow(token->param_val[j], DIR_SIZE, token->line, err))
+				return (FALSE);
 			param = swap_nbytes(token->param_val[j], DIR_SIZE);
 			i = ft_memcat(line, &(param), i, DIR_SIZE);
 		}

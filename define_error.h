@@ -10,4 +10,5 @@
 
 # define INVALID_PARAM				"Parameter type not accepted by instruction"
 # define INVALID_SIZE				"Program exceeding MAX_SIZE"
+# define OVERFLOW					"Overflow on param"
 #endif
