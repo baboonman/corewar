@@ -5,7 +5,6 @@ static int		get_player(char *file_name, int player_nb, t_player *player)
 	int		fd;
 	off_t	off;
 
-	ft_printf("file: %s, nb: %d\n", file_name, player_nb);
 	if ((fd = open(file_name, O_RDONLY)) < 0)
 	{
 		ft_printf("Unable to open the file %s\n", file_name);

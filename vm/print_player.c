@@ -6,7 +6,6 @@ int		print_player(t_vm *vm)
 	t_player	*player;
 
 	i = 0;
-	ft_printf("bm: %d\n", vm->nb_players);
 	while (i < vm->nb_players)
 	{
 		player = vm->players + i;

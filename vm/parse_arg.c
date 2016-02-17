@@ -20,9 +20,9 @@ static int	parse_dump(char **av, t_param *param)
 static int	parse_verbose(char **av, t_param *param)
 {
 	if (ft_strcmp(av[0], "-v"))
-		return (-1);
+		return (FALSE);
 	param->verbose = TRUE;
-	return (0);
+	return (TRUE);
 }
 
 static void	print_param(t_param *p)
@@ -38,7 +38,7 @@ static void	print_param(t_param *p)
 	{
 		if (p->file_players[i])
 			ft_printf("nb: %d, file: %s\n",
-				i,
+				i + 1,
 				p->file_players[i]);
 		++i;
 	}
@@ -46,21 +46,32 @@ static void	print_param(t_param *p)
 
 int			parse_arg(t_param *param, int ac, char **av)
 {
-	int		idx;
 	int		i;
+	int		ret;
 
 	param->is_dump = FALSE;
-	idx = 0;
+	param->verbose = FALSE;
 	i = 0;
-/*	while (i < ac)
+	ret = 0;
+	while (i < ac)
 	{
-		if ((idx = parse_dump(av + i, param)) < 0)
+		if ((ret = parse_dump(av + i, param)) < 0)
 			return (FALSE);
-		idx += i;
-		i = idx + 1;
-	}*///TODO clean this up bitch
-	if (!parse_player_arg(param, av + i, ac - idx))
+		else if (ret > 0)
+		{
+			i += ret + 1;
+			continue ;
+		}
+		if (parse_verbose(av + i, param))
+		{
+			++i;
+			continue ;
+		}
+		break ;
+	}
+	if (!parse_player_arg(param, av + i, ac - i))
 		return (FALSE);
-	print_param(param);
+	if (param->verbose)
+		print_param(param);
 	return (TRUE);
 }
