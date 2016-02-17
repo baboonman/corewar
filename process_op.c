@@ -1,6 +1,7 @@
 #include "process_op.h"
 
-static int			get_param(t_op *opcode, char *str, char *param[3], t_error **err)
+static int			get_param(t_op *opcode, char *str, char *param[3],
+		t_error **err)
 {
 	int		p_idx;
 	int		idx;
@@ -20,8 +21,7 @@ static int			get_param(t_op *opcode, char *str, char *param[3], t_error **err)
 			param[p_idx] = str;
 		}
 	}
-	idx = p_idx + 1;
-	if (idx == opcode->nb_param)
+	if ((idx = p_idx + 1) == opcode->nb_param)
 		return (idx);
 	if (idx < opcode->nb_param)
 		*err = get_error(UNVALID_NOT_ENOUGH_PARAM);
@@ -30,15 +30,17 @@ static int			get_param(t_op *opcode, char *str, char *param[3], t_error **err)
 	return (-1);
 }
 
-static int			set_param(int64_t tmp_val, char *type, int64_t *val,
+static char			set_param(int64_t tmp_val, int64_t *val,
 		char **lab_val, char type_p)
 {
-	*type = type_p;
+	char	type;
+
+	type = type_p;
 	if (*lab_val)
-		*type |= T_LAB;
+		type |= T_LAB;
 	else
 		*val = tmp_val;
-	return (TRUE);
+	return (type);
 }
 
 static int			get_type_val(char *type, int64_t *val, char **lab_val,
@@ -58,16 +60,17 @@ static int			get_type_val(char *type, int64_t *val, char **lab_val,
 	*lab_val = NULL;
 	tmp_val = get_dir(param, &ret, lab_val);
 	if (ret)
-		return (set_param(tmp_val, type, val, lab_val, T_DIR));
+		return ((*type = set_param(tmp_val, val, lab_val, T_DIR)) || TRUE);
 	ret = TRUE;
 	*lab_val = NULL;
 	tmp_val = get_ind(param, &ret, lab_val);
 	if (ret)
-		return (set_param(tmp_val, type, val, lab_val, T_IND));
+		return ((*type = set_param(tmp_val, val, lab_val, T_IND)) || TRUE);
 	return (FALSE);
 }
 
-static t_token_op	*process_opcode(t_op *opcode, char *str_param, t_error **err)
+static t_token_op	*process_opcode(t_op *opcode, char *str_param,
+		t_error **err)
 {
 	t_token_op		*op;
 	char			*param[3];
@@ -104,31 +107,22 @@ int					process_op(char *str, t_error **err, t_list **token_op)
 
 	next = ft_strchr_space(str);
 	if (next == NULL)
-	{
-		*err = get_error(UNVALID_NO_PARAM);
-		return (FALSE);
-	}
+		return ((*err = get_error(UNVALID_NO_PARAM)) && FALSE);
 	size = next - str;
 	i = 0;
 	while (op_tab[i].name_op)
 	{
-		if (ft_strlen(op_tab[i].name_op) != size
-				|| ft_strncmp(op_tab[i].name_op, str, size) != 0)
-		{
-			i++;
+		if ((ft_strlen(op_tab[i].name_op) != size
+				|| ft_strncmp(op_tab[i].name_op, str, size) != 0) && ++i)
 			continue ;
-		}
 		str = ft_strtrim(next);
 		op = process_opcode(op_tab + i, str, err);
 		free(str);
-		if (op)
-		{
-			op->op = op_tab[i].op_code;
-			ft_lstadd(token_op, ft_lstnew(op, sizeof(t_token_op)));
-			return (TRUE);
-		}
-		return (FALSE);
+		if (!op)
+			return (FALSE);
+		op->op = op_tab[i].op_code;
+		ft_lstadd(token_op, ft_lstnew(op, sizeof(t_token_op)));
+		return (TRUE);
 	}
-	*err = get_error(UNVALID_NO_OPCODE);
-	return (FALSE);
+	return ((*err = get_error(UNVALID_NO_OPCODE)) && FALSE);
 }
