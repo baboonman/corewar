@@ -12,5 +12,6 @@
 t_error		*get_error(char *description);
 void		*print_error(void *data);
 int			ret_error(char *description);
+int			set_error_ret(t_error **err, char *desc, int line);
 
 #endif

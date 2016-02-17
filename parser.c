@@ -13,7 +13,8 @@ int64_t				ft_pow(int64_t x, int n)
 	return (y);
 }
 
-int					check_overflow(int64_t v, int nb_bytes, int cur_line, t_error **err)
+int					check_overflow(int64_t v, int nb_bytes, int cur_line,
+									t_error **err)
 {
 	int64_t			lim;
 
@@ -22,9 +23,9 @@ int					check_overflow(int64_t v, int nb_bytes, int cur_line, t_error **err)
 	{
 		*err = get_error(OVERFLOW);
 		(*err)->line = cur_line;
-		return FALSE;
+		return (FALSE);
 	}
-	return TRUE;
+	return (TRUE);
 }
 
 size_t				ft_memcat(void *dest, void *src, size_t i, size_t n)
@@ -34,7 +35,7 @@ size_t				ft_memcat(void *dest, void *src, size_t i, size_t n)
 	return (i);
 }
 
-static int			process_section(t_bin_data *data, t_list* list_sections)
+static int			process_section(t_bin_data *data, t_list *list_sections)
 {
 	t_token_section	*sect;
 
@@ -69,14 +70,10 @@ char				get_ocp(t_token_op *token, t_arg_type *mask, t_error **err)
 				code = DIR_CODE;
 			else if (token->param_type[i] & T_IND)
 				code = IND_CODE;
-			ocp |= (code << (8 - (i + 1)*2));
+			ocp |= (code << (8 - (i + 1) * 2));
 		}
 		else
-		{
-			*err = get_error(INVALID_PARAM);
-			(*err)->line = token->line;
-			return (0);
-		}
+			return (set_error_ret(err, INVALID_PARAM, token->line));
 		i++;
 	}
 	return (ocp);
@@ -96,7 +93,8 @@ t_label_offset		*search_label(t_bin_data *data, char *name)
 	return (NULL);
 }
 
-int					add_label_param(t_bin_data *data, int off, int size, char *label_name)
+int					add_label_param(t_bin_data *data, int off, int size,
+									char *label_name)
 {
 	t_label_param	*lab_param;
 	t_label_offset	*lab_off;
@@ -105,18 +103,12 @@ int					add_label_param(t_bin_data *data, int off, int size, char *label_name)
 
 	if ((lab_off = search_label(data, label_name)))
 		return (lab_off->offset - data->size);
-
 	lab_param = (t_label_param*)malloc(sizeof(t_label_param));
-	if (!lab_param)
-		ret_error("malloc failed");
 	lab_param->name = ft_strdup(label_name);
 	lab_param->offset = off;
 	lab_param->size = size;
 	lab_param->PC = data->size;
-
 	ntab = malloc(sizeof(t_label_offset*) * (data->pl_size + 1));
-	if (!ntab)
-		ret_error("malloc failed");
 	j = 0;
 	while (j < data->pl_size)
 	{
@@ -130,7 +122,8 @@ int					add_label_param(t_bin_data *data, int off, int size, char *label_name)
 	return (0);
 }
 
-int					compute_token(t_bin_data *data, t_token_op *token, t_error **err)
+int					compute_token(t_bin_data *data, t_token_op *token,
+									t_error **err)
 {
 	t_op			*op_info;
 	char			ocp;
@@ -148,7 +141,7 @@ int					compute_token(t_bin_data *data, t_token_op *token, t_error **err)
 	if (op_info->has_opc)
 		ocp = get_ocp(token, op_info->param_type, err);
 	if (*err)
-		return (FALSE);	
+		return (FALSE);
 	line[0] = token->op;
 	if (ocp)
 	{
@@ -205,14 +198,9 @@ int					add_label(t_bin_data *data, t_token_op *token)
 	t_label_offset	*lab_off;
 
 	lab_off = (t_label_offset*)malloc(sizeof(t_label_offset));
-	if (!lab_off)
-		return (ret_error("malloc failed"));
 	lab_off->name = ft_strdup(token->label);
 	lab_off->offset = data->size;
-
 	ntab = malloc(sizeof(t_label_offset*) * (data->lo_size + 1));
-	if (!ntab)
-		ret_error("malloc failed");
 	j = 0;
 	while (j < data->lo_size)
 	{
@@ -226,12 +214,12 @@ int					add_label(t_bin_data *data, t_token_op *token)
 	return (TRUE);
 }
 
-int					process_token(t_bin_data *data, t_list* op_tokens)
+int					process_token(t_bin_data *data, t_list *op_tokens)
 {
 	t_error			*err;
 	t_token_op		*token;
 
-	err  = NULL;
+	err = NULL;
 	while (op_tokens)
 	{
 		token = op_tokens->content;
@@ -243,7 +231,8 @@ int					process_token(t_bin_data *data, t_list* op_tokens)
 	}
 	if (err)
 	{
-		ft_printf("Logic  error: line: %d, err: %s\n", err->line, err->description);
+		ft_printf("Logic  error: line: %d, err: %s\n",
+					err->line, err->description);
 		return (FALSE);
 	}
 	return (TRUE);
@@ -310,13 +299,14 @@ int					write_bin(int fd, t_bin_data *data)
 	i = ft_memcat(content, data->bin_file, i, data->size);
 	if ((wr_ret = write(fd, content, i)) < 0)
 		return (ret_error("Unable to write to file"));
-	else 
+	else
 		ft_printf("%d bytes written to files\n", wr_ret);
 	free(content);
 	return (wr_ret);
 }
 
-void				inject_label(t_bin_data *data, t_label_param *lp, size_t label_off)
+void				inject_label(t_bin_data *data, t_label_param *lp,
+									size_t label_off)
 {
 	int				param;
 
@@ -336,8 +326,8 @@ int					process_label(t_bin_data *data)
 			inject_label(data, data->pl[i], lab_off->offset);
 		else
 		{
-			ft_printf("Logic  error: line: %d, err: %s: %s\n", 
-					9, "Invalid label", data->pl[i]->name);
+			ft_printf("Logic  error: %s: %s\n",
+						"Invalid label", data->pl[i]->name);
 			return (FALSE);
 		}
 		i++;
@@ -345,7 +335,7 @@ int					process_label(t_bin_data *data)
 	return (TRUE);
 }
 
-int					process_file(t_file* file)
+int					process_file(t_file *file)
 {
 	int				fd;
 	int				ret;
@@ -354,12 +344,10 @@ int					process_file(t_file* file)
 	data = init_bin_data(&ret);
 	if (!ret)
 		return (FALSE);
-
 	if (!process_section(data, file->list_sections) ||
 		!process_token(data, file->list_op) ||
 		!process_label(data))
 		return (FALSE);
-
 	if ((fd = open(file->cor_name, O_WRONLY | O_CREAT | O_TRUNC, 0644)) < 0)
 		return (ret_error("Unable to open file"));
 	write_bin(fd, data);
