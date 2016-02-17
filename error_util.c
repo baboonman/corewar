@@ -24,3 +24,10 @@ int			ret_error(char *description)
 	ft_printf("Error: %s\n", description);
 	return (FALSE);
 }
+
+int			set_error_ret(t_error **err, char *desc, int line)
+{
+	*err = get_error(desc);
+	(*err)->line = line;
+	return (FALSE);
+}
