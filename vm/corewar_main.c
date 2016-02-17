@@ -13,11 +13,13 @@ int		main(int argc, char **argv)
 		ft_printf("%s  [-dump nbr_cycles] [[-n number] champion1.cor] ...\n", argv[0]);
 		return (1);
 	}
+	/*
 	if (!get_players(vm, argv + 1, 1))
 	{
 		free(vm);
 		return (1);
 	}
 	print_player(vm->players);
+	*/
 	return (0);
 }

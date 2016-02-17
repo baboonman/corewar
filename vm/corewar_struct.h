@@ -9,6 +9,7 @@ typedef struct		s_player
 	void			*bin;
 	size_t			size_bin;
 	t_header		header;
+	int				nb;
 }					t_player;
 
 typedef struct		s_param
@@ -16,6 +17,7 @@ typedef struct		s_param
 	int				is_dump;
 	int				nb_cycle_dump;
 	char			*file_players[MAX_PLAYERS];
+	int				player_nb[MAX_PLAYERS];
 	int				nb_players;
 }					t_param;
 

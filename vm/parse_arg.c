@@ -17,11 +17,21 @@ static int	parse_dump(char **av, t_param *param)
 	return (2);
 }
 
-static void	print_param(t_param *param)
+static void	print_param(t_param *p)
 {
-	if (param->is_dump)
+	int		i;
+
+	if (p->is_dump)
 	{
-		ft_printf("Dump %d\n", param->nb_cycle_dump);
+		ft_printf("Dump %d\n", p->nb_cycle_dump);
+	}
+	i = 0;
+	while (i < p->nb_players)
+	{
+		ft_printf("nb: %d, file: %s\n",
+				p->player_nb[i],
+				p->file_players[i]);
+		++i;
 	}
 }
 
@@ -37,7 +47,8 @@ int			parse_arg(t_param *param, int ac, char **av)
 		if ((idx = parse_dump(av, param)) < 0)
 			return (FALSE);
 	}
-	parse_player_arg(param, av + idx, ac - idx);
+	if (!parse_player_arg(param, av + idx, ac - idx))
+		return (FALSE);
 	print_param(param);
 	return (TRUE);
 }
