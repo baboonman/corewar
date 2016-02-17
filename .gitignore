@@ -9,3 +9,4 @@ corewar
 test.s
 .DS_Store
 dump*
+._*
