@@ -4,10 +4,10 @@ char		*remove_space(char *str)
 {
 	int			size;
 
-	while (*str != '\0' && *str == ' ')
+	while (*str != '\0' && (*str == ' ' || *str == '\t'))
 		str++;
 	size = ft_strlen(str) - 1;
-	while (size >= 0 && str[size] == ' ')
+	while (size >= 0 && (str[size] == ' ' || *str == '\t'))
 		str[size--] = '\0';
 	return (str);
 }
