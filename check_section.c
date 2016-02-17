@@ -43,6 +43,11 @@ static char					*get_str(size_t *line, t_file *file, char *start)
 			tmp_line = file->lines[*line];
 		if ((end = ft_strchr(tmp_line, '"')))
 		{
+			if (ft_strchr(end + 1, '"'))
+			{
+				free(res);
+				return (NULL);
+			}
 			tmp = size;
 			size += end - tmp_line;
 			if (!(res = ft_realloc(res, sizeof(char) * (size + 1))))
@@ -57,6 +62,7 @@ static char					*get_str(size_t *line, t_file *file, char *start)
 		*line += 1;
 	}
 	free(res);
+	ft_printf("here\n");
 	return (NULL);
 }
 

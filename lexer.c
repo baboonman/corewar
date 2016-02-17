@@ -85,9 +85,9 @@ int							parse_file(t_file *file)
 	ft_lstiter(file->list_errors, print_error);
 	if (file->list_errors)
 		return (FALSE);
-//	ft_printf("section:\n");
-//	ft_lstiter(file->list_sections, print_token);
-//	ft_printf("\nop:\n");
-//	ft_lstiter(file->list_op, print_op);
+	ft_printf("section:\n");
+	ft_lstiter(file->list_sections, print_token);
+	ft_printf("\nop:\n");
+	ft_lstiter(file->list_op, print_op);
 	return (TRUE);
 }

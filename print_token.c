@@ -5,7 +5,7 @@ void					*print_token(void *data)
 	t_token_section		*section;
 
 	section = data;
-	ft_printf("type: %d, val: %s, line: %d\n", section->type, section->value,
+	ft_printf("type: %d, val: |%s|, line: %d\n", section->type, section->value,
 			section->line);
 	return (data);
 }
