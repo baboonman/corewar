@@ -12,6 +12,7 @@ SRC_ASM = main.c \
 		  op.c \
 		  process_op.c \
 		  check_section.c \
+		  check_section_utils.c \
 		  print_token.c \
 		  utils.c \
 		  free_files.c \
