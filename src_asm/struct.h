@@ -64,6 +64,6 @@ typedef struct				s_op
 
 }							t_op;
 
-t_op						op_tab[17];
+t_op						g_op_tab[17];
 
 #endif

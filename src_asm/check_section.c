@@ -37,7 +37,7 @@ t_token_section				*check_section(char *str, t_error **error,
 {
 	t_token_section	*token;
 
-	token = malloc(sizeof(t_token_section));
+	token = safe_malloc(sizeof(t_token_section));
 	if (!ft_strncmp(str, NAME_CMD_STRING, SIZE_NAME_CMD))
 		token->type = T_NAME;
 	else if (!ft_strncmp(str, COMMENT_CMD_STRING, SIZE_COMMENT_CMD))

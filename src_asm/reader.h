@@ -10,6 +10,7 @@
 # include <ft_printf.h>
 
 # include "struct.h"
+# include "utils.h"
 
 # define SIZE_BUFF_LINE	4
 

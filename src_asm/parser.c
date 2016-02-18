@@ -21,20 +21,14 @@ static t_bin_data	*init_bin_data(int *ret)
 {
 	t_bin_data		*data;
 
-	data = (t_bin_data*)malloc(sizeof(t_bin_data));
-	if (!data)
-		*ret = ret_error("malloc failed");
-	data->bin_file = (char*)malloc(sizeof(char) * CHAMP_MAX_SIZE);
-	if (!(data->bin_file))
-		*ret = ret_error("malloc failed");
-	data->header = (t_header*)malloc(sizeof(t_header));
-	if (!(data->header))
-		*ret = ret_error("malloc failed");
+	data = (t_bin_data*)safe_malloc(sizeof(t_bin_data));
+	data->bin_file = (char*)safe_malloc(sizeof(char) * CHAMP_MAX_SIZE);
+	data->header = (t_header*)safe_malloc(sizeof(t_header));
 	ft_bzero(data->header, sizeof(t_header));
 	data->size = 0;
-	data->pl = malloc(sizeof(t_label_param*));
+	data->pl = safe_malloc(sizeof(t_label_param*));
 	data->pl_size = 0;
-	data->lo = malloc(sizeof(t_label_offset*));
+	data->lo = safe_malloc(sizeof(t_label_offset*));
 	data->lo_size = 0;
 	*ret = TRUE;
 	return (data);
@@ -70,9 +64,9 @@ static int			write_bin(int fd, t_bin_data *data)
 	size_t			i;
 	char			*content;
 
-	content = (char*)malloc(sizeof(char) * CHAMP_MAX_SIZE + sizeof(t_header));
+	content = safe_malloc(sizeof(char) * CHAMP_MAX_SIZE + sizeof(t_header));
 	if (!content)
-		return (ret_error("malloc failed"));
+		return (ret_error("safe_malloc failed"));
 	data->header->prog_size = swap_uint32(data->size);
 	i = ft_memcat(content, data->header, 0, sizeof(t_header));
 	i = ft_memcat(content, data->bin_file, i, data->size);

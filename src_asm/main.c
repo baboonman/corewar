@@ -3,7 +3,7 @@
 #include "parser.h"
 #include "free_files.h"
 
-int main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	int		ret;
 	t_file	*file;

@@ -4,7 +4,7 @@ t_error		*get_error(char *description)
 {
 	t_error		*err;
 
-	err = malloc(sizeof(t_error));
+	err = safe_malloc(sizeof(t_error));
 	ft_bzero(err, sizeof(t_error));
 	ft_strncpy(err->description, description, MAX_SIZE_ERROR);
 	return (err);

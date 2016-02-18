@@ -24,12 +24,12 @@ int						add_label_param(t_bin_data *data, int off, int size,
 
 	if ((lab_off = search_label(data, label_name)))
 		return (lab_off->offset - data->size);
-	lab_param = (t_label_param*)malloc(sizeof(t_label_param));
+	lab_param = (t_label_param*)safe_malloc(sizeof(t_label_param));
 	lab_param->name = ft_strdup(label_name);
 	lab_param->offset = off;
 	lab_param->size = size;
 	lab_param->pc = data->size;
-	ntab = malloc(sizeof(t_label_offset*) * (data->pl_size + 1));
+	ntab = safe_malloc(sizeof(t_label_offset*) * (data->pl_size + 1));
 	j = 0;
 	while (j < data->pl_size)
 	{
@@ -49,10 +49,10 @@ int						add_label(t_bin_data *data, t_token_op *token)
 	size_t				j;
 	t_label_offset		*lab_off;
 
-	lab_off = (t_label_offset*)malloc(sizeof(t_label_offset));
+	lab_off = (t_label_offset*)safe_malloc(sizeof(t_label_offset));
 	lab_off->name = ft_strdup(token->label);
 	lab_off->offset = data->size;
-	ntab = malloc(sizeof(t_label_offset*) * (data->lo_size + 1));
+	ntab = safe_malloc(sizeof(t_label_offset*) * (data->lo_size + 1));
 	j = 0;
 	while (j < data->lo_size)
 	{

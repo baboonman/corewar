@@ -39,7 +39,7 @@ static t_error		*encode_param(t_bin_data *data, t_token_op *token,
 	size = 666;
 	line = (char*)tricks[0];
 	i = (int*)(tricks[1]);
-	op_info = &(op_tab[token->op - 1]);
+	op_info = &(g_op_tab[token->op - 1]);
 	if (token->param_type[j] & T_REG)
 		size = 1;
 	else if (token->param_type[j] & T_IND || op_info->has_idx)
@@ -86,7 +86,7 @@ static int			compute_token(t_bin_data *data, t_token_op *token,
 
 	i = 1;
 	ocp = 0;
-	op_info = &(op_tab[token->op - 1]);
+	op_info = &(g_op_tab[token->op - 1]);
 	if (op_info->has_opc)
 		ocp = get_ocp(token, op_info->param_type, err);
 	if (*err)
