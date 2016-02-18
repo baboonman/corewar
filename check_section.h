@@ -14,5 +14,6 @@
 
 t_token_section				*check_section(char *str, t_error **error,
 		size_t *line, t_file *file);
+char						*get_str(size_t *line, t_file *file, char *start);
 
 #endif

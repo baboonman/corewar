@@ -9,63 +9,6 @@ static int					test_size(size_t size, int type)
 	return (FALSE);
 }
 
-static void					*ft_realloc(void *p, size_t size)
-{
-	void	*tmp_p;
-
-	tmp_p = NULL;
-	tmp_p = malloc(sizeof(char) * size);
-	ft_bzero(tmp_p, size);
-	if (p)
-	{
-		ft_strcpy(tmp_p, p);
-		free(p);
-	}
-	return (tmp_p);
-}
-
-static char					*get_str(size_t *line, t_file *file, char *start)
-{
-	char		*res;
-	char		*end;
-	size_t		size;
-	char		*tmp_line;
-	size_t		tmp;
-
-	res = ft_realloc(NULL, sizeof(char));
-	size = 1;
-	tmp_line = NULL;
-	while (*line < file->nb_lines)
-	{
-		if (!tmp_line)
-			tmp_line = start;
-		else
-			tmp_line = file->lines[*line];
-		if ((end = ft_strchr(tmp_line, '"')))
-		{
-			if (ft_strchr(end + 1, '"'))
-			{
-				free(res);
-				return (NULL);
-			}
-			tmp = size;
-			size += end - tmp_line;
-			if (!(res = ft_realloc(res, sizeof(char) * (size + 1))))
-				return (NULL);
-			return (ft_strncat(res, tmp_line, end - tmp_line));
-		}
-		size += ft_strlen(tmp_line) + 1;
-		if (!(res = ft_realloc(res, sizeof(char) * (size + 1))))
-			return (NULL);
-		ft_strcat(res, tmp_line);
-		res[size - 2] = '\n';
-		*line += 1;
-	}
-	free(res);
-	ft_printf("here\n");
-	return (NULL);
-}
-
 static int					check_error(t_error **error, t_token_section *token,
 		size_t *line, t_file *file)
 {
@@ -74,7 +17,7 @@ static int					check_error(t_error **error, t_token_section *token,
 
 	str = NULL;
 	if (!(start = ft_strchr(file->lines[*line], '"'))
-		|| !(str = get_str(line, file, start + 1)))
+			|| !(str = get_str(line, file, start + 1)))
 	{
 		*error = get_error(COM_ERR_QUOTE);
 		return (FALSE);
