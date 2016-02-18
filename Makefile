@@ -4,6 +4,9 @@ SRC_ASM = main.c \
 		  reader.c \
 		  lexer.c \
 		  parser.c \
+		  parser_token.c \
+		  parser_label.c \
+		  parser_utils.c \
 		  swap_bytes.c \
 		  lexer_op.c \
 		  op.c \
