@@ -144,10 +144,7 @@ int					compute_token(t_bin_data *data, t_token_op *token,
 		return (FALSE);
 	line[0] = token->op;
 	if (ocp)
-	{
-		line[i] = ocp;
-		i++;
-	}
+		line[i++] = ocp;
 	while (j < token->nb_param)
 	{
 		if (token->param_type[j] & T_LAB)
@@ -183,11 +180,7 @@ int					compute_token(t_bin_data *data, t_token_op *token,
 	ft_memcat(data->bin_file, line, data->size, i);
 	data->size += i;
 	if (data->size > CHAMP_MAX_SIZE)
-	{
-		*err = get_error(INVALID_SIZE);
-		(*err)->line = data->size;
-		return (FALSE);
-	}
+		return (set_error_ret(err, INVALID_SIZE, token->line));
 	return (TRUE);
 }
 
