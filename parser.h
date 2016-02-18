@@ -10,16 +10,29 @@
 # include "op.h"
 # include "swap_bytes.h"
 
-typedef struct			s_bin_offset
+typedef struct			s_label_param
 {
-	char				*offset;
-	int					size;
-}						t_bin_offset;
+	size_t				offset;
+	size_t				size;
+	size_t				PC;
+	char				*name;
+}						t_label_param;
+
+typedef struct			s_label_offset
+{
+	char				*name;
+	size_t				offset;
+}						t_label_offset;
 
 typedef struct			s_bin_data
 {
 	char				*bin_file;
-	t_bin_offset		prog_size;
+	t_header			*header;
+	int					size;
+	t_label_param		**pl;
+	size_t				pl_size;
+	t_label_offset		**lo;
+	size_t				lo_size;
 }						t_bin_data;
 
 int						process_file(t_file* file);

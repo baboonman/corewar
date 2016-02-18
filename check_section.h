@@ -12,6 +12,7 @@
 # define SIZE_NAME_CMD	(sizeof(NAME_CMD_STRING) - 1)
 # define SIZE_COMMENT_CMD (sizeof(COMMENT_CMD_STRING) - 1)
 
-t_token_section				*check_section(char *str, t_error **error);
+t_token_section				*check_section(char *str, t_error **error,
+		size_t *line, t_file *file);
 
 #endif

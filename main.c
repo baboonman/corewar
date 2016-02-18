@@ -18,7 +18,10 @@ int main(int argc, char **argv)
 	if (!(file = read_file(argv[argc - 1])))
 		return (1);
 	if (!(parse_file(file)))
+	{
+		ft_printf("Error in file\n");
 		return (1);
+	}
 	ret = process_file(file);
 	free_files(file);
 	return (!ret);

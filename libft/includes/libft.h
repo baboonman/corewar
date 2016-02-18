@@ -41,6 +41,7 @@ char	*ft_strnstr(const char *s1, const char *s2, size_t n);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 int		ft_atoi(const char *str);
+int64_t	ft_atoli(const char *str);
 void	ft_print_percent(int percent);
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);

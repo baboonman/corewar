@@ -5,6 +5,9 @@
 # include "op.h"
 # include <list.h>
 
+# define TRUE				1
+# define FALSE				0
+
 # define MAX_SIZE_ERROR	255
 
 # define OP_TYPE_LABEL	0
@@ -12,22 +15,22 @@
 
 typedef struct				s_token_section
 {
-	int				type;
-	char			*value;
-	int				line;
-}					t_token_section;
+	int						type;
+	char					*value;
+	int						line;
+}							t_token_section;
 
 typedef struct				s_token_op
 {
-	int				type;
-	int				op;
-	t_arg_type		param_type[3];
-	int				param_val[3];
-	int				nb_param;
-	char			*param_lab[3];
-	char			*label;
-	int				line;
-}					t_token_op;
+	int						type;
+	int						op;
+	t_arg_type				param_type[3];
+	int64_t					param_val[3];
+	int						nb_param;
+	char					*param_lab[3];
+	char					*label;
+	int						line;
+}							t_token_op;
 
 typedef struct				s_file
 {
@@ -52,7 +55,7 @@ typedef struct				s_op
 {
 	char					*name_op;
 	int						nb_param;
-	int						param_type[3];
+	t_arg_type				param_type[3];
 	int						op_code;
 	int						nb_cycle;
 	char					*description;
@@ -61,9 +64,6 @@ typedef struct				s_op
 
 }							t_op;
 
-t_op					op_tab[17];
-
-# define TRUE 1
-# define FALSE 0
+t_op						op_tab[17];
 
 #endif

@@ -48,7 +48,7 @@ static void					manage_op_lex(char *trim, t_file *file,
 }
 
 static void					process_line(char *line, t_file *file,
-		int line_number)
+		size_t line_number, size_t *line_nb)
 {
 	char				*trim;
 	t_error				*err;
@@ -56,12 +56,7 @@ static void					process_line(char *line, t_file *file,
 
 	err = NULL;
 	trim = ft_strtrim(line);
-	if (!ft_strlen(trim))
-	{
-		free(trim);
-		return ;
-	}
-	if ((section = check_section(trim, &err)))
+	if ((section = check_section(trim, &err, line_nb, file)))
 	{
 		section->line = line_number;
 		ft_lstadd(&(file->list_sections), ft_lstnew(section, sizeof(*section)));
@@ -84,15 +79,11 @@ int							parse_file(t_file *file)
 	i = 0;
 	while (i < file->nb_lines)
 	{
-		process_line(file->lines[i], file, i + 1);
+		process_line(file->lines[i], file, i + 1, &i);
 		i++;
 	}
 	ft_lstiter(file->list_errors, print_error);
 	if (file->list_errors)
 		return (FALSE);
-	ft_printf("section:\n");
-	ft_lstiter(file->list_sections, print_token);
-	ft_printf("\nop:\n");
-	ft_lstiter(file->list_op, print_op);
 	return (TRUE);
 }

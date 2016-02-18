@@ -34,6 +34,7 @@ SRC=ft_bzero.c \
 	ft_strstr.c \
 	ft_strnstr.c \
 	ft_atoi.c \
+	ft_atoli.c \
 	ft_isalpha.c \
 	ft_isdigit.c \
 	ft_isalnum.c \

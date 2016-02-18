@@ -1,4 +1,5 @@
-.name "test name"
-.comment "test comment"
+.name		"TEST FILE NAME"
+.comment	"COMMENT TEST FOR TEST FILE ASM FOR COREWAR"
 
-sti r1, %1, %1
+label:
+sti r1, %1, %2312
