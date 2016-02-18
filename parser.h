@@ -14,7 +14,7 @@ typedef struct			s_label_param
 {
 	size_t				offset;
 	size_t				size;
-	size_t				PC;
+	size_t				pc;
 	char				*name;
 }						t_label_param;
 
@@ -35,6 +35,6 @@ typedef struct			s_bin_data
 	size_t				lo_size;
 }						t_bin_data;
 
-int						process_file(t_file* file);
+int						process_file(t_file *file);
 
 #endif
