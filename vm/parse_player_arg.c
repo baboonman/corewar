@@ -92,9 +92,7 @@ static int	parse_setted_nb(t_param *p, int ac, char **av)
 	}
 	if (!get_players_file(set_number, p, ac, av))
 		return (FALSE);
-	if (p->nb_players > MAX_PLAYERS)
-		return (FALSE);
-	return (TRUE);
+	return (p->nb_players <= MAX_PLAYERS);
 }
 
 int				parse_player_arg(t_param *param, char **av, int ac)

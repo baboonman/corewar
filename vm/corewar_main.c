@@ -10,7 +10,8 @@ int		main(int argc, char **argv)
 	{
 		if (argc <= 0)
 			return (1);
-		ft_printf("%s  [-dump nbr_cycles] [[-n number] champion1.cor] ...\n", argv[0]);
+		ft_printf("%s  [-dump nbr_cycles] [[-n number] champion1.cor] ...\n",
+				argv[0]);
 		return (1);
 	}
 	if (!get_players(vm))
