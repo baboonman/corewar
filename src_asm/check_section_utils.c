@@ -5,7 +5,7 @@ static void					*ft_realloc(void *p, size_t size)
 	void	*tmp_p;
 
 	tmp_p = NULL;
-	tmp_p = malloc(sizeof(char) * size);
+	tmp_p = safe_malloc(sizeof(char) * size);
 	ft_bzero(tmp_p, size);
 	if (p)
 	{

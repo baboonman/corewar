@@ -4,7 +4,7 @@
 # include "corewar_struct.h"
 # include "corewar_define.h"
 # include "read_utils.h"
-# include "../swap_bytes.h"
+# include "swap_bytes.h"
 
 # include <unistd.h>
 # include <fcntl.h>

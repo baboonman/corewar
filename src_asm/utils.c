@@ -20,7 +20,7 @@ void		*safe_malloc(size_t size)
 
 	if (!(res = malloc(size)))
 	{
-		ft_printf("Malloc fail\n");
+		ft_printf("malloc fail\n");
 		exit(1);
 	}
 	return (res);

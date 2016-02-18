@@ -14,7 +14,7 @@ typedef struct			s_label_param
 {
 	size_t				offset;
 	size_t				size;
-	size_t				PC;
+	size_t				pc;
 	char				*name;
 }						t_label_param;
 
@@ -35,6 +35,27 @@ typedef struct			s_bin_data
 	size_t				lo_size;
 }						t_bin_data;
 
-int						process_file(t_file* file);
+int						process_file(t_file *file);
+
+/*
+** parser_utils.c
+*/
+int64_t					ft_pow(int64_t x, int n);
+int						check_overflow(int64_t v, int nb_bytes, int cur_line,
+									t_error **err);
+size_t					ft_memcat(void *dest, void *src, size_t i, size_t n);
+
+/*
+** parser_token.c
+*/
+int						process_token(t_bin_data *data, t_list *op_tokens);
+
+/*
+** parser_label.c
+*/
+int						add_label(t_bin_data *data, t_token_op *token);
+int						process_label(t_bin_data *data);
+int						add_label_param(t_bin_data *data, int off, int size,
+									char *label_name);
 
 #endif

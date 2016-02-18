@@ -56,7 +56,7 @@ t_file				*read_file(char *name)
 {
 	t_file		*file;
 
-	file = malloc(sizeof(t_file));
+	file = safe_malloc(sizeof(t_file));
 	if (!file)
 		return (NULL);
 	ft_bzero(file, sizeof(t_file));

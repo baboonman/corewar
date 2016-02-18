@@ -10,15 +10,15 @@ t_token_op	*check_label(char *str, size_t size, t_error **err)
 	{
 		if (!ft_strchr(LABEL_CHARS, str[i]))
 		{
-			*err = get_error(UNVALID_CHAR_LABEL);
+			*err = get_error(INVALID_CHAR_LABEL);
 			return (NULL);
 		}
 		i++;
 	}
-	op = malloc(sizeof(t_token_op));
+	op = safe_malloc(sizeof(t_token_op));
 	ft_bzero(op, sizeof(t_token_op));
 	op->type = OP_TYPE_LABEL;
-	op->label = malloc(size + 1);
+	op->label = safe_malloc(size + 1);
 	ft_strncpy(op->label, str, size);
 	op->label[size] = '\0';
 	return (op);

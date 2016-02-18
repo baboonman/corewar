@@ -1,26 +1,29 @@
 CC= gcc
 FLAGS= -Wall -Wextra -g
-SRC_ASM = main.c \
-		  reader.c \
-		  lexer.c \
-		  parser.c \
-		  swap_bytes.c \
-		  lexer_op.c \
-		  op.c \
-		  process_op.c \
-		  check_section.c \
-		  check_section_utils.c \
-		  print_token.c \
-		  utils.c \
-		  free_files.c \
-		  process_op_utils.c \
-		  process_op_utils_2.c \
-		  error_util.c
+SRC_ASM = src_asm/main.c \
+		  src_asm/reader.c \
+		  src_asm/lexer.c \
+		  src_asm/parser.c \
+		  src_asm/parser_token.c \
+		  src_asm/parser_label.c \
+		  src_asm/parser_utils.c \
+		  src_asm/lexer_op.c \
+		  src_asm/process_op.c \
+		  src_asm/check_section.c \
+		  src_asm/check_section_utils.c \
+		  src_asm/print_token.c \
+		  src_asm/utils.c \
+		  src_asm/free_files.c \
+		  src_asm/process_op_utils.c \
+		  src_asm/process_op_utils_2.c \
+		  src_asm/error_util.c \
+		  src_common/op.c \
+		  src_common/swap_bytes.c
 
 SRC_COREWAR=vm/corewar_main.c \
 			vm/get_players.c \
 			vm/print_player.c \
-			swap_bytes.c \
+			src_common/swap_bytes.c \
 			vm/parse_arg.c \
 			vm/parse_player_arg.c \
 			vm/read_utils.c
@@ -32,7 +35,7 @@ NAME_ASM=asm
 NAME_COREWAR=corewar
 LIB=-L./libft -lft_core -lft_list -lft_printf
 DIR_LFT=./libft
-INCLUDES=./libft/includes
+INCLUDES=./libft/includes -I ./src_asm  -I ./src_common
 
 .PHONY: clean fclean re all
 
