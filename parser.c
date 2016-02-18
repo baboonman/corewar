@@ -122,6 +122,55 @@ int					add_label_param(t_bin_data *data, int off, int size,
 	return (0);
 }
 
+t_error				*encode_param(t_bin_data *data, t_token_op *token,
+									void **tricks, int j)
+{
+	char			*line;
+	int				*i;
+	int				size;
+	int				param;
+	t_op			*op_info;
+
+	size = 666;
+	line = (char*)tricks[0];
+	i = (int*)(tricks[1]);
+	op_info = &(op_tab[token->op - 1]);
+	if (token->param_type[j] & T_REG)
+		size = 1;
+	else if (token->param_type[j] & T_IND || op_info->has_idx)
+		size = IND_SIZE;
+	else if (token->param_type[j] & T_DIR)
+		size = DIR_SIZE;
+	if (!check_overflow(token->param_val[j], size, token->line, tricks[2]))
+		return (tricks[2]);
+	if (token->param_type[j] & T_LAB)
+		param = add_label_param(data, *i, size, token->param_lab[j]);
+	else
+		param = token->param_val[j];
+	param = swap_nbytes(param, size);
+	*i = ft_memcat(line, &(param), *i, size);
+	return (NULL);
+}
+
+t_error				*iterate_param(t_bin_data *data, t_token_op *token,
+									char *line, int *i)
+{
+	int				j;
+	t_error			*err;
+	void			*tricks[3];
+
+	j = 0;
+	while (j < token->nb_param)
+	{
+		tricks[0] = line;
+		tricks[1] = i;
+		if ((err = encode_param(data, token, tricks, j)))
+			return (err);
+		j++;
+	}
+	return (NULL);
+}
+
 int					compute_token(t_bin_data *data, t_token_op *token,
 									t_error **err)
 {
@@ -129,14 +178,9 @@ int					compute_token(t_bin_data *data, t_token_op *token,
 	char			ocp;
 	char			line[128];
 	int				i;
-	int				j;
-	int				param;
-	int				size;
 
 	i = 1;
-	j = 0;
 	ocp = 0;
-	size = 0;
 	op_info = &(op_tab[token->op - 1]);
 	if (op_info->has_opc)
 		ocp = get_ocp(token, op_info->param_type, err);
@@ -144,50 +188,13 @@ int					compute_token(t_bin_data *data, t_token_op *token,
 		return (FALSE);
 	line[0] = token->op;
 	if (ocp)
-	{
-		line[i] = ocp;
-		i++;
-	}
-	while (j < token->nb_param)
-	{
-		if (token->param_type[j] & T_LAB)
-		{
-			if (token->param_type[j] & T_IND || op_info->has_idx)
-				size = IND_SIZE;
-			else
-				size = DIR_SIZE;
-			param = add_label_param(data, i, size, token->param_lab[j]);
-			param = swap_nbytes(param, size);
-			i = ft_memcat(line, &(param), i, size);
-		}
-		else if (token->param_type[j] & T_REG)
-		{
-			i = ft_memcat(line, &(token->param_val[j]), i, 1);
-		}
-		else if (token->param_type[j] & T_IND || op_info->has_idx)
-		{
-			if (!check_overflow(token->param_val[j], IND_SIZE, token->line, err))
-				return (FALSE);
-			param = swap_nbytes(token->param_val[j], IND_SIZE);
-			i = ft_memcat(line, &(param), i, IND_SIZE);
-		}
-		else if (token->param_type[j] & T_DIR)
-		{
-			if (!check_overflow(token->param_val[j], DIR_SIZE, token->line, err))
-				return (FALSE);
-			param = swap_nbytes(token->param_val[j], DIR_SIZE);
-			i = ft_memcat(line, &(param), i, DIR_SIZE);
-		}
-		j++;
-	}
+		line[i++] = ocp;
+	if ((*err = iterate_param(data, token, line, &i)))
+		return (FALSE);
+	if (data->size + i > CHAMP_MAX_SIZE)
+		return (set_error_ret(err, INVALID_SIZE, token->line));
 	ft_memcat(data->bin_file, line, data->size, i);
 	data->size += i;
-	if (data->size > CHAMP_MAX_SIZE)
-	{
-		*err = get_error(INVALID_SIZE);
-		(*err)->line = data->size;
-		return (FALSE);
-	}
 	return (TRUE);
 }
 
