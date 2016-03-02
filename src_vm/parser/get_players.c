@@ -49,7 +49,7 @@ static int		set_player_info(int fd, t_player *player,
 	player->header.prog_size = swap_uint32(player->header.prog_size);
 	player->nb = player_nb;
 	player->bin = safe_malloc(player->size_bin);
-	return (read_part_file(fd, player->size_bin, &(player->bin)));
+	return (read_part_file(fd, player->size_bin - sizeof(t_header), &(player->bin)));
 }
 
 static int		test_player_validity(t_player *player, char *file_name)

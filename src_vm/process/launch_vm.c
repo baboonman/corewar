@@ -37,6 +37,7 @@ static int	init_vm(t_vm *vm)
 {
 	vm->mem_space = safe_malloc(MEM_SIZE);
 	write_player(vm);
+	execute_process(vm->players[0].lst_process->content, vm->mem_space);
 	return (TRUE);
 }
 

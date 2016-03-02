@@ -1,6 +1,8 @@
 #ifndef PROCESS_STRUCT
 # define PROCESS_STRUCT
 
+# include "op.h"
+
 typedef struct				s_ins
 {
 	int						opcode;
