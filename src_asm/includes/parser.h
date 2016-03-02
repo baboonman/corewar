@@ -9,6 +9,7 @@
 # include "struct.h"
 # include "op.h"
 # include "swap_bytes.h"
+# include "safe_malloc.h"
 
 typedef struct			s_label_param
 {

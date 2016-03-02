@@ -7,6 +7,7 @@
 # include "define_error.h"
 # include "utils.h"
 # include "process_op_utils.h"
+# include "safe_malloc.h"
 
 int					process_op(char *str, t_error **err, t_list **token_op);
 

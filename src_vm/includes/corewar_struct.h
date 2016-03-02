@@ -3,6 +3,7 @@
 
 # include "op.h"
 # include <stddef.h>
+# include <list.h>
 
 typedef struct		s_player
 {
@@ -10,6 +11,7 @@ typedef struct		s_player
 	size_t			size_bin;
 	t_header		header;
 	int				nb;
+	t_list			*lst_process;
 }					t_player;
 
 typedef struct		s_param
@@ -26,6 +28,7 @@ typedef struct		s_vm
 {
 	t_player		players[MAX_PLAYERS];
 	int				nb_players;
+	void			*mem_space;
 	t_param			param;
 }					t_vm;
 

@@ -21,6 +21,7 @@ int		main(int argc, char **argv)
 	}
 	if (vm->param.verbose)
 		print_player(vm);
+	launch_vm(vm);
 	free(vm);
 	return (0);
 }

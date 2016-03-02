@@ -5,6 +5,7 @@
 # include <libft.h>
 # include <ft_printf.h>
 # include "utils.h"
+# include "safe_malloc.h"
 
 # define COM_ERR_QUOTE	"Quote not valid"
 # define COM_LENGTH "Section is too long"

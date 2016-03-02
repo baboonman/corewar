@@ -5,6 +5,7 @@
 # include "get_players.h"
 # include "print_player.h"
 # include "parse_arg.h"
+# include "launch_vm.h"
 
 # include <stdlib.h>
 

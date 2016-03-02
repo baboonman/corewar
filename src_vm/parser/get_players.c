@@ -48,7 +48,8 @@ static int		set_player_info(int fd, t_player *player,
 	player->header.magic = swap_uint32(player->header.magic);
 	player->header.prog_size = swap_uint32(player->header.prog_size);
 	player->nb = player_nb;
-	return (TRUE);
+	player->bin = safe_malloc(player->size_bin);
+	return (read_part_file(fd, player->size_bin, &(player->bin)));
 }
 
 static int		test_player_validity(t_player *player, char *file_name)

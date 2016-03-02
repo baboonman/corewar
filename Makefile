@@ -18,6 +18,7 @@ SRC_ASM = src_asm/main.c \
 		  src_asm/process_op_utils_2.c \
 		  src_asm/error_util.c \
 		  src_common/op.c \
+		  src_common/safe_malloc.c \
 		  src_common/swap_bytes.c
 
 SRC_COREWAR=src_vm/corewar_main.c \
@@ -26,7 +27,9 @@ SRC_COREWAR=src_vm/corewar_main.c \
 			src_vm/parser/parse_arg.c \
 			src_vm/parser/parse_player_arg.c \
 			src_vm/parser/read_utils.c \
-			src_common/swap_bytes.c
+			src_vm/process/launch_vm.c \
+			src_common/swap_bytes.c \
+		    src_common/safe_malloc.c
 
 OBJ_ASM= $(SRC_ASM:.c=.o)
 OBJ_COREWAR= $(SRC_COREWAR:.c=.o)
