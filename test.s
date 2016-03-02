@@ -1,6 +1,7 @@
 .name		"TEST FILE NAME"
 .comment	"COMMENT TEST FOR TEST FILE ASM FOR COREWAR"
 
+lfork	23
 label:
 	and		10000, %:label, r9
 	and		10000, %:toto, r9

@@ -17,7 +17,7 @@ static char	get_char(char val)
 	return (binding[val - 10]);
 }
 
-int			get_hexa(uint8_t val, char *out)
+int			get_hexa_8(uint8_t val, char *out)
 {
 	out[1] = get_char(val % 16);
 	out[0] = get_char(val / 16);

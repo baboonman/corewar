@@ -11,7 +11,7 @@ int				load_ins(t_process *proc, void *mem_space)
 
 void			print_ins(t_ins *ins)
 {
-	printf("opcode: %x\nparam_type: %c - %c - %c\n",
+	printf("opcode: %d\nparam_type: %c - %c - %c\n",
 			ins->opcode, 
 			ins->param_type[0],
 			ins->param_type[1],
@@ -22,7 +22,6 @@ int				execute_process(t_process *proc, void *mem_space)
 {
 	int			nb_cycles;
 
-	printf("toto");
 	nb_cycles = proc->number_cycles;
 	if (nb_cycles > 0)
 	{

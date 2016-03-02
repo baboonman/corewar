@@ -44,7 +44,19 @@ static int	init_vm(t_vm *vm)
 
 int			launch_vm(t_vm *vm)
 {
+	int		i;
+
+	i = 0;
 	init_vm(vm);
-	dump_memory(vm);
+	while (1)
+	{
+		execute_loop(vm);
+		if (vm->param.is_dump && vm->param.nb_cycle_dump == i)
+		{
+			dump_memory(vm);
+			exit(0);
+		}
+		++i;
+	}
 	return (TRUE);
 }
