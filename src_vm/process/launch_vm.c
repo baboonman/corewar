@@ -36,6 +36,7 @@ static int	write_player(t_vm *vm)
 static int	init_vm(t_vm *vm)
 {
 	vm->mem_space = safe_malloc(MEM_SIZE);
+	ft_bzero(vm->mem_space, MEM_SIZE);
 	write_player(vm);
 	return (TRUE);
 }
@@ -43,5 +44,6 @@ static int	init_vm(t_vm *vm)
 int			launch_vm(t_vm *vm)
 {
 	init_vm(vm);
+	dump_memory(vm);
 	return (TRUE);
 }
