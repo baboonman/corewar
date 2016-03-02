@@ -30,6 +30,7 @@ SRC_COREWAR=src_vm/corewar_main.c \
 			src_vm/process/launch_vm.c \
 			src_vm/get_hexa.c \
 			src_vm/dump_memory.c \
+			src_vm/process/execute_loop.c \
 			src_common/swap_bytes.c \
 		    src_common/safe_malloc.c
 

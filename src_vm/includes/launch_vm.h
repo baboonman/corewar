@@ -9,6 +9,7 @@
 # include "safe_malloc.h"
 # include "corewar_define.h"
 # include "dump_memory.h"
+# include "execute_loop.h"
 
 int			launch_vm(t_vm *vm);
 
