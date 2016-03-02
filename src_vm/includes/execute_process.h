@@ -6,6 +6,7 @@
 # include "safe_malloc.h"
 # include "struct.h"
 # include "libft.h"
+# include "swap_bytes.h"
 
 # include <unistd.h>
 # include <stdlib.h>
