@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC=clang
-FLAGS=-Wall -Wextra -Werror -g
+FLAGS=-Wall -Wextra -Werror
 NAME=libft_core.a
 INCLUDES=-I ../includes/
 SRC=ft_bzero.c \
@@ -78,7 +78,7 @@ OBJ=$(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar -q $(NAME) $^
+	ar -q $(NAME) $^ &> /dev/null
 	ranlib $(NAME)
 
 %.o: %.c

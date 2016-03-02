@@ -21,7 +21,7 @@ OBJ=$(SRC:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJ)
-	ar -q $(NAME) $^
+	ar -q $(NAME) $^ &> /dev/null
 	ranlib $(NAME)
 
 %.o: %.c

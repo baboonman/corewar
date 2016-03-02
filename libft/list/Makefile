@@ -27,7 +27,7 @@ all: $(NAME)
 $(NAME): libft
 
 libft: $(OBJ)
-	ar -q $(NAME) $^
+	ar -q $(NAME) $^ &> /dev/null
 	ranlib $(NAME)
 
 %.o: %.c

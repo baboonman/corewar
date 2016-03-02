@@ -20,13 +20,13 @@ SRC_ASM = src_asm/main.c \
 		  src_common/op.c \
 		  src_common/swap_bytes.c
 
-SRC_COREWAR=vm/corewar_main.c \
-			vm/get_players.c \
-			vm/print_player.c \
-			src_common/swap_bytes.c \
-			vm/parse_arg.c \
-			vm/parse_player_arg.c \
-			vm/read_utils.c
+SRC_COREWAR=src_vm/corewar_main.c \
+			src_vm/parser/get_players.c \
+			src_vm/parser/print_player.c \
+			src_vm/parser/parse_arg.c \
+			src_vm/parser/parse_player_arg.c \
+			src_vm/parser/read_utils.c \
+			src_common/swap_bytes.c
 
 OBJ_ASM= $(SRC_ASM:.c=.o)
 OBJ_COREWAR= $(SRC_COREWAR:.c=.o)
@@ -35,7 +35,9 @@ NAME_ASM=asm
 NAME_COREWAR=corewar
 LIB=-L./libft -lft_core -lft_list -lft_printf
 DIR_LFT=./libft
-INCLUDES=./libft/includes -I ./src_asm  -I ./src_common
+INCLUDES_CMN=-I ./libft/includes -I ./src_common/includes
+INCLUDES_ASM=-I ./src_asm/includes
+INCLUDES_CRW=-I ./src_vm/includes
 
 .PHONY: clean fclean re all
 
@@ -55,7 +57,7 @@ $(NAME_COREWAR): $(OBJ_COREWAR)
 
 %.o: %.c
 	echo "\t\xF0\x9F\x94\xA7   Building \033[34m $@ \033[0m"
-	$(CC) -c $(FLAGS) -o $@ $< -I $(INCLUDES)
+	$(CC) -c $(FLAGS) -o $@ $< $(INCLUDES_CMN) $(INCLUDES_ASM) $(INCLUDES_CRW)
 
 clean:
 	(cd $(DIR_LFT) ; make clean)
