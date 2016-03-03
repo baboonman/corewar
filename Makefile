@@ -36,6 +36,7 @@ SRC_COREWAR=src_vm/corewar_main.c \
 			src_vm/ins_fn/ins_ld.c \
 			src_vm/ins_fn/ins_st.c \
 			src_vm/ins_fn/ins_sub.c \
+			src_vm/ins_fn/ins_or.c \
 			src_vm/mem_utils.c \
 		    src_common/op.c \
 			src_common/swap_bytes.c \

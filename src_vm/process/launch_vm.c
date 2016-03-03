@@ -40,6 +40,7 @@ static int	init_vm_function(t_vm *vm)
 	vm->ins_function[1] = ins_ld;
 	vm->ins_function[2] = ins_st;
 	vm->ins_function[4] = ins_sub;
+	vm->ins_function[6] = ins_or;
 	return (TRUE);
 }
 
