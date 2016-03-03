@@ -17,6 +17,13 @@
 # define P_TYPE_3 proc->curr_ins.param_type[2]
 
 void	ins_live(t_vm *vm, t_process *proc);
+void	ins_ld(t_vm *vm, t_process *proc);
+void	ins_st(t_vm *vm, t_process *proc);
+void	ins_sub(t_vm *vm, t_process *proc);
+void	ins_or(t_vm *vm, t_process *proc);
+void	ins_zjump(t_vm *vm, t_process *proc);
+void	ins_sti(t_vm *vm, t_process *proc);
+void	ins_lld(t_vm *vm, t_process *proc);
 
 void	ins_aff(t_vm *vm, t_process *proc);
 void	ins_and(t_vm *vm, t_process *proc);

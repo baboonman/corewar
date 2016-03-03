@@ -5,7 +5,6 @@ void			decode_opc(uint8_t opc, t_ins *ins, int nb_param)
 	int			i;
 
 	i = 0;
-	fflush(0);
 	while (i < nb_param)	
 	{
 		if (((opc >> (8 - (i + 1) * 2)) & 0b00000011) == REG_CODE)
@@ -105,7 +104,7 @@ int				execute_process(t_process *proc, t_vm *vm)
 		proc->number_cycles = load_ins(proc, vm->mem_space);
 		if (!proc->number_cycles)
 			proc->pc++;
-		print_ins(&proc->curr_ins);
+//		print_ins(&(proc->curr_ins));
 	}
 	return TRUE;
 }

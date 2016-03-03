@@ -16,7 +16,7 @@ typedef struct				s_process
 	int						reg[REG_NUMBER];
 	int						carry;
 	int						number_cycles;
-	size_t					pc;
+	int						pc;
 	t_ins					curr_ins;
 	int						player_nb;
 }							t_process;

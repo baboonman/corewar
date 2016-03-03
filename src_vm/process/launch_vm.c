@@ -37,6 +37,21 @@ static int	write_player(t_vm *vm)
 static int	init_vm_function(t_vm *vm)
 {
 	vm->ins_function[0] = ins_live;
+	vm->ins_function[1] = ins_ld;
+	vm->ins_function[2] = ins_st;
+	vm->ins_function[3] = ins_add;
+	vm->ins_function[4] = ins_sub;
+	vm->ins_function[5] = ins_and;
+	vm->ins_function[6] = ins_or;
+	vm->ins_function[7] = ins_xor;
+	vm->ins_function[8] = ins_zjump;
+	vm->ins_function[9] = ins_ldi;
+	vm->ins_function[10] = ins_sti;
+	vm->ins_function[11] = ins_fork;
+	vm->ins_function[12] = ins_lld;
+	vm->ins_function[13] = ins_lldi;
+	vm->ins_function[14] = ins_lfork;
+	vm->ins_function[15] = ins_aff;
 	return (TRUE);
 }
 
