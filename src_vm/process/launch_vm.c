@@ -8,7 +8,7 @@ static int	init_player_process(t_player *player, size_t pos)
 	ft_bzero(process, sizeof(t_process));
 	process->reg[0] = player->nb;
 	process->pc = pos;
-	process->number_cycles = -1;
+	process->number_cycles = 0;
 	process->player_nb = player->nb;
 	ft_lstadd(&(player->lst_process), ft_lstnew(process, sizeof(t_process)));
 	return (TRUE);

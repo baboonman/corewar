@@ -35,7 +35,7 @@ void			decode_param(t_process *proc, int nb_param, void *mem_space,
 			size = IND_SIZE;
 		else if (proc->curr_ins.param_type[i] & T_DIR)
 			size = DIR_SIZE;
-		param = get_n_bytes(size, mem_space, proc->pc + proc->curr_ins.size);
+		param = read_n_bytes(size, mem_space, proc->pc + proc->curr_ins.size);
 		proc->curr_ins.param_val[i] = param;
 		proc->curr_ins.size += size;
 	}
@@ -88,17 +88,17 @@ int				execute_process(t_process *proc, t_vm *vm)
 	int			nb_cycles;
 
 	nb_cycles = proc->number_cycles;
-	if (nb_cycles > 0)
+	if (nb_cycles > 1)
 	{
 		proc->number_cycles--;
 	}
-	else if (nb_cycles == 0)
+	else if (nb_cycles == 1)
 	{
 		execute_ins(vm, proc);
 		proc->number_cycles--;
 		proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
 	}
-	else if (nb_cycles == -1)
+	else if (nb_cycles == 0)
 	{
 		proc->number_cycles = load_ins(proc, vm->mem_space);
 		print_ins(&proc->curr_ins);
