@@ -110,6 +110,8 @@ int				get_players(t_vm *vm)
 		}
 		i++;
 	}
+	if (tot_players <= 0)
+		return (FALSE);
 	vm->nb_players = tot_players;
 	return (TRUE);
 }

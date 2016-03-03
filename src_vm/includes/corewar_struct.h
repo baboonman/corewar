@@ -12,6 +12,7 @@ typedef struct		s_player
 	t_header		header;
 	int				nb;
 	t_list			*lst_process;
+	int				nb_live;
 }					t_player;
 
 typedef struct		s_param
