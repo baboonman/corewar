@@ -4,3 +4,4 @@
 ld %15, r1
 ld %240, r2
 or r1, r2, r3
+zjmp %90

@@ -41,6 +41,7 @@ static int	init_vm_function(t_vm *vm)
 	vm->ins_function[2] = ins_st;
 	vm->ins_function[4] = ins_sub;
 	vm->ins_function[6] = ins_or;
+	vm->ins_function[8] = ins_zjump;
 	return (TRUE);
 }
 

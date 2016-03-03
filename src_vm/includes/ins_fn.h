@@ -18,5 +18,6 @@ void	ins_ld(t_vm *vm, t_process *proc);
 void	ins_st(t_vm *vm, t_process *proc);
 void	ins_sub(t_vm *vm, t_process *proc);
 void	ins_or(t_vm *vm, t_process *proc);
+void	ins_zjump(t_vm *vm, t_process *proc);
 
 #endif
