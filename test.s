@@ -1,5 +1,5 @@
 .name		"TEST FILE NAME"
 .comment	"COMMENT TEST FOR TEST FILE ASM FOR COREWAR"
 
-live %32
-live %42
+live %200320032
+live %360

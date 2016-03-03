@@ -33,6 +33,7 @@ SRC_COREWAR=src_vm/corewar_main.c \
 			src_vm/dump_memory.c \
 			src_vm/process/execute_loop.c \
 			src_vm/ins_fn/ins_live.c \
+			src_vm/mem_utils.c \
 		    src_common/op.c \
 			src_common/swap_bytes.c \
 		    src_common/safe_malloc.c
