@@ -3,6 +3,7 @@
 
 # include "corewar_struct.h"
 # include "corewar_define.h"
+# include "execute_process.h"
 
 int			execute_loop(t_vm *vm);
 

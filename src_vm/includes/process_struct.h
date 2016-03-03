@@ -18,6 +18,7 @@ typedef struct				s_process
 	int						number_cycles;
 	size_t					pc;
 	t_ins					curr_ins;
+	int						player_nb;
 }							t_process;
 
 #endif

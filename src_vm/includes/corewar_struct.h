@@ -30,6 +30,7 @@ typedef struct		s_vm
 	int				nb_players;
 	void			*mem_space;
 	t_param			param;
+	void			*ins_function[16];
 }					t_vm;
 
 #endif

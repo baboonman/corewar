@@ -82,7 +82,16 @@ void			print_ins(t_ins *ins)
 			ins->size);
 }
 
-int				execute_process(t_process *proc, void *mem_space)
+static int		execute_ins(t_vm *vm, t_process *proc)
+{
+	void		(*fn)(t_vm *, t_process *);
+
+	fn = vm->ins_function[proc->curr_ins.opcode - 1];
+	fn(vm, proc);
+	return (TRUE);
+}
+
+int				execute_process(t_process *proc, t_vm *vm)
 {
 	int			nb_cycles;
 
@@ -93,12 +102,13 @@ int				execute_process(t_process *proc, void *mem_space)
 	}
 	else if (nb_cycles == 0)
 	{
-		write(1, "nothing yet\n", 12);
+		execute_ins(vm, proc);
 		proc->number_cycles--;
+		proc->pc += proc->curr_ins.size % MEM_SIZE;
 	}
 	else if (nb_cycles == -1)
 	{
-		proc->number_cycles = load_ins(proc, mem_space);
+		proc->number_cycles = load_ins(proc, vm->mem_space);
 		print_ins(&proc->curr_ins);
 	}
 	return TRUE;

@@ -11,6 +11,7 @@
 # include "execute_process.h"
 # include "dump_memory.h"
 # include "execute_loop.h"
+# include "ins_fn.h"
 
 int			launch_vm(t_vm *vm);
 
