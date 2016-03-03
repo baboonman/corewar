@@ -20,7 +20,7 @@ void	ft_bzero(void *s, size_t n)
 	if (s == NULL)
 		return ;
 	i = 0;
-	ptr = (unsigned char*) s;
+	ptr = (unsigned char*)s;
 	while (i < n)
 	{
 		ptr[i] = 0;

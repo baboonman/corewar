@@ -54,7 +54,6 @@ static int	test_loop(int *ret, char *str, int fd)
 	return (0);
 }
 
-
 int			get_next_line(int const fd, char **line)
 {
 	static int		index = -1;

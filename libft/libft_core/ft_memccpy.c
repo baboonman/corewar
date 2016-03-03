@@ -17,15 +17,14 @@ void	*ft_memccpy(void *s1, const void *s2,
 {
 	size_t			i;
 	unsigned char	value;
-	unsigned char*	s3;
-	const char*		s4;
-
+	unsigned char	*s3;
+	const char		*s4;
 
 	if (s1 == NULL)
 		return (NULL);
 	if (s2 == NULL)
 		return (s1);
-	value = (unsigned char) c;
+	value = (unsigned char)c;
 	i = 0;
 	s3 = s1;
 	s4 = s2;

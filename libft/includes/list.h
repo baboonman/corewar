@@ -22,11 +22,11 @@ typedef struct		s_list
 	struct s_list	*next;
 }					t_list;
 
-void		ft_lstiter(t_list *list, void *(*f)(void *data));
-void		ft_lstadd(t_list **begin, t_list *new_elem);
-t_list		*ft_lstnew(void *content, size_t content_size);
-void		ft_lstdel(t_list **begin, t_list *elem);
-void		ft_lstdelone(t_list **list, t_list *elem);
-void		free_tab(char **tab);
+void				ft_lstiter(t_list *list, void *(*f)(void *data));
+void				ft_lstadd(t_list **begin, t_list *new_elem);
+t_list				*ft_lstnew(void *content, size_t content_size);
+void				ft_lstdel(t_list **begin, t_list *elem);
+void				ft_lstdelone(t_list **list, t_list *elem);
+void				free_tab(char **tab);
 
 #endif

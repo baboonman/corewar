@@ -36,7 +36,6 @@ static char	*manage_max(void)
 	return (str);
 }
 
-
 char		*ft_itoa(int n)
 {
 	int		power;

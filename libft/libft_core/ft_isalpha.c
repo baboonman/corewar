@@ -18,7 +18,7 @@ int		ft_isalpha(int c)
 
 	if (c < 0)
 		return (0);
-	c2 = (char) c;
+	c2 = (char)c;
 	if ((c2 >= 0101 && c2 <= 0132) || (c2 >= 0141 && c2 <= 0172))
 	{
 		return (1);
