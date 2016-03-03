@@ -46,12 +46,14 @@ int				load_ins(t_process *proc, void *mem_space)
 	t_op		*op_info;
 	uint8_t		opc;
 
-	proc->curr_ins.opcode = *((uint8_t*)(mem_space + proc->pc));
+	proc->curr_ins.opcode = *((uint8_t*)(mem_space + proc->pc)) - 1;
+	if (proc->curr_ins.opcode < 0 || proc->curr_ins.opcode > 15)
+		return (0);
 	proc->curr_ins.size = 1;
-	op_info = &(g_op_tab[proc->curr_ins.opcode - 1]);
+	op_info = &(g_op_tab[proc->curr_ins.opcode]);
 	if (op_info->has_opc)
 	{
-		opc = *((uint8_t*)mem_space + proc->pc + 1);
+		opc = read_n_bytes(1, mem_space, proc->pc + 1);
 		decode_opc(opc, &(proc->curr_ins), op_info->nb_param);
 	}
 	else
@@ -78,7 +80,7 @@ static int		execute_ins(t_vm *vm, t_process *proc)
 {
 	void		(*fn)(t_vm *, t_process *);
 
-	fn = vm->ins_function[proc->curr_ins.opcode - 1];
+	fn = vm->ins_function[proc->curr_ins.opcode];
 	fn(vm, proc);
 	return (TRUE);
 }
@@ -101,6 +103,8 @@ int				execute_process(t_process *proc, t_vm *vm)
 	else if (nb_cycles == 0)
 	{
 		proc->number_cycles = load_ins(proc, vm->mem_space);
+		if (!proc->number_cycles)
+			proc->pc++;
 		print_ins(&proc->curr_ins);
 	}
 	return TRUE;

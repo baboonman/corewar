@@ -33,6 +33,14 @@ SRC_COREWAR=src_vm/corewar_main.c \
 			src_vm/dump_memory.c \
 			src_vm/process/execute_loop.c \
 			src_vm/ins_fn/ins_live.c \
+			src_vm/ins_fn/ins_aff.c \
+			src_vm/ins_fn/ins_and.c \
+			src_vm/ins_fn/ins_add.c \
+			src_vm/ins_fn/ins_xor.c \
+			src_vm/ins_fn/ins_ldi.c \
+			src_vm/ins_fn/ins_lldi.c \
+			src_vm/ins_fn/ins_fork.c \
+			src_vm/ins_fn/ins_lfork.c \
 			src_vm/mem_utils.c \
 		    src_common/op.c \
 			src_common/swap_bytes.c \
