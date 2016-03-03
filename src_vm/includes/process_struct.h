@@ -1,5 +1,5 @@
-#ifndef PROCESS_STRUCT
-# define PROCESS_STRUCT
+#ifndef PROCESS_STRUCT_H
+# define PROCESS_STRUCT_H
 
 # include "op.h"
 

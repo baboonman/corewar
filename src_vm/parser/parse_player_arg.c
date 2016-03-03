@@ -40,8 +40,7 @@ static int	get_next_free_nb(int *set_number, int cur_player)
 	return (min);
 }
 
-static int	get_players_file(int *set_number, t_param *p,
-		int ac, char **av)
+static int	get_players_file(int *set_number, t_param *p, int ac, char **av)
 {
 	int		i;
 	int		cur_player;
@@ -95,7 +94,7 @@ static int	parse_setted_nb(t_param *p, int ac, char **av)
 	return (p->nb_players <= MAX_PLAYERS);
 }
 
-int				parse_player_arg(t_param *param, char **av, int ac)
+int			parse_player_arg(t_param *param, char **av, int ac)
 {
 	if (!parse_setted_nb(param, ac, av))
 		return (FALSE);

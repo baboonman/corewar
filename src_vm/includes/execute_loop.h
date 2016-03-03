@@ -1,5 +1,5 @@
 #ifndef EXECUTE_LOOP_H
-#define EXECUTE_LOOP_H
+# define EXECUTE_LOOP_H
 
 # include "corewar_struct.h"
 # include "corewar_define.h"

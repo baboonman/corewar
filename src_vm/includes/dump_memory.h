@@ -9,5 +9,4 @@
 
 void	dump_memory(t_vm *vm);
 
-
 #endif

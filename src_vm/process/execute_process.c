@@ -5,7 +5,7 @@ void			decode_opc(uint8_t opc, t_ins *ins, int nb_param)
 	int			i;
 
 	i = 0;
-	while (i < nb_param)	
+	while (i < nb_param)
 	{
 		if (((opc >> (8 - (i + 1) * 2)) & 0b00000011) == REG_CODE)
 			ins->param_type[i] = T_REG;
@@ -18,8 +18,8 @@ void			decode_opc(uint8_t opc, t_ins *ins, int nb_param)
 	ins->size++;
 }
 
-void			decode_param(t_process *proc, int nb_param, void *mem_space,
-								int idx)
+int				decode_param(t_process *proc, int nb_param, void *mem_space,
+								t_op *op_info)
 {
 	int			i;
 	int			size;
@@ -28,16 +28,21 @@ void			decode_param(t_process *proc, int nb_param, void *mem_space,
 	i = -1;
 	while (++i < nb_param)
 	{
+		if (!(proc->curr_ins.param_type[i] & op_info->param_type[i]))
+			return (FALSE);
 		if (proc->curr_ins.param_type[i] & T_REG)
 			size = 1;
-		else if (proc->curr_ins.param_type[i] & T_IND || idx)
+		else if (proc->curr_ins.param_type[i] & T_IND || op_info->has_idx)
 			size = IND_SIZE;
 		else if (proc->curr_ins.param_type[i] & T_DIR)
 			size = DIR_SIZE;
 		param = read_n_bytes(size, mem_space, proc->pc + proc->curr_ins.size);
+		if (size == 1 && (param < 1 || param > REG_NUMBER))
+			return (FALSE);
 		proc->curr_ins.param_val[i] = param;
 		proc->curr_ins.size += size;
 	}
+	return (TRUE);
 }
 
 int				load_ins(t_process *proc, void *mem_space)
@@ -57,22 +62,9 @@ int				load_ins(t_process *proc, void *mem_space)
 	}
 	else
 		proc->curr_ins.param_type[0] = op_info->param_type[0];
-	decode_param(proc, op_info->nb_param, mem_space,
-					op_info->has_idx);
+	if (!decode_param(proc, op_info->nb_param, mem_space, op_info))
+		return (FALSE);
 	return (op_info->nb_cycle);
-}
-
-void			print_ins(t_ins *ins)
-{
-	printf("opcode: %d\nparam_type: %d - %d - %d\nparam_val: %d - %d - %d\nsize: %lu\n",
-			ins->opcode, 
-			ins->param_type[0],
-			ins->param_type[1],
-			ins->param_type[2],
-			ins->param_val[0],
-			ins->param_val[1],
-			ins->param_val[2],
-			ins->size);
 }
 
 static int		execute_ins(t_vm *vm, t_process *proc)
@@ -108,5 +100,5 @@ int				execute_process(t_process *proc, t_vm *vm)
 		else
 			proc->number_cycles--;
 	}
-	return TRUE;
+	return (TRUE);
 }

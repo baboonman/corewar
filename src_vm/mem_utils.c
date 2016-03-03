@@ -2,9 +2,9 @@
 
 static int16_t		read_2_bytes(void *mem, size_t off)
 {
-	int16_t		val;
-	char		*data;
-	int			size;
+	int16_t			val;
+	char			*data;
+	int				size;
 
 	size = 2;
 	data = (char *)(&val);
@@ -19,9 +19,9 @@ static int16_t		read_2_bytes(void *mem, size_t off)
 
 static int32_t		read_4_bytes(void *mem, size_t off)
 {
-	int32_t		val;
-	char		*data;
-	int			size;
+	int32_t			val;
+	char			*data;
+	int				size;
 
 	size = 4;
 	data = (char *)(&val);
@@ -34,9 +34,9 @@ static int32_t		read_4_bytes(void *mem, size_t off)
 	return (val);
 }
 
-int			read_n_bytes(int size, void *mem, size_t off)
+int					read_n_bytes(int size, void *mem, size_t off)
 {
-	int			val;
+	int				val;
 
 	val = 0;
 	off = off % MEM_SIZE;
@@ -49,10 +49,10 @@ int			read_n_bytes(int size, void *mem, size_t off)
 	return (val);
 }
 
-void		write_n_bytes(int size, void *mem, size_t off, int val)
+void				write_n_bytes(int size, void *mem, size_t off, int val)
 {
-	char		*data;
-	int			i;
+	char			*data;
+	int				i;
 
 	data = (char *)(&val);
 	off = off % MEM_SIZE;
