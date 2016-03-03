@@ -90,21 +90,23 @@ int				execute_process(t_process *proc, t_vm *vm)
 
 	nb_cycles = proc->number_cycles;
 	if (nb_cycles > 1)
-	{
 		proc->number_cycles--;
-	}
 	else if (nb_cycles == 1)
 	{
 		execute_ins(vm, proc);
 		proc->number_cycles--;
 		proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
+		proc->number_cycles = load_ins(proc, vm->mem_space);
+		if (!proc->number_cycles)
+			proc->pc++;
 	}
-	else if (nb_cycles == 0)
+	if (nb_cycles == 0)
 	{
 		proc->number_cycles = load_ins(proc, vm->mem_space);
 		if (!proc->number_cycles)
 			proc->pc++;
-//		print_ins(&(proc->curr_ins));
+		else
+			proc->number_cycles--;
 	}
 	return TRUE;
 }
