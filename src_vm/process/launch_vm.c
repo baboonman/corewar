@@ -38,6 +38,7 @@ static int	init_vm_function(t_vm *vm)
 {
 	vm->ins_function[0] = ins_live;
 	vm->ins_function[1] = ins_ld;
+	vm->ins_function[2] = ins_st;
 	return (TRUE);
 }
 

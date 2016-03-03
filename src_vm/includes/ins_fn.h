@@ -6,8 +6,15 @@
 # include "process_struct.h"
 # include "mem_utils.h"
 # include <ft_printf.h>
+# define P_VAL_1 proc->curr_ins.param_val[0]
+# define P_VAL_2 proc->curr_ins.param_val[1]
+# define P_VAL_3 proc->curr_ins.param_val[2]
+# define P_TYPE_1 proc->curr_ins.param_type[0]
+# define P_TYPE_2 proc->curr_ins.param_type[1]
+# define P_TYPE_3 proc->curr_ins.param_type[2]
 
 void	ins_live(t_vm *vm, t_process *proc);
 void	ins_ld(t_vm *vm, t_process *proc);
+void	ins_st(t_vm *vm, t_process *proc);
 
 #endif
