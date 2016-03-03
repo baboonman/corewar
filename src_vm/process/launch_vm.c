@@ -73,12 +73,12 @@ int			launch_vm(t_vm *vm)
 	while (1)
 	{
 		execute_loop(vm);
-		if (vm->param.is_dump && vm->param.nb_cycle_dump == i)
+		++i;
+		if (vm->param.is_dump && vm->param.nb_cycle_dump <= i)
 		{
 			dump_memory(vm);
 			break ;
 		}
-		++i;
 	}
 	return (TRUE);
 }
