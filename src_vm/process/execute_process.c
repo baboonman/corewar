@@ -63,7 +63,11 @@ int				load_ins(t_process *proc, void *mem_space)
 	else
 		proc->curr_ins.param_type[0] = op_info->param_type[0];
 	if (!decode_param(proc, op_info->nb_param, mem_space, op_info))
+	{
+		if (op_info->mod_carry)
+			proc->carry = 0;
 		return (FALSE);
+	}
 	return (op_info->nb_cycle);
 }
 

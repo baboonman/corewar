@@ -11,6 +11,7 @@ typedef struct				s_op
 	char					*description;
 	int						has_opc;
 	int						has_idx;
+	int						mod_carry;
 
 }							t_op;
 
