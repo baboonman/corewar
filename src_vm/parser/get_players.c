@@ -49,6 +49,7 @@ static int		set_player_info(int fd, t_player *player,
 	player->header.prog_size = swap_uint32(player->header.prog_size);
 	player->nb = player_nb;
 	player->bin = safe_malloc(player->size_bin);
+	player->is_alive = TRUE;
 	lseek(fd, sizeof(t_header), SEEK_SET);
 	if (!read_part_file(fd, player->size_bin - sizeof(t_header), player->bin))
 	{

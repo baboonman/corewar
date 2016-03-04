@@ -61,6 +61,8 @@ static int	init_vm(t_vm *vm)
 	ft_bzero(vm->mem_space, MEM_SIZE);
 	write_player(vm);
 	init_vm_function(vm);
+	vm->cycle_die.to_die = CYCLE_TO_DIE;
+	vm->cycle_die.step = CYCLE_TO_DIE;
 	return (TRUE);
 }
 

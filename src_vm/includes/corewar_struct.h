@@ -13,6 +13,7 @@ typedef struct		s_player
 	int				nb;
 	t_list			*lst_process;
 	int				nb_live;
+	int				is_alive;
 }					t_player;
 
 typedef struct		s_param
@@ -25,6 +26,13 @@ typedef struct		s_param
 	int				verbose;
 }					t_param;
 
+typedef struct		s_cycle_die
+{
+	int				to_die;
+	int				step;
+	int				nb_cycle;
+}					t_cycle_die;
+
 typedef struct		s_vm
 {
 	t_player		players[MAX_PLAYERS];
@@ -32,6 +40,7 @@ typedef struct		s_vm
 	void			*mem_space;
 	t_param			param;
 	void			*ins_function[16];
+	t_cycle_die		cycle_die;
 }					t_vm;
 
 #endif
