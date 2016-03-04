@@ -100,7 +100,6 @@ int				execute_process(t_process *proc, t_vm *vm)
 	else if (nb_cycles == 1)
 	{
 		execute_ins(vm, proc);
-		proc->number_cycles--;
 		proc->number_cycles = load_ins(proc, vm->mem_space);
 		if (!proc->number_cycles)
 			proc->pc++;

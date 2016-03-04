@@ -4,6 +4,7 @@ void			ins_fork(t_vm *vm, t_process *proc)
 {
 	int			i;
 	t_process	*n_proc;
+	t_list		*list;
 
 	i = 0;
 	n_proc = safe_malloc(sizeof(t_process));
@@ -14,8 +15,9 @@ void			ins_fork(t_vm *vm, t_process *proc)
 	{
 		if (vm->players[i].nb == proc->player_nb)
 		{
-			ft_lstadd(&(vm->players[i].lst_process), ft_lstnew(n_proc,
-						sizeof(t_process)));
+			list = ft_lstnew(n_proc, sizeof(t_process));
+			list->next = vm->players[i].lst_process;
+			vm->players[i].lst_process = list;
 			break ;
 		}
 		i++;
