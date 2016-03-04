@@ -18,5 +18,6 @@ void	ins_or(t_vm *vm, t_process *proc)
 	else
 		r_val = read_n_bytes(4, vm->mem_space, proc->pc + (P_VAL_2 % IDX_MOD));
 	proc->reg[P_VAL_3 - 1] = l_val | r_val;
-	proc->carry = 1;
+	proc->carry = !(proc->reg[P_VAL_3 - 1]);
+	proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
 }

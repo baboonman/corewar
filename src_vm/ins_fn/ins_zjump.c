@@ -4,6 +4,9 @@ void	ins_zjump(t_vm *vm, t_process *proc)
 {
 	(void)vm;
 	if (!proc->carry)
+	{
+		proc->pc++;
 		return ;
+	}
 	proc->pc += (P_VAL_1 % IDX_MOD);
 }

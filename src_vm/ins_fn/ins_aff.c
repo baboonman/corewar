@@ -7,4 +7,5 @@ void			ins_aff(t_vm *vm, t_process *proc)
 	(void)vm;
 	msg = proc->reg[P_VAL_1 - 1] % 256;
 	write(1, &msg, 1);
+	proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
 }

@@ -17,4 +17,6 @@ void			ins_lldi(t_vm *vm, t_process *proc)
 		p2 = P_VAL_2;
 	proc->reg[P_VAL_3 - 1] = read_n_bytes(REG_SIZE, vm->mem_space,
 								proc->pc + (p1 + p2));
+	proc->carry = !(proc->reg[P_VAL_3 - 1]);
+	proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
 }

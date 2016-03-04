@@ -17,11 +17,11 @@ int			execute_loop(t_vm *vm)
 {
 	int		i;
 
-	i = 0;
-	while (i < vm->nb_players)
+	i = vm->nb_players;
+	while (i--)
 	{
-		execute_player_process(vm->players + i, vm);
-		++i;
+		if (vm->players[i].is_alive)
+			execute_player_process(vm->players + i, vm);
 	}
-	return (TRUE);
+	return (check_live(vm));
 }

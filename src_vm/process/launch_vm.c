@@ -27,7 +27,8 @@ static int	write_player(t_vm *vm)
 	{
 		player = vm->players + i;
 		off = i * offset;
-		ft_memcpy(vm->mem_space + off, player->bin, player->size_bin);
+		printf("size: %lu\n", player->size_bin);
+		ft_memcpy(vm->mem_space + off, player->bin, player->size_bin - sizeof(t_header));
 		init_player_process(player, off);
 		++i;
 	}
@@ -69,18 +70,28 @@ static int	init_vm(t_vm *vm)
 int			launch_vm(t_vm *vm)
 {
 	int		i;
+	int		flag;
 
+	flag = 0;
 	i = 0;
 	init_vm(vm);
 	while (1)
 	{
-		execute_loop(vm);
+		if (!execute_loop(vm))
+		{
+			ft_printf("Nb loop: %d\n", i);
+			dump_memory(vm);
+			return (TRUE);
+		}
 		++i;
 		if (vm->param.is_dump && vm->param.nb_cycle_dump <= i)
 		{
+			flag = 1;
 			dump_memory(vm);
 			break ;
 		}
 	}
+	if (!flag)
+		dump_memory(vm);
 	return (TRUE);
 }

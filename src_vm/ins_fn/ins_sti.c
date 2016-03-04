@@ -17,4 +17,5 @@ void	ins_sti(t_vm *vm, t_process *proc)
 		r_val = P_VAL_3;
 	write_n_bytes(4, vm->mem_space, proc->pc + ((l_val + r_val) % IDX_MOD),
 			proc->reg[P_VAL_1 - 1]);
+	proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
 }

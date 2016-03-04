@@ -18,5 +18,6 @@ void			ins_and(t_vm *vm, t_process *proc)
 	else
 		p2 = P_VAL_2;
 	proc->reg[P_VAL_3 - 1] = p1 & p2;
-	proc->carry = 1;
+	proc->carry = !(proc->reg[P_VAL_3 - 1]);
+	proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
 }
