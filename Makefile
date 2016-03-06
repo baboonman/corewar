@@ -17,6 +17,7 @@ SRC_ASM = src_asm/main.c \
 		  src_asm/process_op_utils.c \
 		  src_asm/process_op_utils_2.c \
 		  src_asm/error_util.c \
+		  src_asm/check_param_type.c \
 		  src_common/op.c \
 		  src_common/safe_malloc.c \
 		  src_common/swap_bytes.c
