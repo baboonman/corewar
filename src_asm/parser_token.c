@@ -89,6 +89,8 @@ static int			compute_token(t_bin_data *data, t_token_op *token,
 	op_info = &(g_op_tab[token->op - 1]);
 	if (op_info->has_opc)
 		ocp = get_ocp(token, op_info->param_type, err);
+	else
+		check_param_type(token, op_info->param_type, err);
 	if (*err)
 		return (FALSE);
 	line[0] = token->op;

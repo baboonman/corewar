@@ -10,6 +10,7 @@
 # include "op.h"
 # include "swap_bytes.h"
 # include "safe_malloc.h"
+# include "check_param_type.h"
 
 typedef struct			s_label_param
 {
