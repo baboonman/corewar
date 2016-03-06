@@ -20,5 +20,6 @@ void	ins_live(t_vm *vm, t_process *proc)
 		proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
 		return ;
 	}
+		ft_printf("addr: %d\n", proc->pc);
 	proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
 }

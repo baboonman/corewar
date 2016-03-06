@@ -20,6 +20,7 @@ typedef struct				s_process
 	t_ins					curr_ins;
 	int						player_nb;
 	int						nb_live;
+	int						proc_nb;
 }							t_process;
 
 #endif

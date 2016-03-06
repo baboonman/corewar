@@ -42,6 +42,7 @@ typedef struct		s_vm
 	t_param			param;
 	void			*ins_function[16];
 	t_cycle_die		cycle_die;
+	int				nb_proc;
 }					t_vm;
 
 #endif

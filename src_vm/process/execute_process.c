@@ -65,8 +65,6 @@ int				load_ins(t_process *proc, void *mem_space)
 		proc->curr_ins.param_type[0] = op_info->param_type[0];
 	if (!decode_param(proc, op_info->nb_param, mem_space, op_info))
 	{
-		if (op_info->mod_carry)
-			proc->carry = 0;
 		return (FALSE);
 	}
 	return (op_info->nb_cycle);
@@ -79,8 +77,8 @@ static int		execute_ins(t_vm *vm, t_process *proc)
 	//ft_printf("op exec: %d\n", proc->curr_ins.opcode);
 	if (vm->param.verbose)
 	{
-		ft_printf("P	%d, %s, %d (%d), %d (%d), %d (%d)\n",
-				proc->player_nb, g_op_tab[proc->curr_ins.opcode].name_op,
+		ft_printf("P	%d, %d, %s, %d (%d), %d (%d), %d (%d)\n",
+				proc->player_nb, proc->proc_nb, g_op_tab[proc->curr_ins.opcode].name_op,
 				proc->curr_ins.param_val[0], proc->curr_ins.param_type[0],
 				proc->curr_ins.param_val[1], proc->curr_ins.param_type[1],
 				proc->curr_ins.param_val[2], proc->curr_ins.param_type[2]);
@@ -102,13 +100,21 @@ int				execute_process(t_process *proc, t_vm *vm)
 		execute_ins(vm, proc);
 		proc->number_cycles = load_ins(proc, vm->mem_space);
 		if (!proc->number_cycles)
+		{
+			if (vm->param.verbose)
+				//ft_printf("execute invalid instruction\n");
 			proc->pc++;
+		}
 	}
 	if (nb_cycles == 0)
 	{
 		proc->number_cycles = load_ins(proc, vm->mem_space);
 		if (!proc->number_cycles)
+		{
+			if (vm->param.verbose)
+				//ft_printf("execute invalid instruction\n");
 			proc->pc++;
+		}
 		else
 			proc->number_cycles--;
 	}

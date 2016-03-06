@@ -3,6 +3,7 @@
 static int	init_player_process(t_vm *vm, t_player *player, size_t pos)
 {
 	t_process	*process;
+	t_list		*list;
 
 	process = safe_malloc(sizeof(t_process));
 	ft_bzero(process, sizeof(t_process));
@@ -10,7 +11,10 @@ static int	init_player_process(t_vm *vm, t_player *player, size_t pos)
 	process->pc = pos;
 	process->number_cycles = 0;
 	process->player_nb = player->nb;
-	ft_lstadd(&(vm->lst_process), ft_lstnew(process, sizeof(t_process)));
+	process->proc_nb = vm->nb_proc++;
+	list = ft_lstnew(process, sizeof(t_process));
+	list->next = vm->lst_process;
+	vm->lst_process = list;
 	return (TRUE);
 }
 
@@ -57,6 +61,7 @@ static int	init_vm_function(t_vm *vm)
 
 static int	init_vm(t_vm *vm)
 {
+	vm->nb_proc = 1;
 	vm->mem_space = safe_malloc(MEM_SIZE);
 	ft_bzero(vm->mem_space, MEM_SIZE);
 	write_player(vm);
@@ -91,6 +96,9 @@ int			launch_vm(t_vm *vm)
 		}
 	}
 	if (!flag)
+	{
+		ft_printf("End before end of dump\n");
 		dump_memory(vm);
+	}
 	return (TRUE);
 }

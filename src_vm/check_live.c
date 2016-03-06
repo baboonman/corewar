@@ -13,6 +13,10 @@ static int	check_process_alive(t_vm *vm)
 		proc = lst_proc->content;
 		if (proc->nb_live == 0)
 		{
+			if (vm->param.verbose)
+			{
+			ft_printf("A processus of the player %d die\n", proc->player_nb);
+					}
 			free(proc);
 			ft_lstdelone(&(vm->lst_process), lst_proc);
 		}
