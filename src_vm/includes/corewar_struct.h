@@ -11,7 +11,7 @@ typedef struct		s_player
 	size_t			size_bin;
 	t_header		header;
 	int				nb;
-	t_list			*lst_process;
+	//t_list			*lst_process;
 	int				nb_live;
 	int				is_alive;
 }					t_player;
@@ -36,6 +36,7 @@ typedef struct		s_cycle_die
 typedef struct		s_vm
 {
 	t_player		players[MAX_PLAYERS];
+	t_list			*lst_process;
 	int				nb_players;
 	void			*mem_space;
 	t_param			param;

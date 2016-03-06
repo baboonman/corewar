@@ -1,5 +1,26 @@
 #include "check_live.h"
 
+static int	check_process_alive(t_vm *vm)
+{
+	t_list		*lst_proc;
+	t_list		*tmp;
+	t_process	*proc;
+
+	lst_proc = vm->lst_process;
+	while (lst_proc)
+	{
+		tmp = lst_proc->next;
+		proc = lst_proc->content;
+		if (proc->nb_live == 0)
+		{
+			free(proc);
+			ft_lstdelone(&(vm->lst_process), lst_proc);
+		}
+		lst_proc = tmp;
+	}
+	return (TRUE);
+}
+
 static int	check_players_alive(t_vm *vm)
 {
 	int		i;
@@ -51,6 +72,7 @@ int			check_live(t_vm *vm)
 	nb_live = 0;
 	if (vm->cycle_die.to_die <= 0)
 	{
+		check_process_alive(vm);
 		nb_live = check_players_alive(vm);
 		ft_printf("nb live: %d\n", nb_live);
 		if (nb_live >= NBR_LIVE || vm->cycle_die.nb_cycle >= MAX_CHECKS)

@@ -1,9 +1,11 @@
 #include "parse_arg.h"
 
-static int	parse_dump(char **av, t_param *param)
+static int	parse_dump(char **av, t_param *param, int ac)
 {
 	int		i;
 
+	if (ac < 2)
+		return (0);
 	if (ft_strcmp(av[0], "-dump"))
 		return (0);
 	i = ft_strlen(av[1]);
@@ -55,7 +57,7 @@ static int	parse_first_arg(t_param *param, int ac, char **av)
 	param->verbose = FALSE;
 	while (i < ac)
 	{
-		if ((ret = parse_dump(av + i, param)) < 0)
+		if ((ret = parse_dump(av + i, param, ac - i)) < 0)
 			return (-1);
 		else if (ret > 0)
 		{

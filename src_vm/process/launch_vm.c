@@ -1,6 +1,6 @@
 #include "launch_vm.h"
 
-static int	init_player_process(t_player *player, size_t pos)
+static int	init_player_process(t_vm *vm, t_player *player, size_t pos)
 {
 	t_process	*process;
 
@@ -10,7 +10,7 @@ static int	init_player_process(t_player *player, size_t pos)
 	process->pc = pos;
 	process->number_cycles = 0;
 	process->player_nb = player->nb;
-	ft_lstadd(&(player->lst_process), ft_lstnew(process, sizeof(t_process)));
+	ft_lstadd(&(vm->lst_process), ft_lstnew(process, sizeof(t_process)));
 	return (TRUE);
 }
 
@@ -27,9 +27,8 @@ static int	write_player(t_vm *vm)
 	{
 		player = vm->players + i;
 		off = i * offset;
-		printf("size: %lu\n", player->size_bin);
 		ft_memcpy(vm->mem_space + off, player->bin, player->size_bin - sizeof(t_header));
-		init_player_process(player, off);
+		init_player_process(vm, player, off);
 		++i;
 	}
 	return (TRUE);

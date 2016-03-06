@@ -47,7 +47,7 @@ static int		set_player_info(int fd, t_player *player,
 	player->header.comment[COMMENT_LENGTH] = '\0';
 	player->header.magic = swap_uint32(player->header.magic);
 	player->header.prog_size = swap_uint32(player->header.prog_size);
-	player->nb = player_nb;
+	player->nb = player_nb * -1;
 	player->bin = safe_malloc(player->size_bin);
 	player->is_alive = TRUE;
 	lseek(fd, sizeof(t_header), SEEK_SET);
