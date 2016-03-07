@@ -51,7 +51,6 @@ int				load_ins(t_process *proc, void *mem_space)
 	uint8_t		opc;
 
 	proc->curr_ins.opcode = *((uint8_t*)(mem_space + proc->pc)) - 1;
-	//ft_printf("op: %d\n", proc->curr_ins.opcode);
 	if (proc->curr_ins.opcode < 0 || proc->curr_ins.opcode > 15)
 		return (0);
 	proc->curr_ins.size = 1;
@@ -63,18 +62,17 @@ int				load_ins(t_process *proc, void *mem_space)
 	}
 	else
 		proc->curr_ins.param_type[0] = op_info->param_type[0];
-	if (!decode_param(proc, op_info->nb_param, mem_space, op_info))
-	{
-		return (FALSE);
-	}
 	return (op_info->nb_cycle);
 }
 
 static int		execute_ins(t_vm *vm, t_process *proc)
 {
 	void		(*fn)(t_vm *, t_process *);
+	t_op		*op_info;
 
-	//ft_printf("op exec: %d\n", proc->curr_ins.opcode);
+	op_info = &(g_op_tab[proc->curr_ins.opcode]);
+	if (!decode_param(proc, op_info->nb_param, vm->mem_space, op_info))
+		return (FALSE);
 	if (vm->param.verbose)
 	{
 		ft_printf("P	%d, %d, %s, %d (%d), %d (%d), %d (%d)\n",
