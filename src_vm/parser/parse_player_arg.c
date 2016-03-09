@@ -98,5 +98,5 @@ int			parse_player_arg(t_param *param, char **av, int ac)
 {
 	if (!parse_setted_nb(param, ac, av))
 		return (FALSE);
-	return (TRUE);
+	return (check_ext(param));
 }

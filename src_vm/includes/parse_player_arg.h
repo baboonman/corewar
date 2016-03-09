@@ -3,6 +3,7 @@
 
 # include "corewar_struct.h"
 # include "corewar_define.h"
+# include "check_ext.h"
 
 # include <ft_printf.h>
 # include <libft.h>
