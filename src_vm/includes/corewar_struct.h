@@ -4,6 +4,8 @@
 # include "op.h"
 # include <stddef.h>
 # include <list.h>
+# include <ncurses.h>
+# include <panel.h>
 
 typedef struct		s_player
 {
@@ -33,6 +35,13 @@ typedef struct		s_cycle_die
 	int				nb_cycle;
 }					t_cycle_die;
 
+typedef struct		s_ncurses
+{
+	WINDOW			*window[3];
+	WINDOW			*border[3];
+	PANEL			*panel[6];
+}					t_ncurses;
+
 typedef struct		s_vm
 {
 	t_player		players[MAX_PLAYERS];
@@ -43,6 +52,7 @@ typedef struct		s_vm
 	void			*ins_function[16];
 	t_cycle_die		cycle_die;
 	int				nb_proc;
+	t_ncurses		ncurses;
 }					t_vm;
 
 #endif

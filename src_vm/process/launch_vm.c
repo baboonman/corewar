@@ -68,7 +68,7 @@ static int	init_vm(t_vm *vm)
 	init_vm_function(vm);
 	vm->cycle_die.to_die = CYCLE_TO_DIE;
 	vm->cycle_die.step = CYCLE_TO_DIE;
-	return (TRUE);
+	return (init_ncurses(&(vm->ncurses)));
 }
 
 int			launch_vm(t_vm *vm)
@@ -78,7 +78,8 @@ int			launch_vm(t_vm *vm)
 
 	flag = 0;
 	i = 0;
-	init_vm(vm);
+	if (!init_vm(vm))
+		return (FALSE);
 	while (1)
 	{
 		if (!execute_loop(vm))

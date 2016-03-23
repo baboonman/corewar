@@ -12,6 +12,7 @@
 # include "dump_memory.h"
 # include "execute_loop.h"
 # include "ins_fn.h"
+# include "init_ncurses.h"
 
 int			launch_vm(t_vm *vm);
 

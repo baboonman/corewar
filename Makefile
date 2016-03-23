@@ -50,6 +50,7 @@ SRC_COREWAR=src_vm/corewar_main.c \
 			src_vm/ins_fn/ins_zjump.c \
 			src_vm/ins_fn/ins_sti.c \
 			src_vm/ins_fn/ins_lld.c \
+			src_vm/ncurses/init_ncurses.c \
 			src_vm/mem_utils.c \
 			src_vm/check_live.c \
 		    src_common/op.c \
@@ -61,7 +62,7 @@ OBJ_COREWAR= $(SRC_COREWAR:.c=.o)
 
 NAME_ASM=asm
 NAME_COREWAR=corewar
-LIB=-L./libft -lft_core -lft_list -lft_printf
+LIB=-L./libft -lft_core -lft_list -lft_printf -lpanel -lncurses
 DIR_LFT=./libft
 INCLUDES_CMN=-I ./libft/includes -I ./src_common/includes
 INCLUDES_ASM=-I ./src_asm/includes
