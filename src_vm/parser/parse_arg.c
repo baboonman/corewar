@@ -19,6 +19,14 @@ static int	parse_dump(char **av, t_param *param, int ac)
 	return (1);
 }
 
+static int	parse_ncurses(char **av, t_param *param)
+{
+	if (ft_strcmp(av[0], "-nc"))
+		return (FALSE);
+	param->is_ncurses= TRUE;
+	return (TRUE);
+}
+
 static int	parse_verbose(char **av, t_param *param)
 {
 	if (ft_strcmp(av[0], "-v"))
@@ -32,9 +40,7 @@ static void	print_param(t_param *p)
 	int		i;
 
 	if (p->is_dump)
-	{
 		ft_printf("Dump %d\n", p->nb_cycle_dump);
-	}
 	i = 0;
 	while (i < MAX_PLAYERS)
 	{
@@ -65,6 +71,11 @@ static int	parse_first_arg(t_param *param, int ac, char **av)
 			continue ;
 		}
 		if (parse_verbose(av + i, param))
+		{
+			++i;
+			continue ;
+		}
+		if (parse_ncurses(av + i, param))
 		{
 			++i;
 			continue ;

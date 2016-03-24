@@ -21,6 +21,7 @@ typedef struct		s_player
 typedef struct		s_param
 {
 	int				is_dump;
+	int				is_ncurses;
 	int				nb_cycle_dump;
 	char			*file_players[MAX_PLAYERS];
 	int				player_nb[MAX_PLAYERS];

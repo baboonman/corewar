@@ -68,7 +68,9 @@ static int	init_vm(t_vm *vm)
 	init_vm_function(vm);
 	vm->cycle_die.to_die = CYCLE_TO_DIE;
 	vm->cycle_die.step = CYCLE_TO_DIE;
-	return (init_ncurses(&(vm->ncurses)));
+	if (vm->param.is_ncurses)
+		return (init_ncurses(&(vm->ncurses)));
+	return (1);
 }
 
 int			launch_vm(t_vm *vm)
@@ -84,9 +86,9 @@ int			launch_vm(t_vm *vm)
 	{
 		if (!execute_loop(vm))
 		{
-			ft_printf("Nb loop: %d\n", i);
-			dump_memory(vm);
-			return (TRUE);
+			if (vm->param.verbose)
+				ft_printf("Total number of loop: %d\n", i);
+			break ;
 		}
 		++i;
 		if (vm->param.is_dump && vm->param.nb_cycle_dump <= i)
@@ -96,9 +98,11 @@ int			launch_vm(t_vm *vm)
 			break ;
 		}
 	}
-	if (!flag)
+	if (vm->param.is_ncurses)
+		quit_ncurses(&(vm->ncurses));
+	if (!flag & vm->param.is_dump)
 	{
-		ft_printf("End before end of dump\n");
+		ft_printf("Ending before end of dump\n");
 		dump_memory(vm);
 	}
 	return (TRUE);

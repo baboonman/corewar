@@ -100,7 +100,7 @@ int				execute_process(t_process *proc, t_vm *vm)
 		if (!proc->number_cycles)
 		{
 			if (vm->param.verbose)
-				//ft_printf("execute invalid instruction\n");
+				ft_printf("execute invalid instruction\n");
 			proc->pc++;
 		}
 	}
@@ -110,7 +110,7 @@ int				execute_process(t_process *proc, t_vm *vm)
 		if (!proc->number_cycles)
 		{
 			if (vm->param.verbose)
-				//ft_printf("execute invalid instruction\n");
+				ft_printf("Execute invalid instruction\n");
 			proc->pc++;
 		}
 		else

@@ -14,9 +14,7 @@ static int	check_process_alive(t_vm *vm)
 		if (proc->nb_live == 0)
 		{
 			if (vm->param.verbose)
-			{
-			ft_printf("A processus of the player %d die\n", proc->player_nb);
-					}
+				ft_printf("A processus of the player %d die\n", proc->player_nb);
 			free(proc);
 			ft_lstdelone(&(vm->lst_process), lst_proc);
 		}
@@ -34,7 +32,8 @@ static int	check_players_alive(t_vm *vm)
 	tot_live = 0;
 	while (i < vm->nb_players)
 	{
-		ft_printf("live: %d\n", vm->players[i].nb_live);
+		if (vm->param.verbose)
+			ft_printf("Total live: %d\n", vm->players[i].nb_live);
 		tot_live += vm->players[i].nb_live;
 		if (!(vm->players[i].is_alive))
 		{
@@ -44,7 +43,8 @@ static int	check_players_alive(t_vm *vm)
 		if (!vm->players[i].nb_live)
 		{
 			vm->players[i].is_alive = FALSE;
-			ft_printf("player: %d, %s die\n", vm->players[i].nb, vm->players[i].header.prog_name);
+			if (!vm->param.is_ncurses)
+				ft_printf("player: %d, %s die\n", vm->players[i].nb, vm->players[i].header.prog_name);
 			++i;
 			continue ;
 		}
@@ -78,12 +78,12 @@ int			check_live(t_vm *vm)
 	{
 		check_process_alive(vm);
 		nb_live = check_players_alive(vm);
-		ft_printf("nb live: %d\n", nb_live);
 		if (nb_live >= NBR_LIVE || vm->cycle_die.nb_cycle >= MAX_CHECKS)
 		{
 			vm->cycle_die.step -= CYCLE_DELTA;
 			vm->cycle_die.nb_cycle = 0;
-			ft_printf("CTD decrement (%d)\n", vm->cycle_die.step);
+			if (vm->param.verbose)
+				ft_printf("CTD decrement (%d)\n", vm->cycle_die.step);
 		}
 		else
 			vm->cycle_die.nb_cycle++;

@@ -15,7 +15,8 @@ void	ins_sti(t_vm *vm, t_process *proc)
 		r_val = proc->reg[P_VAL_3 - 1];
 	else
 		r_val = P_VAL_3;
-	ft_printf("\t\twrite at: %d + %d (%d), %d\n", l_val, r_val, (l_val + r_val) % IDX_MOD,
+	if (vm->param.verbose)
+		ft_printf("\t\twrite at: %d + %d (%d), %d\n", l_val, r_val, (l_val + r_val) % IDX_MOD,
 			proc->pc + ((l_val + r_val) % IDX_MOD));
 	write_n_bytes(4, vm->mem_space, proc->pc + ((l_val + r_val) % IDX_MOD),
 			proc->reg[P_VAL_1 - 1]);
