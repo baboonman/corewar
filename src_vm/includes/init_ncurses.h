@@ -20,6 +20,9 @@
 # define PLAYERS_INFO_HEIGHT (4 + 2)
 # define PLAYERS_INFO_WIDTH (MEM_WIDTH + INS_WIDTH + 1)
 
+# define MEM_BORD_WIDTH MEM_WIDTH + 2
+# define MEM_BORD_HEIGHT MEM_HEIGHT + 2
+
 # define PLAYERS_POS_X 0
 # define PLAYERS_POS_y 0
 

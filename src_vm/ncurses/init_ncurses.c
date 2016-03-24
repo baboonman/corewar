@@ -17,8 +17,8 @@ static int	create_borders(t_ncurses *ncurses)
 	if (!(ncurses->border[WIN_INS]))
 		return (FALSE);
 
-	ncurses->border[WIN_MEM] = newwin(MEM_HEIGHT, MEM_WIDTH,
-			PLAYERS_INFO_HEIGHT, 0);
+	ncurses->border[WIN_MEM] = newwin(MEM_BORD_HEIGHT, MEM_BORD_WIDTH,
+			PLAYERS_INFO_HEIGHT - 1, 0);
 	if (!(ncurses->border[WIN_MEM]))
 		return (FALSE);
 
@@ -29,6 +29,25 @@ static int	create_borders(t_ncurses *ncurses)
 	i = 0;
 	while (i < 3)
 		box(ncurses->border[i++], ACS_VLINE, ACS_HLINE);
+	return (TRUE);
+}
+
+static int	create_windows(t_ncurses *ncurses)
+{
+	ncurses->window[WIN_INS] = newwin(INS_HEIGHT, INS_WIDTH,
+			PLAYERS_INFO_HEIGHT, MEM_WIDTH + 1);
+	if (!(ncurses->window[WIN_INS]))
+		return (FALSE);
+
+	ncurses->window[WIN_MEM] = newwin(MEM_HEIGHT, MEM_WIDTH,
+			PLAYERS_INFO_HEIGHT, 1);
+	if (!(ncurses->window[WIN_MEM]))
+		return (FALSE);
+
+	ncurses->window[WIN_INFO] = newwin(PLAYERS_INFO_HEIGHT, PLAYERS_INFO_WIDTH,
+			0, 0);
+	if (!(ncurses->window[WIN_INFO]))
+		return (FALSE);
 	return (TRUE);
 }
 
@@ -52,7 +71,7 @@ int			init_ncurses(t_ncurses *ncurses)
 {
 	set_init_val();
 	create_borders(ncurses);
+	create_windows(ncurses);
 	set_panel(ncurses);
-	
 	return (TRUE);
 }
