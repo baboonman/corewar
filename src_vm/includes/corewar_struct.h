@@ -7,6 +7,8 @@
 # include <ncurses.h>
 # include <panel.h>
 
+# define NB_INS_DISPLAY 40
+
 typedef struct		s_player
 {
 	void			*bin;
@@ -42,6 +44,9 @@ typedef struct		s_ncurses
 	WINDOW			*window[4];
 	WINDOW			*border[3];
 	PANEL			*panel[7];
+	char			*lst_ins[NB_INS_DISPLAY];
+	int				pos;
+	int				size;
 }					t_ncurses;
 
 typedef struct		s_vm

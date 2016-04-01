@@ -43,8 +43,6 @@
 # define WIN_INS 2
 # define WIN_GLOB_INF 3
 
-# define SPACE_INT "          "
-
 int		init_ncurses(t_ncurses *ncurses);
 
 #endif

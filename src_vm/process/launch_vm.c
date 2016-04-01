@@ -79,9 +79,10 @@ static void	ncurses_render(t_vm *vm)
 	{
 		update_player_info(vm);
 		update_vm_info(vm);
+		update_ins_info(vm);
 		update_panels();
 		doupdate();
-		usleep(2000);
+		usleep(20000);
 	}
 }
 
