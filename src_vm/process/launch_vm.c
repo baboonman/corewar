@@ -73,6 +73,18 @@ static int	init_vm(t_vm *vm)
 	return (1);
 }
 
+static void	ncurses_render(t_vm *vm)
+{
+	if (vm->param.is_ncurses)
+	{
+		update_player_info(vm);
+		update_vm_info(vm);
+		update_panels();
+		doupdate();
+		usleep(2000);
+	}
+}
+
 int			launch_vm(t_vm *vm)
 {
 	int		i;
@@ -97,12 +109,9 @@ int			launch_vm(t_vm *vm)
 			dump_memory(vm);
 			break ;
 		}
-		update_player_info(vm);
-		update_vm_info(vm);
-		update_panels();
-		doupdate();
-		usleep(2000);
+		ncurses_render(vm);
 	}
+	ncurses_render(vm);
 	if (vm->param.is_ncurses)
 		quit_ncurses(&(vm->ncurses));
 	if (!flag & vm->param.is_dump)
