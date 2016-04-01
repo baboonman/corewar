@@ -34,13 +34,14 @@ typedef struct		s_cycle_die
 	int				to_die;
 	int				step;
 	int				nb_cycle;
+	int				tot_live;
 }					t_cycle_die;
 
 typedef struct		s_ncurses
 {
-	WINDOW			*window[3];
+	WINDOW			*window[4];
 	WINDOW			*border[3];
-	PANEL			*panel[6];
+	PANEL			*panel[7];
 }					t_ncurses;
 
 typedef struct		s_vm
