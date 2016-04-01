@@ -52,6 +52,8 @@ SRC_COREWAR=src_vm/corewar_main.c \
 			src_vm/ins_fn/ins_lld.c \
 			src_vm/ncurses/init_ncurses.c \
 			src_vm/ncurses/quit_ncurses.c \
+			src_vm/ncurses/init_mem.c \
+			src_vm/ncurses/display_utils.c \
 			src_vm/mem_utils.c \
 			src_vm/check_live.c \
 		    src_common/op.c \

@@ -7,6 +7,7 @@
 # include "process_struct.h"
 # include "mem_utils.h"
 # include "safe_malloc.h"
+# include "init_mem.h"
 # include <ft_printf.h>
 # include <libft.h>
 # define P_VAL_1 proc->curr_ins.param_val[0]

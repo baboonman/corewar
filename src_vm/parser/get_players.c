@@ -74,7 +74,7 @@ static int		test_player_validity(t_player *player, char *file_name)
 	return (TRUE);
 }
 
-static int		get_player(char *file_name, int player_nb, t_player *player)
+static int		get_player(char *file_name, int player_nb, t_player *player, int col)
 {
 	int		fd;
 	off_t	off;
@@ -88,6 +88,7 @@ static int		get_player(char *file_name, int player_nb, t_player *player)
 	player->size_bin = (size_t)off;
 	if (!set_player_info(fd, player, player_nb, file_name))
 		return (FALSE);
+	player->color = col;
 	if (!test_player_validity(player, file_name))
 		return (FALSE);
 	return (TRUE);
@@ -96,18 +97,21 @@ static int		get_player(char *file_name, int player_nb, t_player *player)
 int				get_players(t_vm *vm)
 {
 	int		i;
+	int		col;
 	int		tot_players;
 
 	i = 0;
+	col = 2;
 	tot_players = 0;
 	while (i < MAX_PLAYERS)
 	{
 		if (vm->param.file_players[i])
 		{
 			if (!get_player(vm->param.file_players[i], i + 1,
-						vm->players + tot_players))
+						vm->players + tot_players, col))
 				return (FALSE);
 			++tot_players;
+			col++;
 		}
 		i++;
 	}

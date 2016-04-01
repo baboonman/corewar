@@ -69,7 +69,7 @@ static int	init_vm(t_vm *vm)
 	vm->cycle_die.to_die = CYCLE_TO_DIE;
 	vm->cycle_die.step = CYCLE_TO_DIE;
 	if (vm->param.is_ncurses)
-		return (init_ncurses(&(vm->ncurses)));
+		return (init_ncurses(&(vm->ncurses), vm));
 	return (1);
 }
 
@@ -97,6 +97,8 @@ int			launch_vm(t_vm *vm)
 			dump_memory(vm);
 			break ;
 		}
+		update_panels();
+		doupdate();
 	}
 	if (vm->param.is_ncurses)
 		quit_ncurses(&(vm->ncurses));

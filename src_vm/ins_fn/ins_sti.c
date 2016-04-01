@@ -16,9 +16,12 @@ void	ins_sti(t_vm *vm, t_process *proc)
 	else
 		r_val = P_VAL_3;
 	if (vm->param.verbose)
-		ft_printf("\t\twrite at: %d + %d (%d), %d\n", l_val, r_val, (l_val + r_val) % IDX_MOD,
-			proc->pc + ((l_val + r_val) % IDX_MOD));
+		ft_printf("\t\twrite at: %d + %d (%d), %d\n", l_val, r_val,
+			(l_val + r_val) % IDX_MOD, proc->pc + ((l_val + r_val) % IDX_MOD));
 	write_n_bytes(4, vm->mem_space, proc->pc + ((l_val + r_val) % IDX_MOD),
 			proc->reg[P_VAL_1 - 1]);
+	if (vm->param.is_ncurses)
+		display_mem(vm, 4, proc->pc + ((l_val + r_val) % IDX_MOD),
+				find_player(vm, proc));
 	proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
 }
