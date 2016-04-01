@@ -97,6 +97,10 @@ int			launch_vm(t_vm *vm)
 			dump_memory(vm);
 			break ;
 		}
+		update_player_info(vm);
+		update_panels();
+		doupdate();
+		usleep(1000);
 	}
 	if (vm->param.is_ncurses)
 		quit_ncurses(&(vm->ncurses));

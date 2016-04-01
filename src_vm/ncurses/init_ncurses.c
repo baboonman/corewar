@@ -56,9 +56,9 @@ static int	create_windows(t_ncurses *ncurses)
 			1, 1);
 	if (!(ncurses->window[WIN_INFO]))
 		return (FALSE);
-	//wbkgd(ncurses->window[WIN_INS], COLOR_PAIR(1));
-	//wbkgd(ncurses->window[WIN_MEM], COLOR_PAIR(1));
-	//wbkgd(ncurses->window[WIN_INFO], COLOR_PAIR(1));
+//	wbkgd(ncurses->window[WIN_INS], COLOR_PAIR(1));
+//	wbkgd(ncurses->window[WIN_MEM], COLOR_PAIR(1));
+//	wbkgd(ncurses->window[WIN_INFO], COLOR_PAIR(1));
 	return (TRUE);
 }
 
