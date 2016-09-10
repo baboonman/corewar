@@ -10,7 +10,7 @@ static void		add_line(t_ncurses *ncurses, t_process *proc)
 	res = ft_strnew(ft_strlen(dir) + ft_strlen("fork ") + ft_strlen(inf_str));
 	ft_strcpy(res, inf_str);
 	ft_strcat(res, "fork ");
-	ft_strcat(dir);
+	//ft_strcat(dir);
 	add_ins_line(ncurses, res);
 	free(dir);
 	free(inf_str);

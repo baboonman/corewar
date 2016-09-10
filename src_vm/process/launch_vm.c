@@ -82,7 +82,7 @@ static void	ncurses_render(t_vm *vm)
 		update_ins_info(vm);
 		update_panels();
 		doupdate();
-		usleep(20000);
+		usleep(500);
 	}
 }
 
