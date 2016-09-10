@@ -6,6 +6,7 @@
 # include <ncurses.h>
 # include <unistd.h>
 # include "corewar_struct.h"
+# include "init_mem.h"
 
 # include "op.h"
 
@@ -15,7 +16,7 @@
 # define MEM_HEIGHT (MEM_SIZE / MEM_LINE_SIZE)
 
 # define MEM_BORD_WIDTH MEM_WIDTH + 2
-# define MEM_BORD_HEIGHT MEM_HEIGHT
+# define MEM_BORD_HEIGHT MEM_HEIGHT + 2
 
 # define TMP_WIDTH (40)
 # define TMP_HEIGHT (MEM_HEIGHT - 2)
@@ -43,6 +44,6 @@
 # define WIN_INS 2
 # define WIN_GLOB_INF 3
 
-int		init_ncurses(t_ncurses *ncurses);
+int		init_ncurses(t_ncurses *ncurses, t_vm *vm);
 
 #endif

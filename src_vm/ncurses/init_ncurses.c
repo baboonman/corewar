@@ -13,6 +13,14 @@ static int	set_color(void)
 {
 	if (init_pair(1, COLOR_BLUE, COLOR_RED) == ERR)
 		return (FALSE);
+	if (init_pair(2, COLOR_BLUE, COLOR_BLACK) == ERR)
+		return (FALSE);
+	if (init_pair(3, COLOR_RED, COLOR_BLACK) == ERR)
+		return (FALSE);
+	if (init_pair(4, COLOR_GREEN, COLOR_BLACK) == ERR)
+		return (FALSE);
+	if (init_pair(5, COLOR_YELLOW, COLOR_BLACK) == ERR)
+		return (FALSE);
 	return (TRUE);
 }
 
@@ -48,7 +56,7 @@ static int	create_windows(t_ncurses *ncurses)
 		return (FALSE);
 
 	ncurses->window[WIN_MEM] = newwin(MEM_HEIGHT, MEM_WIDTH,
-			PLAYERS_INFO_HEIGHT, 1);
+			PLAYERS_INFO_BORD_HEIGHT, 1);
 	if (!(ncurses->window[WIN_MEM]))
 		return (FALSE);
 
@@ -87,12 +95,13 @@ static int	set_panel(t_ncurses *ncurses)
 	return (TRUE);
 }
 
-int			init_ncurses(t_ncurses *ncurses)
+int			init_ncurses(t_ncurses *ncurses, t_vm *vm)
 {
 	set_init_val();
 	set_color();
 	create_borders(ncurses);
 	create_windows(ncurses);
 	set_panel(ncurses);
+	init_mem(vm, ncurses);
 	return (TRUE);
 }

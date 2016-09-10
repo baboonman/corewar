@@ -18,6 +18,7 @@ typedef struct		s_player
 	//t_list			*lst_process;
 	int				nb_live;
 	int				is_alive;
+	int				color;
 }					t_player;
 
 typedef struct		s_param

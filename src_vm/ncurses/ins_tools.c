@@ -27,6 +27,46 @@ char	*get_reg_str(t_process *proc, int reg)
 	return (res);
 }
 
+char	*get_param_str(t_process *proc)
+{
+	int 	nb_param;
+	int		i;
+	t_ins	*ins;
+	char	*(str[3]);
+	size_t	tot_size;
+	char	*final_str;
+
+	nb_param = g_op_tab[proc->curr_ins.opcode - 1].nb_param;
+	i = 0;
+	ins = &(proc->curr_ins);
+	while (i < nb_param)
+	{
+		if (ins->param_type[i] & T_REG)
+			str[i] = get_reg_str(proc, i + 1);
+		else if (ins->param_type[i] & T_IND || ins->param_type[i] & T_DIR)
+			str[i] = ft_itoa(ins->param_val[i]);
+		i++;
+	}
+	tot_size = nb_param - 1;
+	i = 0;
+	while (i < nb_param)
+	{
+		tot_size += ft_strlen(str[i]);
+		i++;
+	}
+	final_str = ft_strnew(tot_size);
+	i = 0;
+	while (i < nb_param)
+	{
+		ft_strcat(final_str, str[i]);
+		i++;
+		if (i < nb_param)
+			ft_strcat(final_str, " ");
+	}
+	printf("nb_param: %d, opcode: %d\n", nb_param, ins->opcode);
+	return final_str;
+}
+
 char	*get_itoa_space(int val)
 {
 	char	*res;

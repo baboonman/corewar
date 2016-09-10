@@ -7,6 +7,7 @@
 # include "process_struct.h"
 # include "mem_utils.h"
 # include "safe_malloc.h"
+# include "init_mem.h"
 # include <ft_printf.h>
 # include <libft.h>
 # include "ins_tools.h"

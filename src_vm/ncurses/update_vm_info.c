@@ -16,4 +16,6 @@ void	update_vm_info(t_vm *vm)
 	mvwprintw(win, 2, 0, "Nb live: %d", vm->cycle_die.tot_live);
 	mvwprintw(win, 3, 0, "% *c", max_x - 1, ' ');
 	mvwprintw(win, 3, 0, "Step: %d", vm->cycle_die.step);
+	mvwprintw(win, 4, 0, "% *c", max_x - 1, ' ');
+	mvwprintw(win, 4, 0, "NB Proc: %d", vm->nb_proc);
 }
