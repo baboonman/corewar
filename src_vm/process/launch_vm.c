@@ -1,4 +1,5 @@
 #include "launch_vm.h"
+#include <sys/time.h>
 
 static int	init_player_process(t_vm *vm, t_player *player, size_t pos)
 {
@@ -73,24 +74,98 @@ static int	init_vm(t_vm *vm)
 	return (1);
 }
 
+int			sub_time(struct timeval a, struct timeval b, int tps)
+{
+	unsigned long int	t1, t2, t3;
+	
+
+	t1 = a.tv_sec * 1000000 + a.tv_usec;
+	t2 = b.tv_sec * 1000000 + b.tv_usec;
+	t3 = (unsigned long int)( (1.0f / tps) * 1000000.0f);
+
+	if (t2 - t1 > t3)
+		return (1);
+	return (0);
+}
+
+void		print_progress(t_vm *vm, int j)
+{
+	int		i;
+
+	i = j % 8;
+	if (i == 0)
+		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "|");
+	else if (i == 1)
+		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "/");
+	else if (i == 2)
+		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "-");
+	else if (i == 3)
+		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "\\");
+	else if (i == 4)
+		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "|");
+	else if (i == 5)
+		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "/");
+	else if (i == 6)
+		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "-");
+	else if (i == 7)
+		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "\\");
+
+}
+
 int			launch_vm(t_vm *vm)
 {
 	int		i;
 	int		flag;
+	int		exec_ret;
+	int		tps = 301;
+	struct timeval		a, b;
+	int		c;
 
+	exec_ret = 1;
 	flag = 0;
 	i = 0;
 	if (!init_vm(vm))
 		return (FALSE);
+	gettimeofday(&a, NULL);
 	while (1)
 	{
-		if (!execute_loop(vm))
+//		c = wgetch(stdscr);
+		c = getch();
+		if (c == 67)
+		{
+			if (tps < 1000)
+				tps += 50;
+		}
+		else if (c == 68)
+		{
+			if (tps > 50)
+				tps -= 50;
+		}
+		else if (c == 65)
+			tps = 1001;
+		else if (c == 66)
+			tps = 1;
+//		else if ( c > 0 )
+//		{
+//			mvwprintw(vm->ncurses.window[WIN_INFO], 0, 15, "  %d    ", c);
+//		}
+		gettimeofday(&b, NULL);
+		if (sub_time(a, b, tps))
+		{
+			exec_ret = execute_loop(vm);
+			gettimeofday(&a, NULL);
+			mvwprintw(vm->ncurses.window[WIN_INFO], 0, 0, "%d    %f   ", tps, 1.0f / tps);
+			print_progress(vm, i);
+			++i;
+		}
+		if (!exec_ret)
 		{
 			if (vm->param.verbose)
 				ft_printf("Total number of loop: %d\n", i);
 			break ;
 		}
-		++i;
+//		print_progress(vm, i);
+//		++i;
 		if (vm->param.is_dump && vm->param.nb_cycle_dump <= i)
 		{
 			flag = 1;

@@ -21,6 +21,14 @@ static int	set_color(void)
 		return (FALSE);
 	if (init_pair(5, COLOR_YELLOW, COLOR_BLACK) == ERR)
 		return (FALSE);
+	if (init_pair(6, COLOR_BLACK, COLOR_BLUE) == ERR)
+		return (FALSE);
+	if (init_pair(7, COLOR_BLACK, COLOR_RED) == ERR)
+		return (FALSE);
+	if (init_pair(8, COLOR_BLACK, COLOR_GREEN) == ERR)
+		return (FALSE);
+	if (init_pair(9, COLOR_BLACK, COLOR_YELLOW) == ERR)
+		return (FALSE);
 	return (TRUE);
 }
 

@@ -24,12 +24,12 @@ static int	execute_player_process(t_vm *vm)
 	process = vm->lst_process;
 	while (process)
 	{
-		proc = process->content;
-		if (is_alive(vm->players, vm->nb_players,
-					((t_process *)process->content)->player_nb))
+		proc = (t_process *)process->content;
+		if (is_alive(vm->players, vm->nb_players, proc->player_nb))
 		{
 			if (vm->param.verbose)
 				ft_printf("Execute process: %d, %d\n", proc->player_nb, proc->number_cycles);
+			print_cursor(vm, proc->pc, find_player(vm, proc), 1);
 			execute_process(process->content, vm);
 		}
 		process = process->next;

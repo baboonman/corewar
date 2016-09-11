@@ -8,6 +8,7 @@
 # include "struct.h"
 # include "libft.h"
 # include "mem_utils.h"
+# include "display_utils.h"
 
 # include <unistd.h>
 # include <stdlib.h>

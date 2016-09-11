@@ -95,6 +95,7 @@ int				execute_process(t_process *proc, t_vm *vm)
 		proc->number_cycles--;
 	else if (nb_cycles == 1)
 	{
+		print_cursor(vm, proc->pc, find_player(vm, proc), 0);
 		execute_ins(vm, proc);
 		proc->number_cycles = load_ins(proc, vm->mem_space);
 		if (!proc->number_cycles)

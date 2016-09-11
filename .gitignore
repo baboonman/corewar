@@ -3,6 +3,7 @@
 *.a
 asm
 42asm
+42cor
 corewar
 *.dSYM
 .*.sw*
