@@ -46,7 +46,7 @@ char		*ft_itoa(int n)
 	if (n == INT_MIN)
 		return (manage_max());
 	i = calc_i(n);
-	str = ft_strnew(i + 1);
+	str = ft_strnew(i + 5);
 	if ((tmp = n) < 0)
 		str++[0] = '-';
 	if ((tmp = n) < 0)

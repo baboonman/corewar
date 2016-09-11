@@ -21,7 +21,7 @@ char	*get_reg_str(t_process *proc, int reg)
 
 	nb = ft_itoa(reg);
 	val = ft_itoa(proc->reg[reg - 1]);
-	res = ft_strnew(ft_strlen(nb) + ft_strlen(val) + 4);
+	res = ft_strnew(ft_strlen(nb) + ft_strlen(val) + 16);
 	ft_strcpy(res, "r");
 	ft_strcat(res, nb);
 	ft_strcat(res, "(");
@@ -57,7 +57,7 @@ char	*get_proc_player_str(t_process *proc)
 		free(player_nb);
 		return (NULL);
 	}
-	if (!(res = ft_strnew(ft_strlen(player_nb) + ft_strlen(proc_nb) + 4)))
+	if (!(res = ft_strnew(ft_strlen(player_nb) + ft_strlen(proc_nb) + 16)))
 	{
 		free(proc_nb);
 		free(player_nb);

@@ -53,7 +53,7 @@ t_disp_ins	*get_str_ins(t_process *proc)
 	name = g_op_tab[proc->curr_ins.opcode].name_op;
 	id_str = get_proc_player_str(proc);
 	disp_ins = safe_malloc(sizeof(t_disp_ins));
-	res = ft_strnew(ft_strlen(params) + ft_strlen(name) + 1 + ft_strlen(id_str));
+	res = ft_strnew(ft_strlen(params) + ft_strlen(name) + 16 + ft_strlen(id_str));
 	ft_strcat(res, id_str);
 	ft_strcat(res, name);
 	ft_strcat(res, " ");
