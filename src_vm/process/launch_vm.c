@@ -117,9 +117,10 @@ int			launch_vm(t_vm *vm)
 	int		i;
 	int		flag;
 	int		exec_ret;
-	int		tps = 301;
+	int		tps = 50;
 	struct timeval		a, b;
 	int		c;
+	int		pause = -1;
 
 	exec_ret = 1;
 	flag = 0;
@@ -145,12 +146,15 @@ int			launch_vm(t_vm *vm)
 			tps = 1001;
 		else if (c == 66)
 			tps = 1;
+		else if (c == 32)
+			pause *= -1;
+
 //		else if ( c > 0 )
 //		{
 //			mvwprintw(vm->ncurses.window[WIN_INFO], 0, 15, "  %d    ", c);
 //		}
 		gettimeofday(&b, NULL);
-		if (sub_time(a, b, tps))
+		if (pause > 0 && sub_time(a, b, tps))
 		{
 			exec_ret = execute_loop(vm);
 			gettimeofday(&a, NULL);
