@@ -16,4 +16,5 @@ void	ins_st(t_vm *vm, t_process *proc)
 	}
 	proc->reg[P_VAL_2 - 1] = src;
 	proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
+	add_ins_line(&vm->ncurses, get_str_ins(proc));
 }

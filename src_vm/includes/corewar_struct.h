@@ -40,12 +40,18 @@ typedef struct		s_cycle_die
 	int				tot_live;
 }					t_cycle_die;
 
+typedef struct		s_disp_ins
+{
+	int				player_id;
+	char			*str;
+}					t_disp_ins;
+
 typedef struct		s_ncurses
 {
 	WINDOW			*window[4];
 	WINDOW			*border[3];
 	PANEL			*panel[7];
-	char			*lst_ins[NB_INS_DISPLAY];
+	t_disp_ins		*lst_ins[NB_INS_DISPLAY];
 	int				pos;
 	int				size;
 }					t_ncurses;

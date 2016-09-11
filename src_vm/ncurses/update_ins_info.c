@@ -7,6 +7,7 @@ void	update_ins_info(t_vm *vm)
 	int		max_x;
 	int		max_y;
 	int		pos;
+	int		player_color;
 
 	win = vm->ncurses.window[WIN_INS];
 	getmaxyx(win, max_y, max_x); 
@@ -14,9 +15,12 @@ void	update_ins_info(t_vm *vm)
 	pos = vm->ncurses.pos - 1;
 	while (i < vm->ncurses.size)
 	{
+		player_color = vm->players[vm->ncurses.lst_ins[(pos) % NB_INS_DISPLAY]->player_id].color;
+		wattron(vm->ncurses.window[WIN_MEM], COLOR_PAIR(player_color));
 		mvwprintw(win, i, 0, "% *c", max_x - 1, ' ');
 		mvwprintw(win, i, 0, "%s",
-				vm->ncurses.lst_ins[(pos) % NB_INS_DISPLAY]);
+				vm->ncurses.lst_ins[(pos) % NB_INS_DISPLAY]->str);
+		wattroff(vm->ncurses.window[WIN_MEM], COLOR_PAIR(player_color));
 		pos--;
 		if (pos < 0)
 			pos = vm->ncurses.size - 1;

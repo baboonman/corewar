@@ -1,22 +1,5 @@
 #include "ins_fn.h"
 
-static void		add_line(t_ncurses *ncurses, t_process *proc)
-{
-	char	*inf_str;
-	char	*dir;
-	char	*res;
-
-	inf_str = get_proc_player_str(proc);
-	dir = ft_itoa(proc->curr_ins.param_val[0]);
-	res = ft_strnew(ft_strlen(dir) + ft_strlen("fork ") + ft_strlen(inf_str));
-	ft_strcpy(res, inf_str);
-	ft_strcat(res, "fork ");
-	ft_strcat(res, dir);
-	add_ins_line(ncurses, res);
-	free(dir);
-	free(inf_str);
-}
-
 void			ins_fork(t_vm *vm, t_process *proc)
 {
 	t_process	*n_proc;
@@ -31,5 +14,5 @@ void			ins_fork(t_vm *vm, t_process *proc)
 	list->next = vm->lst_process;
 	vm->lst_process = list;
 	proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
-	add_line(&vm->ncurses, proc);
+	add_ins_line(&vm->ncurses, get_str_ins(proc));
 }

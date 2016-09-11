@@ -20,4 +20,5 @@ void	ins_or(t_vm *vm, t_process *proc)
 	proc->reg[P_VAL_3 - 1] = l_val | r_val;
 	proc->carry = !(proc->reg[P_VAL_3 - 1]);
 	proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
+	add_ins_line(&vm->ncurses, get_str_ins(proc));
 }

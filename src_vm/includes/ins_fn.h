@@ -11,6 +11,7 @@
 # include <ft_printf.h>
 # include <libft.h>
 # include "ins_tools.h"
+# include "str_ins_tools.h"
 # define P_VAL_1 proc->curr_ins.param_val[0]
 # define P_VAL_2 proc->curr_ins.param_val[1]
 # define P_VAL_3 proc->curr_ins.param_val[2]
