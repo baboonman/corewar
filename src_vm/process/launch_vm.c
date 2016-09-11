@@ -62,7 +62,7 @@ static int	init_vm_function(t_vm *vm)
 
 static int	init_vm(t_vm *vm)
 {
-	vm->nb_proc = 1;
+	vm->nb_proc = 0;
 	vm->mem_space = safe_malloc(MEM_SIZE);
 	ft_bzero(vm->mem_space, MEM_SIZE);
 	write_player(vm);
@@ -141,7 +141,7 @@ int			launch_vm(t_vm *vm)
 	{
 		get_input(&param);
 		gettimeofday(&b, NULL);
-		if (param.pause > 0 && sub_time(a, b, param.tps))
+		if (!vm->param.is_ncurses || (param.pause > 0 && sub_time(a, b, param.tps)))
 		{
 			vm->tot_cycle = i;
 			vm->fps = param.tps;
