@@ -36,7 +36,7 @@ static int	create_borders(t_ncurses *ncurses)
 {
 	int		i;
 
-	ncurses->border[WIN_INS] = newwin(INS_BORD_HEIGHT, INS_BORD_WIDTH,
+	ncurses->border[WIN_INS] = newwin(TMP_BORD_HEIGHT, TMP_BORD_WIDTH,
 			PLAYERS_INFO_BORD_HEIGHT - 1, MEM_WIDTH + 1);
 	if (!(ncurses->border[WIN_INS]))
 		return (FALSE);
@@ -59,7 +59,7 @@ static int	create_borders(t_ncurses *ncurses)
 static int	create_windows(t_ncurses *ncurses)
 {
 	ncurses->window[WIN_INS] = newwin(INS_HEIGHT, INS_WIDTH,
-			PLAYERS_INFO_BORD_HEIGHT, MEM_BORD_WIDTH + 1);
+			PLAYERS_INFO_BORD_HEIGHT + GLOB_HEIGHT, MEM_BORD_WIDTH + 1);
 	if (!(ncurses->window[WIN_INS]))
 		return (FALSE);
 
@@ -72,25 +72,32 @@ static int	create_windows(t_ncurses *ncurses)
 			1, 1);
 	if (!(ncurses->window[WIN_INFO]))
 		return (FALSE);
-	//wbkgd(ncurses->window[WIN_INS], COLOR_PAIR(1));
-	//wbkgd(ncurses->window[WIN_MEM], COLOR_PAIR(1));
-	//wbkgd(ncurses->window[WIN_INFO], COLOR_PAIR(1));
+	ncurses->window[WIN_GLOB_INF] = newwin(GLOB_HEIGHT, TMP_WIDTH,
+			PLAYERS_INFO_BORD_HEIGHT, MEM_BORD_WIDTH + 1);
+	if (!(ncurses->window[WIN_GLOB_INF]))
+		return (FALSE);
 	return (TRUE);
 }
 
 static int	set_panel(t_ncurses *ncurses)
 {
 	int		i;
+	int		pan_nb;
 
 	i = 0;
+	pan_nb = 0;
 	while (i < 3)
 	{
-		if (!(ncurses->panel[i] = new_panel(ncurses->border[i])))
+		if (!(ncurses->panel[pan_nb] = new_panel(ncurses->border[i])))
 			return (FALSE);
-		if (!(ncurses->panel[i] = new_panel(ncurses->window[i])))
+		pan_nb++;
+		if (!(ncurses->panel[pan_nb] = new_panel(ncurses->window[i])))
 			return (FALSE);
 		++i;
+		pan_nb++;
 	}
+	if (!(ncurses->panel[pan_nb] = new_panel(ncurses->window[WIN_GLOB_INF])))
+		return (FALSE);
 	update_panels();
 	doupdate();
 	return (TRUE);

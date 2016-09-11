@@ -14,4 +14,5 @@ void			ins_fork(t_vm *vm, t_process *proc)
 	list->next = vm->lst_process;
 	vm->lst_process = list;
 	proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
+	add_ins_line(&vm->ncurses, get_str_ins(proc));
 }

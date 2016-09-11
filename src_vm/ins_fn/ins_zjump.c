@@ -11,4 +11,5 @@ void	ins_zjump(t_vm *vm, t_process *proc)
 		return ;
 	}
 	proc->pc = (proc->pc + (P_VAL_1 % IDX_MOD)) % MEM_SIZE;
+	add_ins_line(&vm->ncurses, get_str_ins(proc));
 }

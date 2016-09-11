@@ -15,6 +15,9 @@
 # include "init_ncurses.h"
 # include "quit_ncurses.h"
 # include "input.h"
+# include "update_player_info.h"
+# include "update_vm_info.h"
+# include "update_ins_info.h"
 
 int			launch_vm(t_vm *vm);
 

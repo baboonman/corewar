@@ -24,4 +24,5 @@ void	ins_sti(t_vm *vm, t_process *proc)
 		display_mem(vm, 4, proc->pc + ((l_val + r_val) % IDX_MOD),
 				find_player(vm, proc));
 	proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
+	add_ins_line(&vm->ncurses, get_str_ins(proc));
 }

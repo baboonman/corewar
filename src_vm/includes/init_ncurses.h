@@ -18,10 +18,14 @@
 # define MEM_BORD_WIDTH MEM_WIDTH + 2
 # define MEM_BORD_HEIGHT MEM_HEIGHT + 2
 
-# define INS_WIDTH (40)
-# define INS_HEIGHT (MEM_HEIGHT - 2)
-# define INS_BORD_WIDTH (INS_WIDTH + 3)
-# define INS_BORD_HEIGHT (INS_HEIGHT + 2)
+# define TMP_WIDTH (40)
+# define TMP_HEIGHT (MEM_HEIGHT - 2)
+# define TMP_BORD_WIDTH (TMP_WIDTH + 3)
+# define TMP_BORD_HEIGHT (TMP_HEIGHT + 2)
+
+# define INS_WIDTH TMP_WIDTH
+# define GLOB_HEIGHT 10
+# define INS_HEIGHT (TMP_HEIGHT - GLOB_HEIGHT)
 
 # define PLAYERS_INFO_HEIGHT 2
 # define PLAYERS_INFO_WIDTH (MEM_BORD_WIDTH + INS_WIDTH)
@@ -38,6 +42,7 @@
 # define WIN_MEM 0
 # define WIN_INFO 1
 # define WIN_INS 2
+# define WIN_GLOB_INF 3
 
 int		init_ncurses(t_ncurses *ncurses, t_vm *vm);
 

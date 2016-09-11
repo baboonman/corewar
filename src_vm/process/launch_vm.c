@@ -109,7 +109,18 @@ void		print_progress(t_vm *vm, int j)
 		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "-");
 	else if (i == 7)
 		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "\\");
+}
 
+static void	ncurses_render(t_vm *vm)
+{
+	if (vm->param.is_ncurses)
+	{
+		update_player_info(vm);
+		update_vm_info(vm);
+		update_ins_info(vm);
+		update_panels();
+		doupdate();
+	}
 }
 
 int			launch_vm(t_vm *vm)
@@ -148,9 +159,9 @@ int			launch_vm(t_vm *vm)
 			dump_memory(vm);
 			break ;
 		}
-		update_panels();
-		doupdate();
+		ncurses_render(vm);
 	}
+	ncurses_render(vm);
 	if (vm->param.is_ncurses)
 		quit_ncurses(&(vm->ncurses));
 	if (!flag & vm->param.is_dump)
