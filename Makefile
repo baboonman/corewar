@@ -33,6 +33,7 @@ SRC_COREWAR=src_vm/corewar_main.c \
 			src_vm/get_hexa.c \
 			src_vm/dump_memory.c \
 			src_vm/check_ext.c \
+			src_vm/input.c \
 			src_vm/process/execute_loop.c \
 			src_vm/ins_fn/ins_live.c \
 			src_vm/ins_fn/ins_aff.c \

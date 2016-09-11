@@ -14,6 +14,7 @@
 # include "ins_fn.h"
 # include "init_ncurses.h"
 # include "quit_ncurses.h"
+# include "input.h"
 
 int			launch_vm(t_vm *vm);
 
