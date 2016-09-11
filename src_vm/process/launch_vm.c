@@ -143,6 +143,8 @@ int			launch_vm(t_vm *vm)
 		gettimeofday(&b, NULL);
 		if (param.pause > 0 && sub_time(a, b, param.tps))
 		{
+			vm->tot_cycle = i;
+			vm->fps = param.tps;
 			exec_ret = execute_loop(vm);
 			gettimeofday(&a, NULL);
 			++i;

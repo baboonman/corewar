@@ -67,6 +67,8 @@ typedef struct		s_vm
 	t_cycle_die		cycle_die;
 	int				nb_proc;
 	t_ncurses		ncurses;
+	int				tot_cycle;
+	int				fps;
 }					t_vm;
 
 #endif

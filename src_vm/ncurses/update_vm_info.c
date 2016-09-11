@@ -18,4 +18,8 @@ void	update_vm_info(t_vm *vm)
 	mvwprintw(win, 3, 0, "Step: %d", vm->cycle_die.step);
 	mvwprintw(win, 4, 0, "% *c", max_x + 1, ' ');
 	mvwprintw(win, 4, 0, "NB Proc: %d", vm->nb_proc);
+	mvwprintw(win, 5, 0, "% *c", max_x + 1, ' ');
+	mvwprintw(win, 5, 0, "Tot cycle: %d", vm->tot_cycle);
+	mvwprintw(win, 6, 0, "% *c", max_x + 1, ' ');
+	mvwprintw(win, 6, 0, "fps: %d", vm->fps);
 }
