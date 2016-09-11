@@ -33,6 +33,7 @@ SRC_COREWAR=src_vm/corewar_main.c \
 			src_vm/get_hexa.c \
 			src_vm/dump_memory.c \
 			src_vm/check_ext.c \
+			src_vm/input.c \
 			src_vm/process/execute_loop.c \
 			src_vm/ins_fn/ins_live.c \
 			src_vm/ins_fn/ins_aff.c \
@@ -52,8 +53,13 @@ SRC_COREWAR=src_vm/corewar_main.c \
 			src_vm/ins_fn/ins_lld.c \
 			src_vm/ncurses/init_ncurses.c \
 			src_vm/ncurses/quit_ncurses.c \
+			src_vm/ncurses/update_player_info.c \
+			src_vm/ncurses/update_vm_info.c \
+			src_vm/ncurses/update_ins_info.c \
+			src_vm/ncurses/ins_tools.c \
 			src_vm/ncurses/init_mem.c \
 			src_vm/ncurses/display_utils.c \
+			src_vm/ncurses/str_ins_tools.c \
 			src_vm/mem_utils.c \
 			src_vm/check_live.c \
 		    src_common/op.c \

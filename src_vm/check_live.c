@@ -69,6 +69,21 @@ static int	check_alive(t_vm *vm)
 	return (FALSE);
 }
 
+static int	get_all_live(t_vm *vm)
+{
+	int		i;
+	int		tot;
+
+	tot = 0;
+	i = 0;
+	while (i < vm->nb_players)
+	{
+		tot += vm->players[i].nb_live;
+		++i;
+	}
+	return (tot);
+}
+
 int			check_live(t_vm *vm)
 {
 	int		nb_live;
@@ -90,5 +105,6 @@ int			check_live(t_vm *vm)
 		vm->cycle_die.to_die = vm->cycle_die.step;
 	}
 	vm->cycle_die.to_die--;
+	vm->cycle_die.tot_live = get_all_live(vm);
 	return (check_alive(vm));
 }

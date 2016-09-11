@@ -18,4 +18,5 @@ void			ins_ldi(t_vm *vm, t_process *proc)
 	proc->reg[P_VAL_3 - 1] = read_n_bytes(REG_SIZE, vm->mem_space,
 								proc->pc + ((p1 + p2) % IDX_MOD));
 	proc->pc = (proc->pc + proc->curr_ins.size) % MEM_SIZE;
+	add_ins_line(&vm->ncurses, get_str_ins(proc));
 }

@@ -100,13 +100,6 @@ int				execute_process(t_process *proc, t_vm *vm)
 		print_cursor(vm, proc->pc, find_player(vm, proc), 0);
 		execute_ins(vm, proc);
 		nb_cycles--;
-//		proc->number_cycles = load_ins(proc, vm->mem_space);
-//		if (!proc->number_cycles)
-//		{
-//			if (vm->param.verbose)
-//				ft_printf("execute invalid instruction\n");
-//			proc->pc++;
-//		}
 	}
 	if (nb_cycles == 0)
 	{
@@ -118,8 +111,6 @@ int				execute_process(t_process *proc, t_vm *vm)
 			print_cursor(vm, proc->pc, find_player(vm, proc), 0);
 			proc->pc++;
 		}
-//		else
-//			proc->number_cycles--;
 	}
 	return (TRUE);
 }

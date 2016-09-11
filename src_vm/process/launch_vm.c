@@ -109,7 +109,18 @@ void		print_progress(t_vm *vm, int j)
 		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "-");
 	else if (i == 7)
 		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "\\");
+}
 
+static void	ncurses_render(t_vm *vm)
+{
+	if (vm->param.is_ncurses)
+	{
+		update_player_info(vm);
+		update_vm_info(vm);
+		update_ins_info(vm);
+		update_panels();
+		doupdate();
+	}
 }
 
 int			launch_vm(t_vm *vm)
@@ -117,49 +128,23 @@ int			launch_vm(t_vm *vm)
 	int		i;
 	int		flag;
 	int		exec_ret;
-	int		tps = 50;
 	struct timeval		a, b;
-	int		c;
-	int		pause = -1;
+	t_input	param;
 
-	exec_ret = 1;
 	flag = 0;
 	i = 0;
 	if (!init_vm(vm))
 		return (FALSE);
+	init_input(&param);
 	gettimeofday(&a, NULL);
 	while (1)
 	{
-//		c = wgetch(stdscr);
-		c = getch();
-		if (c == 67)
-		{
-			if (tps < 1000)
-				tps += 50;
-		}
-		else if (c == 68)
-		{
-			if (tps > 50)
-				tps -= 50;
-		}
-		else if (c == 65)
-			tps = 1001;
-		else if (c == 66)
-			tps = 1;
-		else if (c == 32)
-			pause *= -1;
-
-//		else if ( c > 0 )
-//		{
-//			mvwprintw(vm->ncurses.window[WIN_INFO], 0, 15, "  %d    ", c);
-//		}
+		get_input(&param);
 		gettimeofday(&b, NULL);
-		if (pause > 0 && sub_time(a, b, tps))
+		if (param.pause > 0 && sub_time(a, b, param.tps))
 		{
 			exec_ret = execute_loop(vm);
 			gettimeofday(&a, NULL);
-			mvwprintw(vm->ncurses.window[WIN_INFO], 0, 0, "%d    %f   ", tps, 1.0f / tps);
-			print_progress(vm, i);
 			++i;
 		}
 		if (!exec_ret)
@@ -168,17 +153,15 @@ int			launch_vm(t_vm *vm)
 				ft_printf("Total number of loop: %d\n", i);
 			break ;
 		}
-//		print_progress(vm, i);
-//		++i;
 		if (vm->param.is_dump && vm->param.nb_cycle_dump <= i)
 		{
 			flag = 1;
 			dump_memory(vm);
 			break ;
 		}
-		update_panels();
-		doupdate();
+		ncurses_render(vm);
 	}
+	ncurses_render(vm);
 	if (vm->param.is_ncurses)
 		quit_ncurses(&(vm->ncurses));
 	if (!flag & vm->param.is_dump)
