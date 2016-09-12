@@ -62,7 +62,7 @@ static int	init_vm_function(t_vm *vm)
 
 static int	init_vm(t_vm *vm)
 {
-	vm->nb_proc = 1;
+	vm->nb_proc = 0;
 	vm->mem_space = safe_malloc(MEM_SIZE);
 	ft_bzero(vm->mem_space, MEM_SIZE);
 	write_player(vm);
@@ -86,29 +86,6 @@ int			sub_time(struct timeval a, struct timeval b, int tps)
 	if (t2 - t1 > t3)
 		return (1);
 	return (0);
-}
-
-void		print_progress(t_vm *vm, int j)
-{
-	int		i;
-
-	i = j % 8;
-	if (i == 0)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "|");
-	else if (i == 1)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "/");
-	else if (i == 2)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "-");
-	else if (i == 3)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "\\");
-	else if (i == 4)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "|");
-	else if (i == 5)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "/");
-	else if (i == 6)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "-");
-	else if (i == 7)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "\\");
 }
 
 static void	ncurses_render(t_vm *vm)
@@ -146,14 +123,14 @@ int			launch_vm(t_vm *vm)
 			vm->tot_cycle = i;
 			vm->fps = param.tps;
 			exec_ret = execute_loop(vm);
+			if (!exec_ret)
+			{
+				if (vm->param.verbose)
+					ft_printf("Total number of loop: %d\n", i);
+				break ;
+			}
 			gettimeofday(&a, NULL);
 			++i;
-		}
-		if (!exec_ret)
-		{
-			if (vm->param.verbose)
-				ft_printf("Total number of loop: %d\n", i);
-			break ;
 		}
 		if (vm->param.is_dump && vm->param.nb_cycle_dump <= i)
 		{
