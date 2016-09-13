@@ -66,7 +66,7 @@ static int	init_vm(t_vm *vm)
 	vm->nb_proc = 0;
 	vm->mem_space = safe_malloc(MEM_SIZE);
 	ft_bzero(vm->mem_space, MEM_SIZE);
-	vm->mem_space_col = safe_malloc(MEM_SIZE);
+	vm->mem_space_col = (uint8_t*)safe_malloc(MEM_SIZE);
 	ft_bzero(vm->mem_space_col, MEM_SIZE);
 	write_player(vm);
 	init_vm_function(vm);

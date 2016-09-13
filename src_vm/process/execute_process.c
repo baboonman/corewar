@@ -50,7 +50,7 @@ int				load_ins(t_process *proc, void *mem_space)
 	t_op		*op_info;
 	uint8_t		opc;
 
-	proc->curr_ins.opcode = *((uint8_t*)(mem_space + proc->pc)) - 1;
+	proc->curr_ins.opcode = read_n_bytes(1, mem_space, proc->pc) - 1;
 	if (proc->curr_ins.opcode < 0 || proc->curr_ins.opcode > 15)
 		return (0);
 	proc->curr_ins.size = 1;
@@ -103,7 +103,7 @@ int				execute_process(t_process *proc, t_vm *vm)
 			if (vm->param.verbose)
 				ft_printf("execute invalid instruction\n");
 			print_cursor(vm, proc->pc, find_player(vm, proc), 0);
-			proc->pc++;
+			proc->pc = (proc->pc + 1) % MEM_SIZE;
 		}
 	}
 	if (nb_cycles == 0)
@@ -114,7 +114,7 @@ int				execute_process(t_process *proc, t_vm *vm)
 			if (vm->param.verbose)
 				ft_printf("Execute invalid instruction\n");
 			print_cursor(vm, proc->pc, find_player(vm, proc), 0);
-			proc->pc++;
+			proc->pc = (proc->pc + 1) % MEM_SIZE;
 		}
 		else
 			proc->number_cycles--;
