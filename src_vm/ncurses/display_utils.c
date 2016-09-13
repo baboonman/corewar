@@ -22,14 +22,16 @@ int				find_player_by_nb_player(t_vm *vm, int player_nb)
 }
 
 
-void			display_mem(t_vm *vm, int size, int off, int player_col)
+void			display_mem(t_vm *vm, int size, int off2, int player_col)
 {
 	int			i;
 
+	size_t off = off2;
 	i = 0;
 	while (i < size)
 	{
 		off %= MEM_SIZE;
+		//fprintf(stderr, "off: %d\n", off);
 		vm->mem_space_col[off] = (uint8_t)player_col;//fdfd
 		off++;
 		i++;

@@ -49,6 +49,8 @@ int					read_n_bytes(int size, void *mem, size_t off)
 	return (val);
 }
 
+# include <stdio.h>
+
 void				write_n_bytes(int size, void *mem, size_t off, int val)
 {
 	char			*data;
@@ -56,6 +58,7 @@ void				write_n_bytes(int size, void *mem, size_t off, int val)
 
 	data = (char *)(&val);
 	off = off % MEM_SIZE;
+	fprintf(stderr, "offss: %zu\n", off);
 	i = 0;
 	while (i < size)
 	{
