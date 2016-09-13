@@ -50,8 +50,8 @@ static int	check_players_alive(t_vm *vm)
 			vm->players[i].die_at = vm->tot_cycle;
 			if (!vm->param.is_ncurses)
 				ft_printf("player: %d, %s die\n", vm->players[i].nb, vm->players[i].header.prog_name);
-			++i;
 			vm->players[i].nb_live = 0;
+			++i;
 			continue ;
 		}
 		vm->players[i].nb_live = 0;
