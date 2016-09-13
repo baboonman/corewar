@@ -25,20 +25,12 @@ int				find_player_by_nb_player(t_vm *vm, int player_nb)
 void			display_mem(t_vm *vm, int size, int off, int player_col)
 {
 	int			i;
-	int			y;
-	int			x;
-	uint8_t		val;
 
 	i = 0;
 	while (i < size)
 	{
 		off %= MEM_SIZE;
-		val = *((uint8_t *)(vm->mem_space + off));
-		y = off / MEM_LINE_SIZE;
-		x = (off % MEM_LINE_SIZE) * 3 + 1;
-		wattron(vm->ncurses.window[WIN_MEM], COLOR_PAIR(player_col));
-		mvwprintw(vm->ncurses.window[WIN_MEM], y, x, "%02x", val);
-		wattroff(vm->ncurses.window[WIN_MEM], COLOR_PAIR(player_col));
+		vm->mem_space_col[off] = (uint8_t)player_col;
 		off++;
 		i++;
 	}
@@ -46,16 +38,28 @@ void			display_mem(t_vm *vm, int size, int off, int player_col)
 
 void			print_cursor(t_vm *vm, int off, int player_col, int on)
 {
-	int			y;
-	int			x;
-	uint8_t		val;
-
 	off %= MEM_SIZE;
-	val = *((uint8_t *)(vm->mem_space + off));
-	y = off / MEM_LINE_SIZE;
-	x = (off % MEM_LINE_SIZE) * 3 + 1;
-	wattron(vm->ncurses.window[WIN_MEM], COLOR_PAIR(player_col + 4 * on));
-	mvwprintw(vm->ncurses.window[WIN_MEM], y, x, "%02x", val);
-	wattroff(vm->ncurses.window[WIN_MEM], COLOR_PAIR(player_col + 4 * on));
+	vm->mem_space_col[off] = (uint8_t)(player_col + 4 * on);
 }
 
+void			refresh_mem_display(t_vm* vm)
+{
+	int			i;
+	int			x;
+	int			y;
+	uint8_t		col;
+	uint8_t		val;
+
+	i = 0;
+	while (i < MEM_SIZE)
+	{
+		col = vm->mem_space_col[i];
+		val = *((uint8_t *)(vm->mem_space + i));
+		y = i / MEM_LINE_SIZE;
+		x = (i % MEM_LINE_SIZE) * 3 + 1;
+		wattron(vm->ncurses.window[WIN_MEM], COLOR_PAIR(col));
+		mvwprintw(vm->ncurses.window[WIN_MEM], y, x, "%02x", val);
+		wattroff(vm->ncurses.window[WIN_MEM], COLOR_PAIR(col));
+		i++;
+	}
+}

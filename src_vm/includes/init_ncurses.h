@@ -7,6 +7,7 @@
 # include <unistd.h>
 # include "corewar_struct.h"
 # include "init_mem.h"
+# include "display_utils.h"
 
 # include "op.h"
 

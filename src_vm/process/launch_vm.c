@@ -33,6 +33,7 @@ static int	write_player(t_vm *vm)
 		player = vm->players + i;
 		off = i * offset;
 		ft_memcpy(vm->mem_space + off, player->bin, player->size_bin - sizeof(t_header));
+		ft_memset(vm->mem_space_col + off, player->color, (player->size_bin - sizeof(t_header)));
 		init_player_process(vm, player, off);
 		++i;
 	}
@@ -65,6 +66,8 @@ static int	init_vm(t_vm *vm)
 	vm->nb_proc = 0;
 	vm->mem_space = safe_malloc(MEM_SIZE);
 	ft_bzero(vm->mem_space, MEM_SIZE);
+	vm->mem_space_col = safe_malloc(MEM_SIZE);
+	ft_bzero(vm->mem_space_col, MEM_SIZE);
 	write_player(vm);
 	init_vm_function(vm);
 	vm->cycle_die.to_die = CYCLE_TO_DIE;
@@ -118,7 +121,7 @@ int			launch_vm(t_vm *vm)
 	{
 		get_input(&param);
 		gettimeofday(&b, NULL);
-		if (param.pause > 0 && sub_time(a, b, param.tps))
+		if (!vm->param.is_ncurses || (param.pause > 0 && sub_time(a, b, param.tps)))
 		{
 			vm->tot_cycle = i;
 			vm->fps = param.tps;
@@ -129,6 +132,7 @@ int			launch_vm(t_vm *vm)
 					ft_printf("Total number of loop: %d\n", i);
 				break ;
 			}
+			refresh_mem_display(vm);
 			gettimeofday(&a, NULL);
 			++i;
 		}

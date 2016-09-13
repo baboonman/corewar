@@ -1,5 +1,5 @@
 #include "init_mem.h"
-
+/*
 static void		write_players(t_vm *vm)
 {
 	int			i;
@@ -17,7 +17,7 @@ static void		write_players(t_vm *vm)
 		++i;
 	}
 }
-
+*/
 void			init_mem(t_vm *vm, t_ncurses *ncurses)
 {
 	int			i;
@@ -37,5 +37,6 @@ void			init_mem(t_vm *vm, t_ncurses *ncurses)
 		}
 		i++;
 	}
-	write_players(vm);
+	(void)vm;
+//	write_players(vm);
 }

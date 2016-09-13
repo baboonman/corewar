@@ -62,6 +62,7 @@ typedef struct		s_vm
 	t_list			*lst_process;
 	int				nb_players;
 	void			*mem_space;
+	uint8_t			*mem_space_col;
 	t_param			param;
 	void			*ins_function[16];
 	t_cycle_die		cycle_die;

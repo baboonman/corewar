@@ -111,5 +111,6 @@ int			init_ncurses(t_ncurses *ncurses, t_vm *vm)
 	create_windows(ncurses);
 	set_panel(ncurses);
 	init_mem(vm, ncurses);
+	refresh_mem_display(vm);
 	return (TRUE);
 }
