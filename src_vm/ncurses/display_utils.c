@@ -30,7 +30,8 @@ void			display_mem(t_vm *vm, int size, int off, int player_col)
 	while (i < size)
 	{
 		off %= MEM_SIZE;
-		vm->mem_space_col[off] = (uint8_t)player_col;
+		vm->mem_space_col[off] = (uint8_t)player_col;//fdfd
+		off++;
 		i++;
 	}
 }
@@ -38,7 +39,7 @@ void			display_mem(t_vm *vm, int size, int off, int player_col)
 void			print_cursor(t_vm *vm, int off, int player_col, int on)
 {
 	off %= MEM_SIZE;
-	vm->mem_space_col[off] = (uint8_t)(player_col + 4 * on);
+	vm->mem_space_col[off] = (uint8_t)(player_col + 4 * on);//dsadsa
 }
 
 void			refresh_mem_display(t_vm* vm)
