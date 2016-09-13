@@ -32,6 +32,6 @@ void		quit_ncurses(t_ncurses *ncurses)
 			endwin();
 			return ;
 		}
-		usleep(50);
+		usleep(5000);
 	}
 }

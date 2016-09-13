@@ -141,6 +141,7 @@ int			launch_vm(t_vm *vm)
 		ncurses_render(vm);
 	}
 	ncurses_render(vm);
+	display_winner(vm);
 	if (vm->param.is_ncurses)
 		quit_ncurses(&(vm->ncurses));
 	if (!flag & vm->param.is_dump)

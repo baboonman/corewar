@@ -19,6 +19,7 @@ typedef struct		s_player
 	int				nb_live;
 	int				is_alive;
 	int				color;
+	int				die_at;
 }					t_player;
 
 typedef struct		s_param
@@ -50,6 +51,7 @@ typedef struct		s_ncurses
 {
 	WINDOW			*window[4];
 	WINDOW			*border[3];
+	WINDOW			*winner[2];
 	PANEL			*panel[7];
 	t_disp_ins		*lst_ins[NB_INS_DISPLAY];
 	int				pos;

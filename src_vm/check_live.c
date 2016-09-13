@@ -47,6 +47,7 @@ static int	check_players_alive(t_vm *vm)
 		if (!vm->players[i].nb_live)
 		{
 			vm->players[i].is_alive = FALSE;
+			vm->players[i].die_at = vm->tot_cycle;
 			if (!vm->param.is_ncurses)
 				ft_printf("player: %d, %s die\n", vm->players[i].nb, vm->players[i].header.prog_name);
 			++i;
