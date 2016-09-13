@@ -2,6 +2,11 @@
 
 static void		display_player(t_player *player, int offset, t_vm *vm)
 {
+	int		y;
+	int		player_color;
+
+	player_color = find_player_by_nb_player(vm, player->nb);
+	wattron(vm->ncurses.window[WIN_INFO], COLOR_PAIR(player_color));
 	mvwprintw(vm->ncurses.window[WIN_INFO], 0,
 			offset * PLAYERS_INFO_WIDTH / vm->nb_players, "%s (%d)",
 			player->header.prog_name, player->nb);
@@ -9,8 +14,12 @@ static void		display_player(t_player *player, int offset, t_vm *vm)
 		wprintw(vm->ncurses.window[WIN_INFO], " is alive");
 	else
 		wprintw(vm->ncurses.window[WIN_INFO], " dead    ");
+
+	y = offset * PLAYERS_INFO_WIDTH / vm->nb_players;
+	mvwprintw(vm->ncurses.window[WIN_INFO], 1, y, "% *c", 15, ' ');
 	mvwprintw(vm->ncurses.window[WIN_INFO], 1,
-			offset * PLAYERS_INFO_WIDTH / vm->nb_players, "Nb live: %d", player->nb_live);
+			y, "Nb live: %d", player->nb_live);
+	wattroff(vm->ncurses.window[WIN_INFO], COLOR_PAIR(player_color));
 }
 
 void			update_player_info(t_vm *vm)

@@ -18,6 +18,7 @@
 # include "update_player_info.h"
 # include "update_vm_info.h"
 # include "update_ins_info.h"
+# include "display_winner.h"
 
 int			launch_vm(t_vm *vm);
 

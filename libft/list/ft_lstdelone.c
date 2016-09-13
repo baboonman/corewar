@@ -24,9 +24,13 @@ void	ft_lstdelone(t_list **list, t_list *elem)
 	{
 		*list = cur->next;
 		free(cur);
+		cur = NULL;
 	}
-	last = cur;
-	cur = cur->next;
+	else
+	{
+		last = cur;
+		cur = cur->next;
+	}
 	while (cur != NULL)
 	{
 		if (cur == elem)

@@ -60,11 +60,14 @@ SRC_COREWAR=src_vm/corewar_main.c \
 			src_vm/ncurses/init_mem.c \
 			src_vm/ncurses/display_utils.c \
 			src_vm/ncurses/str_ins_tools.c \
+			src_vm/ncurses/display_winner.c \
 			src_vm/mem_utils.c \
 			src_vm/check_live.c \
 		    src_common/op.c \
 			src_common/swap_bytes.c \
 		    src_common/safe_malloc.c
+
+
 
 OBJ_ASM= $(SRC_ASM:.c=.o)
 OBJ_COREWAR= $(SRC_COREWAR:.c=.o)

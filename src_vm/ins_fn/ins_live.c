@@ -5,7 +5,6 @@ void		ins_live(t_vm *vm, t_process *proc)
 	int			i;
 
 	i = 0;
-	proc->nb_live++;
 	add_ins_line(&vm->ncurses, get_str_ins(proc));
 	while (i < vm->nb_players)
 	{
@@ -15,6 +14,7 @@ void		ins_live(t_vm *vm, t_process *proc)
 			continue ;
 		}
 		vm->players[i].nb_live++;
+		proc->nb_live++;
 		if (vm->param.verbose)
 			ft_printf("Un processus dit que le joueur %d(%s) est en vie\n",
 				vm->players[i].nb, vm->players[i].header.prog_name);

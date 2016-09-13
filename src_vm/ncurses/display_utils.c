@@ -31,7 +31,6 @@ void			display_mem(t_vm *vm, int size, int off, int player_col)
 	{
 		off %= MEM_SIZE;
 		vm->mem_space_col[off] = (uint8_t)player_col;
-		off++;
 		i++;
 	}
 }

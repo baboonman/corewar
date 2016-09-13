@@ -19,6 +19,8 @@ static int	check_process_alive(t_vm *vm)
 			ft_lstdelone(&(vm->lst_process), lst_proc);
 			vm->nb_proc--;
 		}
+		else
+			proc->nb_live = 0;
 		lst_proc = tmp;
 	}
 	return (TRUE);
@@ -35,17 +37,20 @@ static int	check_players_alive(t_vm *vm)
 	{
 		if (vm->param.verbose)
 			ft_printf("Total live: %d\n", vm->players[i].nb_live);
-		tot_live += vm->players[i].nb_live;
 		if (!(vm->players[i].is_alive))
 		{
 			++i;
+			vm->players[i].nb_live = 0;
 			continue ;
 		}
+		tot_live += vm->players[i].nb_live;
 		if (!vm->players[i].nb_live)
 		{
 			vm->players[i].is_alive = FALSE;
+			vm->players[i].die_at = vm->tot_cycle;
 			if (!vm->param.is_ncurses)
 				ft_printf("player: %d, %s die\n", vm->players[i].nb, vm->players[i].header.prog_name);
+			vm->players[i].nb_live = 0;
 			++i;
 			continue ;
 		}
@@ -79,7 +84,8 @@ static int	get_all_live(t_vm *vm)
 	i = 0;
 	while (i < vm->nb_players)
 	{
-		tot += vm->players[i].nb_live;
+		if (vm->players[i].is_alive)
+			tot += vm->players[i].nb_live;
 		++i;
 	}
 	return (tot);
