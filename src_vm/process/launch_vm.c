@@ -114,6 +114,7 @@ int			launch_vm(t_vm *vm)
 		return (FALSE);
 	init_input(&param);
 	gettimeofday(&a, NULL);
+	exec_ret = 1;
 	while (1)
 	{
 		get_input(&param);

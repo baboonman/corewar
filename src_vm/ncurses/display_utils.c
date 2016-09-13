@@ -33,7 +33,8 @@ void			display_mem(t_vm *vm, int size, int off, int player_col)
 	while (i < size)
 	{
 		off %= MEM_SIZE;
-		val = *((uint8_t *)(vm->mem_space + off));
+		//val = *((uint8_t *)(vm->mem_space + off));
+		val = read_n_bytes(1, vm->mem_space, off);
 		y = off / MEM_LINE_SIZE;
 		x = (off % MEM_LINE_SIZE) * 3 + 1;
 		wattron(vm->ncurses.window[WIN_MEM], COLOR_PAIR(player_col));
@@ -51,7 +52,8 @@ void			print_cursor(t_vm *vm, int off, int player_col, int on)
 	uint8_t		val;
 
 	off %= MEM_SIZE;
-	val = *((uint8_t *)(vm->mem_space + off));
+	//val = *((uint8_t *)(vm->mem_space + off));
+	val = read_n_bytes(1, vm->mem_space, off);
 	y = off / MEM_LINE_SIZE;
 	x = (off % MEM_LINE_SIZE) * 3 + 1;
 	wattron(vm->ncurses.window[WIN_MEM], COLOR_PAIR(player_col + 4 * on));

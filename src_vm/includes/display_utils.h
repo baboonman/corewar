@@ -3,6 +3,7 @@
 
 # include "init_ncurses.h"
 # include "process_struct.h"
+# include "mem_utils.h"
 
 int				find_player_by_nb_player(t_vm *vm, int player_nb);
 int				find_player(t_vm *vm, t_process *proc);

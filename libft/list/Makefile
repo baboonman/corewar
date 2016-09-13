@@ -11,7 +11,7 @@
 # **************************************************************************** #
 
 CC=clang
-FLAGS=-Wall -Wextra -Werror
+FLAGS=-Wall -Wextra -Werror -g
 NAME=libft_list.a
 INCLUDES=-I ../includes
 SRC=ft_lstadd.c \
