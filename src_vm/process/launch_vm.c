@@ -88,29 +88,6 @@ int			sub_time(struct timeval a, struct timeval b, int tps)
 	return (0);
 }
 
-void		print_progress(t_vm *vm, int j)
-{
-	int		i;
-
-	i = j % 8;
-	if (i == 0)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "|");
-	else if (i == 1)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "/");
-	else if (i == 2)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "-");
-	else if (i == 3)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "\\");
-	else if (i == 4)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "|");
-	else if (i == 5)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "/");
-	else if (i == 6)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "-");
-	else if (i == 7)
-		mvwprintw(vm->ncurses.window[WIN_INFO], 1, 0, "\\");
-}
-
 static void	ncurses_render(t_vm *vm)
 {
 	if (vm->param.is_ncurses)

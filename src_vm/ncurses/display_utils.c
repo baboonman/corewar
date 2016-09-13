@@ -58,4 +58,3 @@ void			print_cursor(t_vm *vm, int off, int player_col, int on)
 	mvwprintw(vm->ncurses.window[WIN_MEM], y, x, "%02x", val);
 	wattroff(vm->ncurses.window[WIN_MEM], COLOR_PAIR(player_col + 4 * on));
 }
-

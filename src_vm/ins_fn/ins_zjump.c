@@ -1,8 +1,28 @@
 #include "ins_fn.h"
 
-void	ins_zjump(t_vm *vm, t_process *proc)
+static void	custom_msg(t_vm *vm, t_process *proc)
+{
+	t_disp_ins	*disp_ins;
+	char		*res;
+	char		*str;
+
+	if (proc->carry)
+		str = " OK";
+	else
+		str = " FAIL";
+	disp_ins = get_str_ins(proc);
+	res = ft_strnew(ft_strlen(disp_ins->str) + ft_strlen(str));
+	ft_strcat(res, disp_ins->str);
+	ft_strcat(res, str);
+	free(disp_ins->str);
+	disp_ins->str = res;
+	add_ins_line(&vm->ncurses, disp_ins);
+}
+
+void		ins_zjump(t_vm *vm, t_process *proc)
 {
 	(void)vm;
+	custom_msg(vm, proc);
 	if (!proc->carry)
 	{
 		if (vm->param.verbose)
@@ -11,5 +31,4 @@ void	ins_zjump(t_vm *vm, t_process *proc)
 		return ;
 	}
 	proc->pc = (proc->pc + (P_VAL_1 % IDX_MOD)) % MEM_SIZE;
-	add_ins_line(&vm->ncurses, get_str_ins(proc));
 }

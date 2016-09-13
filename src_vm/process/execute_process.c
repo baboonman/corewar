@@ -102,6 +102,8 @@ int				execute_process(t_process *proc, t_vm *vm)
 		{
 			if (vm->param.verbose)
 				ft_printf("execute invalid instruction\n");
+			if (vm->param.is_ncurses)
+				add_ins_line(&vm->ncurses, get_str_invalid(proc));
 			print_cursor(vm, proc->pc, find_player(vm, proc), 0);
 			proc->pc++;
 		}
@@ -113,6 +115,8 @@ int				execute_process(t_process *proc, t_vm *vm)
 		{
 			if (vm->param.verbose)
 				ft_printf("Execute invalid instruction\n");
+			if (vm->param.is_ncurses)
+				add_ins_line(&vm->ncurses, get_str_invalid(proc));
 			print_cursor(vm, proc->pc, find_player(vm, proc), 0);
 			proc->pc++;
 		}
