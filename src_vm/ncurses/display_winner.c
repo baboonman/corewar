@@ -1,12 +1,21 @@
 #include "display_winner.h"
 
-static void	display_player(t_vm *vm, int id_max, int pos)
+static void	display_player(t_vm *vm, int id, int pos)
 {
-	mvwprintw(vm->ncurses.winner[0], (pos - 1) * 2, 1 , "TOTOTOTOTOTOTOTOTOTO");
+	char	*str;
+	int		player_color;
 
+	if (pos == 0)
+		str = "win";
+	else
+		str = "suck";
+	player_color = find_player_by_nb_player(vm, vm->players[id].nb);
+	wattron(vm->ncurses.winner[0], COLOR_PAIR(player_color));
+	mvwprintw(vm->ncurses.winner[0], pos + 1, 1 , "%d) Player %s %s, he die at cycle %d", pos + 1, vm->players[id].header.prog_name, str, vm->players[id].die_at);
+	wattroff(vm->ncurses.winner[0], COLOR_PAIR(player_color));
 }
 
-static void	display_all_player(t_vm *vm)
+static void	display_all_players(t_vm *vm)
 {
 	int			i;
 	int			*already_check;
@@ -23,9 +32,9 @@ static void	display_all_player(t_vm *vm)
 		j = 0;
 		while (j < vm->nb_players)
 		{
-			if ((!already_check[j]) && vm->players.die_at > max)
+			if ((!already_check[j]) && vm->players[j].die_at > max)
 			{
-				max = vm->players.die_at;
+				max = vm->players[j].die_at;
 				id_max = j;
 			}
 			j++;
@@ -43,8 +52,8 @@ void		display_winner(t_vm *vm)
 	if (!vm->ncurses.winner[0])
 		return ;
 	box(vm->ncurses.winner[0], ACS_VLINE, ACS_HLINE);
-	mvwprintw(vm->ncurses.winner[0], 5, 0, "TOTOTOTOTOTOTOTOTOTO");
-	PANEL	*pan = new_panel(vm->ncurses.winner[0]);
+	new_panel(vm->ncurses.winner[0]);
+	display_all_players(vm);
 	update_panels();
 	doupdate();
 }

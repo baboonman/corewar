@@ -20,6 +20,7 @@ static void	free_ncurses(t_ncurses *ncurses)
 			delwin(ncurses->border[i]);
 		++i;
 	}
+	//delwin(ncurses->winner[0]);
 }
 
 void		quit_ncurses(t_ncurses *ncurses)

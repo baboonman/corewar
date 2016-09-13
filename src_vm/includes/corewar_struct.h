@@ -15,7 +15,6 @@ typedef struct		s_player
 	size_t			size_bin;
 	t_header		header;
 	int				nb;
-	//t_list			*lst_process;
 	int				nb_live;
 	int				is_alive;
 	int				color;

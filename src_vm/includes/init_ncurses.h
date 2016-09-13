@@ -19,7 +19,7 @@
 # define MEM_BORD_HEIGHT MEM_HEIGHT + 2
 
 # define TMP_WIDTH (60)
-# define TMP_HEIGHT (MEM_HEIGHT - 2)
+# define TMP_HEIGHT (MEM_HEIGHT)
 # define TMP_BORD_WIDTH (TMP_WIDTH + 3)
 # define TMP_BORD_HEIGHT (TMP_HEIGHT + 2)
 
