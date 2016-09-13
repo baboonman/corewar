@@ -7,7 +7,7 @@ void			ins_fork(t_vm *vm, t_process *proc)
 
 	n_proc = safe_malloc(sizeof(t_process));
 	ft_memcpy(n_proc, proc, sizeof(t_process));
-	n_proc->pc = proc->pc + (P_VAL_1 % IDX_MOD);
+	n_proc->pc = (proc->pc + (P_VAL_1 % IDX_MOD)) % MEM_SIZE;
 	n_proc->number_cycles = 0;
 	n_proc->proc_nb = vm->nb_proc++;
 	list = ft_lstnew(n_proc, sizeof(t_process));
