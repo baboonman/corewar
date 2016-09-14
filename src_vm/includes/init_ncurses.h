@@ -46,5 +46,6 @@
 # define WIN_GLOB_INF 3
 
 int		init_ncurses(t_ncurses *ncurses, t_vm *vm);
+int		set_color(void);
 
 #endif

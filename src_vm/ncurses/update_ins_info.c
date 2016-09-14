@@ -10,7 +10,7 @@ void	update_ins_info(t_vm *vm)
 	int		player_color;
 
 	win = vm->ncurses.window[WIN_INS];
-	getmaxyx(win, max_y, max_x); 
+	getmaxyx(win, max_y, max_x);
 	i = 0;
 	pos = vm->ncurses.pos - 1;
 	while (i < vm->ncurses.size)

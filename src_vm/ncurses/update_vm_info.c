@@ -7,7 +7,7 @@ void	update_vm_info(t_vm *vm)
 	int		max_y;
 
 	win = vm->ncurses.window[WIN_GLOB_INF];
-	getmaxyx(win, max_y, max_x); 
+	getmaxyx(win, max_y, max_x);
 	mvwprintw(win, 0, 0, "% *c", max_x + 1, ' ');
 	mvwprintw(win, 0, 0, "Cycle to die: %d", vm->cycle_die.to_die);
 	mvwprintw(win, 1, 0, "% *c", max_x + 1, ' ');

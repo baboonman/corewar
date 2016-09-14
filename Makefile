@@ -53,6 +53,7 @@ SRC_COREWAR=src_vm/corewar_main.c \
 			src_vm/ins_fn/ins_sti.c \
 			src_vm/ins_fn/ins_lld.c \
 			src_vm/ncurses/init_ncurses.c \
+			src_vm/ncurses/init_color.c \
 			src_vm/ncurses/quit_ncurses.c \
 			src_vm/ncurses/update_player_info.c \
 			src_vm/ncurses/update_vm_info.c \

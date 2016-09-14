@@ -2,7 +2,7 @@
 
 int				find_player(t_vm *vm, t_process *proc)
 {
-	return find_player_by_nb_player(vm, proc->player_nb);
+	return (find_player_by_nb_player(vm, proc->player_nb));
 }
 
 int				find_player_by_nb_player(t_vm *vm, int player_nb)
@@ -21,13 +21,13 @@ int				find_player_by_nb_player(t_vm *vm, int player_nb)
 	return (player.color);
 }
 
-
 void			display_mem(t_vm *vm, int size, int off2, int player_col)
 {
 	int			i;
+	size_t		off;
 
-	size_t off = off2;
 	i = 0;
+	off = off2;
 	while (i < size)
 	{
 		off %= MEM_SIZE;
@@ -49,7 +49,7 @@ void			print_cursor(t_vm *vm, int off, int on)
 		vm->mem_space_col[off] = ncol;
 }
 
-void			refresh_mem_display(t_vm* vm)
+void			refresh_mem_display(t_vm *vm)
 {
 	int			i;
 	int			x;
