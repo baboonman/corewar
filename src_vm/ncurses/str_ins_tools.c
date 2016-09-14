@@ -12,7 +12,6 @@ static char	*get_param_str(t_process *proc)
 	nb_param = g_op_tab[proc->curr_ins.opcode].nb_param;
 	i = 0;
 	ins = &(proc->curr_ins);
-	//printf("nb param: %d, opcode: %d\n", nb_param, ins->opcode);
 	while (i < nb_param)
 	{
 		if (ins->param_type[i] & T_REG)
@@ -38,7 +37,7 @@ static char	*get_param_str(t_process *proc)
 		if (i < nb_param)
 			ft_strcat(final_str, " ");
 	}
-	return final_str;
+	return (final_str);
 }
 
 t_disp_ins	*get_str_invalid(t_process *proc)
@@ -58,7 +57,7 @@ t_disp_ins	*get_str_invalid(t_process *proc)
 	disp_ins = safe_malloc(sizeof(t_disp_ins));
 	disp_ins->str = res;
 	disp_ins->player_id = proc->player_nb;
-	return disp_ins;
+	return (disp_ins);
 }
 
 t_disp_ins	*get_str_ins(t_process *proc)
@@ -82,6 +81,5 @@ t_disp_ins	*get_str_ins(t_process *proc)
 	disp_ins->player_id = proc->player_nb;
 	free(id_str);
 	free(params);
-	return disp_ins;
+	return (disp_ins);
 }
-

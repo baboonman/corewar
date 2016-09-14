@@ -4,6 +4,6 @@
 # include "init_ncurses.h"
 # include "display_utils.h"
 
-void			init_mem(t_vm *vm, t_ncurses *ncurses);
+void			init_mem(t_ncurses *ncurses);
 
 #endif

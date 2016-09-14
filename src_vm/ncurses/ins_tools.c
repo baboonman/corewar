@@ -30,7 +30,6 @@ char	*get_reg_str(t_process *proc, int reg)
 	return (res);
 }
 
-
 char	*get_itoa_space(int val)
 {
 	char	*res;

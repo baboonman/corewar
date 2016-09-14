@@ -14,7 +14,6 @@ static void		display_player(t_player *player, int offset, t_vm *vm)
 		wprintw(vm->ncurses.window[WIN_INFO], " is alive");
 	else
 		wprintw(vm->ncurses.window[WIN_INFO], " dead    ");
-
 	y = offset * PLAYERS_INFO_WIDTH / vm->nb_players;
 	mvwprintw(vm->ncurses.window[WIN_INFO], 1, y, "% *c", 15, ' ');
 	mvwprintw(vm->ncurses.window[WIN_INFO], 1,
