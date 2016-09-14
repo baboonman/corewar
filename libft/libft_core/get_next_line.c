@@ -12,73 +12,55 @@
 
 #include "libft.h"
 
-static int	ft_join(char **line, int i, int index, char *str)
+int				occ_test(char **occ, char *save)
 {
-	char	*tmp;
-	int		size;
-
-	tmp = *line;
-	size = ft_strlen(*line);
-	*line = ft_strnew(size + i);
-	if (*line == NULL)
-		return (-1);
-	ft_strcpy(*line, tmp);
-	ft_memcpy(*line + ft_strlen(tmp), str + index, i);
-	free(tmp);
-	return (0);
-}
-
-static int	ft_init_var(int *i, char **ln)
-{
-	*i = 0;
-	*ln = ft_strnew(1);
-	if (*ln == NULL)
-		return (-1);
-	return (0);
-}
-
-static void	ft_test_index(int *index, int *ret, int fd, char *str)
-{
-	if (*index == -1)
+	if (*occ != NULL)
 	{
-		*ret = read(fd, str, BUFF_SIZE);
-		*index = 0;
-	}
-}
-
-static int	test_loop(int *ret, char *str, int fd)
-{
-	*ret = read(fd, str, BUFF_SIZE);
-	if (*ret == 0)
+		**occ = '\0';
+		*occ += 1;
+		ft_strcpy(save, *occ);
 		return (1);
-	return (0);
+	}
+	else
+		return (0);
 }
 
-int			get_next_line(int const fd, char **line)
+char			*dyn_alloc(char **line, int *ret)
 {
-	static int		index = -1;
-	static char		str[BUFF_SIZE + 4];
-	static int		ret;
-	int				i;
+	char		*str;
 
-	ft_init_var(&i, line);
-	ft_test_index(&index, &ret, fd, str);
-	while (ret != -1 && str[i + index] != '\n' && str[i + index] != EOF)
-	{
-		if (i + index == ret)
-		{
-			if (ft_join(line, i, index, str) != -1
-					&& (i = test_loop(&ret, str, fd)) == 1)
-				return (0);
-			if (i == -1)
-				return (-1);
-			index = 0;
-		}
-		else
-			i++;
-	}
-	if (ret == -1 || ft_join(line, i, index, str) == -1)
+	str = (char *)malloc(sizeof(char) * (ft_strlen(*line) + *ret + 1));
+	if (str == NULL)
+		return (NULL);
+	str = ft_strcpy(str, *line);
+	free(*line);
+	return (str);
+}
+
+int				get_next_line(int const fd, char **line)
+{
+	char		buf[BUFF_SIZE + 1];
+	int			ret;
+	static char	save[BUFF_SIZE] = "";
+	char		*occ;
+
+	if (line == NULL)
 		return (-1);
-	index = i + index + 1;
-	return (1);
+	*line = (char *)malloc(sizeof(char) * (BUFF_SIZE + ft_strlen(save) + 1));
+	*line = ft_strcpy(*line, save);
+	while (((occ = ft_strchr(*line, '\n')) == NULL) &&
+			((ret = read(fd, buf, BUFF_SIZE)) > 0))
+	{
+		buf[ret] = '\0';
+		if ((*line = dyn_alloc(line, &ret)) == NULL)
+			return (-1);
+		ft_strcat(*line, buf);
+	}
+	occ = ft_strchr(*line, '\n');
+	if (occ_test(&occ, save) == 1)
+		return (1);
+	if (ret == 0)
+		return (0);
+	else
+		return (-1);
 }
