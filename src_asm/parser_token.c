@@ -46,7 +46,7 @@ static t_error		*encode_param(t_bin_data *data, t_token_op *token,
 		size = IND_SIZE;
 	else if (token->param_type[j] & T_DIR)
 		size = DIR_SIZE;
-	if (!check_overflow(token->param_val[j], size, token->line, tricks[2]))
+	if (!check_overflow(token->param_val[j], size, token->line, tricks + 2))
 		return (tricks[2]);
 	if (token->param_type[j] & T_LAB)
 		param = add_label_param(data, *i, size, token->param_lab[j]);

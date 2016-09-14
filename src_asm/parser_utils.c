@@ -14,15 +14,17 @@ int64_t				ft_pow(int64_t x, int n)
 }
 
 int					check_overflow(int64_t v, int nb_bytes, int cur_line,
-									t_error **err)
+									void **error)
 {
 	int64_t			lim;
+	t_error			*err;
 
 	lim = ft_pow(256, nb_bytes) / 2;
 	if (v >= lim - 1 || v < -1 * lim)
 	{
-		*err = get_error(OVERFLOW);
-		(*err)->line = cur_line;
+		err = get_error(OVERFLOW);
+		err->line = cur_line;
+		*error = err;
 		return (FALSE);
 	}
 	return (TRUE);

@@ -29,7 +29,6 @@ static int	execute_player_process(t_vm *vm)
 		{
 			if (vm->param.verbose)
 				ft_printf("Execute process: %d, %d\n", proc->player_nb, proc->number_cycles);
-			print_cursor(vm, proc->pc, find_player(vm, proc), 1);
 			execute_process(process->content, vm);
 		}
 		process = process->next;

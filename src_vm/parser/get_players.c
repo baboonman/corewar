@@ -101,7 +101,7 @@ int				get_players(t_vm *vm)
 	int		tot_players;
 
 	i = 0;
-	col = 2;
+	col = 1;
 	tot_players = 0;
 	while (i < MAX_PLAYERS)
 	{
