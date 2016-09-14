@@ -44,7 +44,7 @@ int						process_file(t_file *file);
 */
 int64_t					ft_pow(int64_t x, int n);
 int						check_overflow(int64_t v, int nb_bytes, int cur_line,
-									t_error **err);
+									void **error);
 size_t					ft_memcat(void *dest, void *src, size_t i, size_t n);
 
 /*
