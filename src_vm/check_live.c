@@ -39,23 +39,16 @@ static int	check_players_alive(t_vm *vm)
 			ft_printf("Total live: %d\n", vm->players[i].nb_live);
 		if (!(vm->players[i].is_alive))
 		{
-			++i;
-			vm->players[i].nb_live = 0;
+			vm->players[i++].nb_live = 0;
 			continue ;
 		}
 		tot_live += vm->players[i].nb_live;
 		if (!vm->players[i].nb_live)
 		{
-			vm->players[i].is_alive = FALSE;
-			vm->players[i].die_at = vm->tot_cycle;
-			if (!vm->param.is_ncurses)
-				ft_printf("player: %d, %s die\n", vm->players[i].nb, vm->players[i].header.prog_name);
-			vm->players[i].nb_live = 0;
-			++i;
+			kill_player(vm, vm->players + ++i);
 			continue ;
 		}
-		vm->players[i].nb_live = 0;
-		++i;
+		vm->players[i++].nb_live = 0;
 	}
 	return (tot_live);
 }

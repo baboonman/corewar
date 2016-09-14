@@ -12,21 +12,27 @@
 
 #include "list.h"
 
-void	ft_lstdelone(t_list **list, t_list *elem)
+static int	helper(t_list **cur, t_list **list, t_list *elem)
+{
+	*cur = *list;
+	if (*cur == elem)
+	{
+		*list = (*cur)->next;
+		free(*cur);
+		*cur = NULL;
+		return (0);
+	}
+	return (1);
+}
+
+void		ft_lstdelone(t_list **list, t_list *elem)
 {
 	t_list	*last;
 	t_list	*cur;
 
 	if (elem == NULL)
 		return ;
-	cur = *list;
-	if (cur == elem)
-	{
-		*list = cur->next;
-		free(cur);
-		cur = NULL;
-	}
-	else
+	if (helper(&cur, list, elem))
 	{
 		last = cur;
 		cur = cur->next;

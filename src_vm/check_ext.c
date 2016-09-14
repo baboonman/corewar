@@ -26,3 +26,12 @@ int		check_ext(t_param *param)
 	}
 	return (TRUE);
 }
+
+void	kill_player(t_vm *vm, t_player *player)
+{
+	player->is_alive = FALSE;
+	player->die_at = vm->tot_cycle;
+	if (!vm->param.is_ncurses)
+		ft_printf("player: %d, %s die\n", player->nb, player->header.prog_name);
+	player->nb_live = 0;
+}
