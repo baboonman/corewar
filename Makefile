@@ -1,5 +1,5 @@
 CC= gcc
-FLAGS= -Wall -Wextra -g
+FLAGS= -Wall -Wextra -Werror -g
 SRC_ASM = src_asm/main.c \
 		  src_asm/reader.c \
 		  src_asm/lexer.c \
@@ -30,6 +30,7 @@ SRC_COREWAR=src_vm/corewar_main.c \
 			src_vm/parser/parse_player_arg.c \
 			src_vm/parser/read_utils.c \
 			src_vm/process/launch_vm.c \
+			src_vm/process/launch_vm_init.c \
 			src_vm/process/execute_process.c \
 			src_vm/get_hexa.c \
 			src_vm/dump_memory.c \

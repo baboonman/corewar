@@ -4,7 +4,6 @@ int		main(int argc, char **argv)
 {
 	t_vm		*vm;
 
-	fprintf(stderr, "size: %d\n", MEM_SIZE);
 	vm = malloc(sizeof(t_vm));
 	ft_bzero(vm, sizeof(t_vm));
 	if (argc < 2 || !parse_arg(&(vm->param), argc - 1, argv + 1))

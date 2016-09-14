@@ -1,6 +1,7 @@
 #ifndef LAUNCH_VM_H
 # define LAUNCH_VM_H
 
+# include <sys/time.h>
 # include <list.h>
 # include <libft.h>
 # include "utils.h"
@@ -20,6 +21,16 @@
 # include "update_ins_info.h"
 # include "display_winner.h"
 
-int			launch_vm(t_vm *vm);
+typedef struct		s_loop_param
+{
+	struct timeval	a;
+	struct timeval	b;
+	t_input			input;
+}					t_loop_param;
+
+int					launch_vm(t_vm *vm);
+int					init_vm(t_vm *vm);
+int					init_launch_vm(t_vm *vm, t_loop_param *p,
+						int *i, int *flag);
 
 #endif
