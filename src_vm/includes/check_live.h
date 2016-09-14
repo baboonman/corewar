@@ -7,7 +7,7 @@
 # include "op.h"
 # include <ft_printf.h>
 
-int			check_live(t_vm *vm);
+int		check_live(t_vm *vm);
 void	kill_player(t_vm *vm, t_player *player);
 
 #endif

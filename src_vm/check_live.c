@@ -45,7 +45,7 @@ static int	check_players_alive(t_vm *vm)
 		tot_live += vm->players[i].nb_live;
 		if (!vm->players[i].nb_live)
 		{
-			kill_player(vm, vm->players + ++i);
+			kill_player(vm, vm->players + i++);
 			continue ;
 		}
 		vm->players[i++].nb_live = 0;

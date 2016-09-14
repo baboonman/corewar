@@ -9,4 +9,6 @@
 
 void	update_vm_info(t_vm *vm);
 
+typedef WINDOW * t_win;
+
 #endif

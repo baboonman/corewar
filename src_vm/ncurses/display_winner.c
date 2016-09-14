@@ -31,19 +31,17 @@ static void	display_all_players(t_vm *vm)
 	while (i < vm->nb_players)
 	{
 		max = 0;
-		j = 0;
-		while (j < vm->nb_players)
+		j = -1;
+		while (++j < vm->nb_players)
 		{
 			if ((!already_check[j]) && vm->players[j].die_at > max)
 			{
 				max = vm->players[j].die_at;
 				id_max = j;
 			}
-			j++;
 		}
 		already_check[id_max] = 1;
-		display_player(vm, id_max, i);
-		i++;
+		display_player(vm, id_max, i++);
 	}
 	free(already_check);
 }

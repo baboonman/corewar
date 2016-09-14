@@ -2,7 +2,7 @@
 
 void	update_vm_info(t_vm *vm)
 {
-	WINDOW	*win;
+	t_win	win;
 	int		max_x;
 	int		max_y;
 
