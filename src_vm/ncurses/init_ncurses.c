@@ -11,15 +11,15 @@ static void	set_init_val(void)
 
 static int	set_color(void)
 {
-	if (init_pair(1, COLOR_BLUE, COLOR_RED) == ERR)
+	if (init_pair(1, COLOR_BLUE, COLOR_BLACK) == ERR)
 		return (FALSE);
-	if (init_pair(2, COLOR_BLUE, COLOR_BLACK) == ERR)
+	if (init_pair(2, COLOR_RED, COLOR_BLACK) == ERR)
 		return (FALSE);
-	if (init_pair(3, COLOR_RED, COLOR_BLACK) == ERR)
+	if (init_pair(3, COLOR_GREEN, COLOR_BLACK) == ERR)
 		return (FALSE);
-	if (init_pair(4, COLOR_GREEN, COLOR_BLACK) == ERR)
+	if (init_pair(4, COLOR_YELLOW, COLOR_BLACK) == ERR)
 		return (FALSE);
-	if (init_pair(5, COLOR_YELLOW, COLOR_BLACK) == ERR)
+	if (init_pair(5, COLOR_BLACK, COLOR_WHITE) == ERR)
 		return (FALSE);
 	if (init_pair(6, COLOR_BLACK, COLOR_BLUE) == ERR)
 		return (FALSE);
