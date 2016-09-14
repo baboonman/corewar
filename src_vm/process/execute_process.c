@@ -39,6 +39,8 @@ int				decode_param(t_process *proc, int nb_param, void *mem_space,
 		param = read_n_bytes(size, mem_space, proc->pc + proc->curr_ins.size);
 		if (size == 1 && (param < 1 || param > REG_NUMBER))
 			return (FALSE);
+		if (proc->curr_ins.param_type[i] & T_IND)
+			param %= IDX_MOD;
 		proc->curr_ins.param_val[i] = param;
 		proc->curr_ins.size += size;
 	}

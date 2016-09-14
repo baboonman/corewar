@@ -31,7 +31,6 @@ void			display_mem(t_vm *vm, int size, int off2, int player_col)
 	while (i < size)
 	{
 		off %= MEM_SIZE;
-		//fprintf(stderr, "off: %d\n", off);
 		vm->mem_space_col[off] = (uint8_t)player_col;//fdfd
 		off++;
 		i++;
