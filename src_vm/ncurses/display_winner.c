@@ -11,7 +11,9 @@ static void	display_player(t_vm *vm, int id, int pos)
 		str = "suck";
 	player_color = find_player_by_nb_player(vm, vm->players[id].nb);
 	wattron(vm->ncurses.winner[0], COLOR_PAIR(player_color));
-	mvwprintw(vm->ncurses.winner[0], pos + 1, 1, "%d) Player %s %s, he die at cycle %d", pos + 1, vm->players[id].header.prog_name, str, vm->players[id].die_at);
+	mvwprintw(vm->ncurses.winner[0],
+			pos + 1, 1, "%d) Player %s %s, he die at cycle %d", pos + 1,
+			vm->players[id].header.prog_name, str, vm->players[id].die_at);
 	wattroff(vm->ncurses.winner[0], COLOR_PAIR(player_color));
 }
 
