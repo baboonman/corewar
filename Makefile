@@ -1,5 +1,5 @@
 CC= gcc
-FLAGS= -Wall -Wextra -Werror -g
+FLAGS= -Wall -Wextra -Werror
 SRC_ASM = src_asm/main.c \
 		  src_asm/reader.c \
 		  src_asm/lexer.c \
