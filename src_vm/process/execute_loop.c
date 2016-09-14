@@ -28,7 +28,8 @@ static int	execute_player_process(t_vm *vm)
 		if (is_alive(vm->players, vm->nb_players, proc->player_nb))
 		{
 			if (vm->param.verbose)
-				ft_printf("Execute process: %d, %d\n", proc->player_nb, proc->number_cycles);
+				ft_printf("Execute process: %d, %d\n", proc->player_nb,
+						proc->number_cycles);
 			execute_process(process->content, vm);
 		}
 		process = process->next;

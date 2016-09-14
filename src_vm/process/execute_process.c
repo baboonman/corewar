@@ -78,7 +78,8 @@ static int		execute_ins(t_vm *vm, t_process *proc)
 	if (vm->param.verbose)
 	{
 		ft_printf("P	%d, %d, %s, %d (%d), %d (%d), %d (%d)\n",
-				proc->player_nb, proc->proc_nb, g_op_tab[proc->curr_ins.opcode].name_op,
+				proc->player_nb, proc->proc_nb,
+				g_op_tab[proc->curr_ins.opcode].name_op,
 				proc->curr_ins.param_val[0], proc->curr_ins.param_type[0],
 				proc->curr_ins.param_val[1], proc->curr_ins.param_type[1],
 				proc->curr_ins.param_val[2], proc->curr_ins.param_type[2]);

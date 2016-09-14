@@ -12,28 +12,6 @@ static int		open_file(char *file_name)
 	return (fd);
 }
 
-static off_t	get_size(int fd)
-{
-	off_t		off;
-
-	if ((off = lseek(fd, 0, SEEK_END)) < 0)
-	{
-		ft_printf("Something wrong append (lseek fail)\n");
-		return (-1);
-	}
-	return (off);
-}
-
-static int		test_size(off_t off, char *name)
-{
-	if ((unsigned int)off < sizeof(t_header))
-	{
-		ft_printf("The file %s is too small\n", name);
-		return (FALSE);
-	}
-	return (TRUE);
-}
-
 static int		set_player_info(int fd, t_player *player,
 		int player_nb, char *file_name)
 {
@@ -74,7 +52,8 @@ static int		test_player_validity(t_player *player, char *file_name)
 	return (TRUE);
 }
 
-static int		get_player(char *file_name, int player_nb, t_player *player, int col)
+static int		get_player(char *file_name, int player_nb, t_player *player,
+		int col)
 {
 	int		fd;
 	off_t	off;

@@ -26,6 +26,7 @@ SRC_COREWAR=src_vm/corewar_main.c \
 			src_vm/parser/get_players.c \
 			src_vm/parser/print_player.c \
 			src_vm/parser/parse_arg.c \
+			src_vm/parser/parse_arg_utils.c \
 			src_vm/parser/parse_player_arg.c \
 			src_vm/parser/read_utils.c \
 			src_vm/process/launch_vm.c \

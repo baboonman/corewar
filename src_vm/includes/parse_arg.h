@@ -8,6 +8,8 @@
 # include <libft.h>
 # include <ft_printf.h>
 
+int			parse_ncurses(char **av, t_param *param);
+int			parse_verbose(char **av, t_param *param);
 int			parse_arg(t_param *param, int ac, char **av);
 
 #endif

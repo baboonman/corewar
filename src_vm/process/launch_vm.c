@@ -32,8 +32,10 @@ static int	write_player(t_vm *vm)
 	{
 		player = vm->players + i;
 		off = i * offset;
-		ft_memcpy(vm->mem_space + off, player->bin, player->size_bin - sizeof(t_header));
-		ft_memset(vm->mem_space_col + off, player->color, (player->size_bin - sizeof(t_header)));
+		ft_memcpy(vm->mem_space + off, player->bin,
+				player->size_bin - sizeof(t_header));
+		ft_memset(vm->mem_space_col + off, player->color,
+				(player->size_bin - sizeof(t_header)));
 		init_player_process(vm, player, off);
 		++i;
 	}
@@ -79,13 +81,13 @@ static int	init_vm(t_vm *vm)
 
 int			sub_time(struct timeval a, struct timeval b, int tps)
 {
-	unsigned long int	t1, t2, t3;
-	
+	unsigned long int	t1;
+	unsigned long int	t2;
+	unsigned long int	t3;
 
 	t1 = a.tv_sec * 1000000 + a.tv_usec;
 	t2 = b.tv_sec * 1000000 + b.tv_usec;
-	t3 = (unsigned long int)( (1.0f / tps) * 1000000.0f);
-
+	t3 = (unsigned long int)((1.0f / tps) * 1000000.0f);
 	if (t2 - t1 > t3)
 		return (1);
 	return (0);
@@ -108,7 +110,8 @@ int			launch_vm(t_vm *vm)
 	int		i;
 	int		flag;
 	int		exec_ret;
-	struct timeval		a, b;
+	struct timeval		a;
+	struct timeval		b;
 	t_input	param;
 
 	flag = 0;
@@ -122,7 +125,8 @@ int			launch_vm(t_vm *vm)
 	{
 		get_input(&param);
 		gettimeofday(&b, NULL);
-		if (!vm->param.is_ncurses || (param.pause > 0 && sub_time(a, b, param.tps)))
+		if (!vm->param.is_ncurses
+				|| (param.pause > 0 && sub_time(a, b, param.tps)))
 		{
 			vm->tot_cycle = i;
 			vm->fps = param.tps;

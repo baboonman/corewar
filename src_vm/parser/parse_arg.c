@@ -19,22 +19,6 @@ static int	parse_dump(char **av, t_param *param, int ac)
 	return (1);
 }
 
-static int	parse_ncurses(char **av, t_param *param)
-{
-	if (ft_strcmp(av[0], "-nc"))
-		return (FALSE);
-	param->is_ncurses= TRUE;
-	return (TRUE);
-}
-
-static int	parse_verbose(char **av, t_param *param)
-{
-	if (ft_strcmp(av[0], "-v"))
-		return (FALSE);
-	param->verbose = TRUE;
-	return (TRUE);
-}
-
 static void	print_param(t_param *p)
 {
 	int		i;
@@ -52,6 +36,22 @@ static void	print_param(t_param *p)
 	}
 }
 
+static int	process_loop_parse_first_arg(char **av, int ac, int i,
+		t_param *param)
+{
+	int		ret;
+
+	if ((ret = parse_dump(av + i, param, ac - i)) < 0)
+		return (-1);
+	else if (ret > 0)
+		return (ret + 1);
+	if (parse_verbose(av + i, param))
+		return (1);
+	if (parse_ncurses(av + i, param))
+		return (1);
+	return (-2);
+}
+
 static int	parse_first_arg(t_param *param, int ac, char **av)
 {
 	int		i;
@@ -63,24 +63,12 @@ static int	parse_first_arg(t_param *param, int ac, char **av)
 	param->verbose = FALSE;
 	while (i < ac)
 	{
-		if ((ret = parse_dump(av + i, param, ac - i)) < 0)
+		ret = process_loop_parse_first_arg(av, ac, i, param);
+		if (ret == -1)
 			return (-1);
-		else if (ret > 0)
-		{
-			i += ret + 1;
-			continue ;
-		}
-		if (parse_verbose(av + i, param))
-		{
-			++i;
-			continue ;
-		}
-		if (parse_ncurses(av + i, param))
-		{
-			++i;
-			continue ;
-		}
-		break ;
+		else if (ret == -2)
+			break ;
+		i += ret;
 	}
 	return (i);
 }
